@@ -1,0 +1,24 @@
+{
+  "name": "kodicms/laravel-assets",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "authors": [
+    {
+      "name": "Pavel Buchnev",
+      "email": "butschster@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "laravel/framework": "5.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.1",
+    "mockery/mockery": "^0.9.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "KodiCMS\\Assets\\": "src/"
+    }
+  },
+  "minimum-stability": "stable"
+}
