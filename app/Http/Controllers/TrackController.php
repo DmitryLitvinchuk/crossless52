@@ -39,6 +39,7 @@ class TrackController extends Controller
     {
         $track = Track::find($id);
         $track-> user_id = Auth::id();
+        
         /*$file = $request -> song;
         $coverfilename = $request['name'].'.jpg';
         $track -> track = $coverfilename;
@@ -49,6 +50,10 @@ class TrackController extends Controller
         $track -> track = $trackname;
             Storage::disk('local')->put($trackname, File::get($trackfile));
         $track->save();
+        $user = Auth::user();
+        $user->points += 5;
+        $user->save();
+        
         return redirect('/');
     }
     
@@ -70,6 +75,7 @@ class TrackController extends Controller
         $label=$html->find('li.interior-track-labels span.value', 0)->plaintext;
         $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');;
         $number=$html->find('button.playable-play',0)->getAttribute('data-track');
+        //$track = Track::find($id);
         $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
         $track = Track::create(['title' => $title, 
@@ -127,11 +133,25 @@ class TrackController extends Controller
     
     public function download($id)
     {
-        $track = Track::findOrFail($id);
-        $trackname = $track->track;
-        //$filePath = 'app/tracks/';
-        $pathToFile = storage_path('app/tracks/'.$trackname);
-        return response()->download($pathToFile);
+        if (Auth::check()) {
+        $user = Auth::user();
+        //$points = $user->points;
+        if ($user->points >= 1) {
+            $track = Track::findOrFail($id);
+            $trackname = $track->track;
+            //$filePath = 'app/tracks/';
+            $pathToFile = storage_path('app/tracks/'.$trackname);
+            $user->points -= 1;
+            $user->save();
+            return response()->download($pathToFile);
+        }
+        else {
+            echo 'You have not enough points';
+        }
+        }
+        else {
+            return redirect('/login');
+        }
     }
     
     public function ParseNewTrack(Request $request)

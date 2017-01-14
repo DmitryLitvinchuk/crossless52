@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', 'MainController@index');
 
 Route::get('/toptrack', 'TrackController@toptrack');
@@ -32,5 +33,7 @@ Route::post('tracks/{id}/ChooseUploadFile/UploadFile/', 'TrackController@UploadF
 Route::get('tracks/{id}/download', 'TrackController@download');
 
 Route::auth();
+
+//Route::get('auth/logout', 'Auth\AuthController@logout');
 
 Route::get('/home', 'HomeController@index');
