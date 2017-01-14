@@ -7,7 +7,7 @@
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-header">
         <div class="row">
           <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>NEW</h1>
+            <h1>TOP100</h1>
           </div>
           <!-- <div class="col-lg-4 col-md-5 col-sm-6">
             <div class="sponsor">
@@ -22,6 +22,7 @@
               <table class="table table-hover table-responsive">
                 <thead>
                   <tr>
+                    <th></th>
                     <th class="hidden-xs"></th>
                     <th></th>
                     <th>Title</th>
@@ -33,27 +34,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                    @foreach ($tracks as $track)
+                    @foreach ($toptracks as $toptrack)
                         <tr>
-                            <td  class="hidden-xs"> <img src="{{ $track -> cover }}" alt="" class="img-responsive img-34"></td>
+                            <td> {{ $toptrack -> top}} </td>
+                            <td  class="hidden-xs"> <img src="{{ $toptrack -> track -> cover }}" alt="" class="img-responsive img-34"></td>
                             <td>
                                 <a href="javascript:void(0)" onclick="aud_play_pause(this)">
                                     <i class="glyphicon control glyphicon-play-circle"></i>
-                                    <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
+                                    <audio class="xnine-player" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
                                 </a>
                             </td>
-                            <td> {{ $track -> title}} </td>
-                            <td> {{ $track -> artist}} </td>
-                            <td> {{ $track -> label}} </td>
-                            <td> {{ $track -> genre}} </td>
-                            <td> {{ $track -> release}} </td>
+                            <td> 
+                                <a href="tracks/{{ $toptrack -> track -> id }}">
+                                    {{ $toptrack -> track -> title}} 
+                                </a>
+                            </td>
+                            <td> {{ $toptrack -> track -> artist}} </td>
+                            <td> {{ $toptrack -> track -> label}} </td>
+                            <td> {{ $toptrack -> track -> genre}} </td>
+                            <td> {{ $toptrack -> track -> release}} </td>
                             <td>
-                                @if ($track -> track === NULL)
-                                    <a href="tracks/{{ $track -> id }}/ChooseUploadFile" class="upload">
+                                @if ($toptrack -> track -> track === NULL)
+                                    <a href="tracks/{{ $toptrack -> track -> id }}/ChooseUploadFile" class="upload">
                                         <span class="glyphicon glyphicon-upload"></span>
                                     </a>
                                 @else
-                                <a href="tracks/{{ $track -> id }}/download" class="download">
+                                <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download">
                                         <span class="glyphicon glyphicon-download"></span>
                                     </a>
                                 @endif

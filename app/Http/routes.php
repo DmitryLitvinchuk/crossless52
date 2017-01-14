@@ -14,6 +14,8 @@
 
 Route::get('/', 'MainController@index');
 
+Route::get('/top', 'MainController@top');
+
 Route::get('/toptrack', 'TrackController@toptrack');
 
 Route::post('/find', 'TrackController@create');
@@ -25,6 +27,8 @@ Route::get('/addnewtrack/', 'TrackController@ParseNewTrack');
 Route::post('/addnewtrack/', 'TrackController@AddNewTrack');
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('tracks/{id}', 'TrackController@index');
 
 Route::get('tracks/{id}/ChooseUploadFile/', 'TrackController@ChooseUploadFile');
 

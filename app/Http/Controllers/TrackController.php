@@ -17,9 +17,10 @@ use Illuminate\Http\UploadedFile;
 
 class TrackController extends Controller
 {
-    public function index()
+    public function index($id)
     {
-        return view('main');
+        $track = Track::find($id);
+        return view('track')->with('track', $track);
     }
     
     public function ChooseUploadFile($id)
@@ -78,7 +79,9 @@ class TrackController extends Controller
         //$track = Track::find($id);
         $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        $track = Track::create(['title' => $title, 
+        $row = Track::where('top_track_id','=',$number)->count();
+        if ($row === 0) {
+           $track = Track::create(['title' => $title, 
                                 'user_id' => NULL, 
                                 'top_track_id' => $number, 
                                 'artist' => $artist, 
@@ -89,9 +92,14 @@ class TrackController extends Controller
                                 'remixer' => $remixer,
                                 'label' => $label,
                                 'release' => $release, 
-                                'preview' => $audio_link]);
+                                'preview' => $audio_link,
+                                /*'link' => $beat*/]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        return view('parser')->with('track', $track);
+        return view('parser')->with('track', $track); 
+        }
+        else {
+            echo 'Такой трек уже есть';
+        }
     }
     
     public function TopTrack(Track $track, TopTrack $topTrack)

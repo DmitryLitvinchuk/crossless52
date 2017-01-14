@@ -12,6 +12,12 @@ class MainController extends Controller
 {
     public function index(Track $track)
     {
+        $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->get();
+        return view('main', compact('tracks'));
+    }
+    
+    public function top(Track $track)
+    {
         //$toptracks = TopTrack::all();
         $toptracks = DB::table('top_tracks')->get();
         foreach ($toptracks as $toptrack) {
@@ -53,6 +59,6 @@ class MainController extends Controller
             
         }
         $toptracks = TopTrack::orderBy('top')->paginate(100);
-        return view('main', compact('toptracks'));
+        return view('top', compact('toptracks'));
     }
 }

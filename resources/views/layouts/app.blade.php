@@ -23,7 +23,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="../" class="navbar-brand">CrossLess</a>
+          <a href="/" class="navbar-brand">CrossLess</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -56,7 +56,7 @@
               </ul>
             </li> -->
             <li>
-              <a href="/">TOP100</a>
+              <a href="/top">TOP100</a>
             </li>
             <li>
               <a href="/addnewtrack/">Add New Track</a>

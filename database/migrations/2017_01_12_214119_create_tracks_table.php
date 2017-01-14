@@ -27,6 +27,7 @@ class CreateTracksTable extends Migration
             $table->string('cover');
             $table->date('release');
             $table->string('preview');
+            $table->string('link');
             $table->string('track')->nullable();
             $table->timestamps();
         });

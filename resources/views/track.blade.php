@@ -3,11 +3,11 @@
 @section('content')
 
     <div class="container">
-
-      <div class="page-header">
+        
+        <div class="page-header">
         <div class="row">
           <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Upload track</h1>
+            <h1>{{$track -> title }}</h1>
           </div>
           <!-- <div class="col-lg-4 col-md-5 col-sm-6">
             <div class="sponsor">
@@ -16,7 +16,7 @@
           </div> -->
         </div>
       </div>
-
+        
         <div class="row">
             <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3">
                 <img class="img-responsive" src="{{ $track -> cover }}" alt="Chania">
@@ -45,18 +45,20 @@
                 </h4>
             </div>
             <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                <form method='POST' action="{{action('TrackController@UploadFile',['tracks'=>$track->id])}}" enctype="multipart/form-data">
-                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="TrackInputFile">ADD FILE</label>
-                        <input type="file" name="track" id="TrackInputFile">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default btn-md pull-right">UPLOAD</button>
-                </div>
-            </form>
+                <p class="text-muted m-0">AVAILABILITY</p>
+                <h2 class="mt-0">
+                    @if ($track -> track === NULL)
+                        <a href="tracks/{{ $track -> id }}/ChooseUploadFile" class="upload">
+                            <span class="glyphicon glyphicon-upload"></span>
+                        </a>
+                        UPLOAD TRACK
+                    @else
+                        <a href="{{ $track -> id }}/download" class="download">
+                            <span class="glyphicon glyphicon-download"></span>
+                        </a>
+                        DOWNLOAD TRACK
+                    @endif
+                </h2>
             </div>
         </div>
 
