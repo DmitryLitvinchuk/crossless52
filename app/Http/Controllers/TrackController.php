@@ -23,12 +23,17 @@ class TrackController extends Controller
 {
     public function index($id)
     {
-        $track = Track::find($id);
-        $label = $track -> label;
-        $number = $track -> top_track_id;
-        $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(5);
-        $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(5);
-        return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
+        if (Auth::check()) {
+            $track = Track::find($id);
+            $label = $track -> label;
+            $number = $track -> top_track_id;
+            $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
+            $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
+            return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
+        }
+        else {
+            return redirect('/login');
+        }
     }
     
     public function ChooseUploadFile($id)
@@ -46,32 +51,37 @@ class TrackController extends Controller
     
     public function UploadFile(Request $request, Track $track, $id)
     {
-        $track = Track::find($id);
-        $track-> user_id = Auth::id();
-        
-        /*$file = $request -> song;
-        $coverfilename = $request['name'].'.jpg';
-        $track -> track = $coverfilename;
-        Storage::disk('local')->put($coverfilename, File::get($file));
-        $track->save();*/
-        $trackfile = $request->file('track');
-        $v = Validator::make($request->all(), [
-            'track' => 'required|mimes:wav'
-        ]);
-        if ($v->fails())
-        {
-            echo 'Your file is not WAV format';
+        if (Auth::check()) {
+            $track = Track::find($id);
+            $track-> user_id = Auth::id();
+            
+            /*$file = $request -> song;
+            $coverfilename = $request['name'].'.jpg';
+            $track -> track = $coverfilename;
+            Storage::disk('local')->put($coverfilename, File::get($file));
+            $track->save();*/
+            $trackfile = $request->file('track');
+            $v = Validator::make($request->all(), [
+                'track' => 'required|mimes:wav'
+            ]);
+            if ($v->fails())
+            {
+                echo 'Your file is not WAV format';
+            }
+            else {
+                $trackname = $track->artist.'- '.$track->title.'('.' '.$track->remixer.' '.')'.'.wav';
+                $track -> track = $trackname;
+                    Storage::disk('local')->put($trackname, File::get($trackfile));
+                $track->save();
+                $user = Auth::user();
+                $user->points += 5;
+                $user->save();
+    
+                return redirect('/');
+            }
         }
         else {
-            $trackname = $track->artist.'- '.$track->title.'('.' '.$track->remixer.' '.')'.'.wav';
-            $track -> track = $trackname;
-                Storage::disk('local')->put($trackname, File::get($trackfile));
-            $track->save();
-            $user = Auth::user();
-            $user->points += 5;
-            $user->save();
-
-            return redirect('/');
+            return redirect('/login');
         }
         
     }
@@ -113,7 +123,13 @@ class TrackController extends Controller
                                 'preview' => $audio_link,
                                 /*'link' => $beat*/]);
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        return view('track')->with('track', $track); 
+        //$track = Track::find($id);
+        $label = $track -> label;
+        $number = $track -> top_track_id;
+        $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(5);
+        $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(5);
+        return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
+        //return view('track')->with('track', $track); 
         }
         else {
             $track = Track::where('top_track_id',$number)->first();
