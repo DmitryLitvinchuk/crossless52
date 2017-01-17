@@ -150,6 +150,7 @@ return [
         Yangqi\Htmldom\HtmldomServiceProvider::class,
         Illuminate\Html\HtmlServiceProvider::class,
         SleepingOwl\Admin\Providers\SleepingOwlServiceProvider::class,
+        Liebig\Cron\Laravel5ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -158,6 +159,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ParserServiceProvider::class,
 
     ],
 
@@ -207,6 +209,7 @@ return [
         'Htmldom' => Yangqi\Htmldom\Htmldom::class,
         'Form' => Illuminate\Html\FormFacade::class,
         'Html' => Illuminate\Html\HtmlFacade::class,
+        'Parser' => App\Providers\ParserServiceProvider::class,
 
     ],
 

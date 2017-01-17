@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+         Commands\NewTop100::class,
     ];
 
     /**
@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+         /*$schedule->call('App\Http\Controllers\TrackController@toptrack')->hourly();*/
+         $schedule->command('parse:top100')->dailyAt('11:00');
     }
 }

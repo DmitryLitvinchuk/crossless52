@@ -28,7 +28,11 @@ Route::post('/addnewtrack/', 'TrackController@AddNewTrack');
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/earnpoints', 'TrackController@earnpoints');
+
 Route::get('tracks/{id}', 'TrackController@index');
+
+Route::get('tracks/{id}/wrong', 'TrackController@wrong');
 
 Route::get('tracks/{id}/ChooseUploadFile/', 'TrackController@ChooseUploadFile');
 

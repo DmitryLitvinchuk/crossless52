@@ -17,6 +17,6 @@ class Track extends Model
         }
         
     public function TopTrack() {
-        return $this->belongsTo(TopTracks::class);
+        return $this->belongsTo(TopTrack::class);
     }
 }

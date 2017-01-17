@@ -3,77 +3,119 @@
 @section('content')
 
     <div class="container">
-
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 page-header">
         <div class="row">
-          <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>NEW</h1>
-          </div>
-          <!-- <div class="col-lg-4 col-md-5 col-sm-6">
-            <div class="sponsor">
-              <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=bootswatchcom" id="_carbonads_js"></script>
-            </div>
-          </div> -->
-        </div>
-      </div>
-
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <table class="table table-hover table-responsive">
-                <thead>
-                  <tr>
-                    <th class="hidden-xs"></th>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Artists</th>
-                    <th>Label</th>
-                    <th>Genre</th>
-                    <th  class="hidden-xs">Release</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach ($tracks as $track)
-                        <tr>
-                            <td  class="hidden-xs"> <img src="{{ $track -> cover }}" alt="" class="img-responsive img-34"></td>
-                            <td>
-                                <a href="javascript:void(0)" onclick="aud_play_pause(this)">
-                                    <i class="glyphicon control glyphicon-play-circle"></i>
-                                    <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
+          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+              <h1>
+                  New Tracks
+                  <a href="#" class="pull-right">all</a>
+              </h1>
+              <div class="row">
+                 @foreach ($tracks as $track)
+                  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="thumbnail p-0 pos-rel">
+                      <img class="img-responsive img-100per" src="{{ $track -> cover }}" alt="...">
+                      <div class="btn-group btn-group-justified hover mt--22">
+                          <div class="btn-group btn-group-xs">
+                            <!--<button type="button" class="btn btn-default"><i class="fa fa-play" aria-hidden="true"></i></button>-->
+                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default">
+                                <i class="control fa fa-play" aria-hidden="true"></i>
+                                <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
+                            </a>
+                          </div>
+                            <div class="btn-group btn-group-xs">
+                                <a href="https://www.beatport.com/track/track/{{ $track -> top_track_id }}" class="btn btn-info" target="_blank">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
                                 </a>
-                            </td>
-                            <td> {{ $track -> title}} </td>
-                            <td> {{ $track -> artist}} </td>
-                            <td> {{ $track -> label}} </td>
-                            <td> {{ $track -> genre}} </td>
-                            <td> {{ $track -> release}} </td>
-                            <td>
-                                @if ($track -> track === NULL)
-                                    <a href="tracks/{{ $track -> id }}/ChooseUploadFile" class="upload">
-                                        <span class="glyphicon glyphicon-upload"></span>
-                                    </a>
-                                @else
-                                <a href="tracks/{{ $track -> id }}/download" class="download">
-                                        <span class="glyphicon glyphicon-download"></span>
-                                    </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-              </table> 
-          </div>
+                            </div>
+                           @if ($track -> track === NULL)
+                              <div class="btn-group btn-group-xs">
+                                <a href="tracks/{{ $track -> id }}/ChooseUploadFile" class="btn btn-warning">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                </a>
+                              </div>
+                            @else
+                              <div class="btn-group btn-group-xs">
+                                <a href="tracks/{{ $track -> id }}/download" class="btn btn-success">
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                                </a>
+                              </div>
+                            @endif
+                     </div>
+                     <div class="caption pos-rel">
+                        <h4 class="m-0">
+                            <a href="tracks/{{ $track -> id }}">{{ $track -> title}}</a>
+                        </h4>
+                        <h6 class="m-0">
+                            {{ $track -> artist}}
+                        </h6>
+                        <h6 class="m-0 hover">
+                            <a href="#">{{ $track -> label}}</a>
+                        </h6>
+                        <h6 class="m-0 hover">
+                            <a href="#">{{ $track -> genre}}</a>
+                        </h6>
+                      </div>
+                    </div>
+                 </div>
+                 @endforeach
+              </div>
         </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+             <h1> 
+                 Top Chart
+                 <a href="/top" class="pull-right">all</a>
+             </h1>
+              <div class="jumbotron" style="padding:0;">
+                  <div class="container-fluid" style="padding:0;">
+                    <div class="table-responsive m-0">
+                      <table class="table table-hover m-0">
+                        <tbody>
+                           @foreach ($toptracks as $toptrack)
+                            <tr>
+                              <td class="text-center">
+                                 <h4 class="mt-20">{{ $toptrack -> top}}</h4>
+                              </td>
+                              <td class="text-center">
+                                  <a href="javascript:void(0)" onclick="aud_play_pause(this)">
+                                        <h4 class="mt-20">
+                                          <i class="control fa fa-play" aria-hidden="true"></i>
+                                        </h4>
+                                        <audio class="xnine-player" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
+                                    </a>
+                              </td>
+                              <td class="p-0 hidden-xs w-74">
+                                  <img src="{{ $toptrack -> track -> cover }}" alt="..." class="img-responsive img-74">
+                              </td>
 
-      <footer>
-        <div class="row">
-          <div class="col-lg-12">
-              
+                              <td>
+                                  <h5 class="mt-10"><a href="#">{{ $toptrack -> track -> title}}</a></h5>
+                                  <h6 class="mt-0">{{ $toptrack -> track -> artist}}</h6>
+                              </td>
+                              <td class="text-center">
+                                  @if ($toptrack -> track -> track === NULL)
+                                        <a href="tracks/{{ $toptrack -> track -> id }}" class="upload">
+                                            <h4 class="mt-20">
+                                              <i class="fa fa-upload fa-warning" aria-hidden="true"></i>
+                                          </h4>
+                                        </a>
+
+                                    @else
+                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download">
+                                            <h4 class="mt-20">
+                                              <i class="fa fa-download fa-success" aria-hidden="true"></i>
+                                          </h4>
+                                        </a>
+                                    @endif
+                              </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
           </div>
-        </div>
-
-      </footer>
-
+      </div>
 
     </div>
 

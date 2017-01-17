@@ -10,7 +10,8 @@
         "yangqi/htmldom": "dev-master",
         "illuminate/html": "^5.0",
         "laravelrus/sleepingowl": "4.*@dev",
-        "happyworm/jPlayer": "2.*"
+        "happyworm/jPlayer": "2.*",
+        "liebig/cron": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

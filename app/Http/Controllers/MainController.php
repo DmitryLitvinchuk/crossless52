@@ -10,10 +10,11 @@ use App\TopTrack;
 
 class MainController extends Controller
 {
-    public function index(Track $track)
+    public function index(Track $track, TopTrack $toptrack)
     {
         $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->get();
-        return view('main', compact('tracks'));
+        $toptracks = TopTrack::orderBy('top')->paginate(10);
+        return view('main', compact('tracks', 'toptracks'));
     }
     
     public function top(Track $track)

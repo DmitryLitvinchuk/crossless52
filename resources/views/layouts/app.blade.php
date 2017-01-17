@@ -2,11 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootswatch: Superhero</title>
+    <title>CrossLess</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {!! Html::style('css/bootstrap.css') !!}
+    {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -91,19 +92,22 @@
         </div>
       </div>
     </div>
+    
 @yield('content')
-
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
+ 
+  
+    <script src="{{ URL::asset('js/jquery-1.10.2.min.js') }}"></script>
+    <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script>
     function aud_play_pause(object) {
         var myAudio = object.querySelector(".xnine-player");
         var myIcon = object.querySelector(".control");
         if (myAudio.paused) {
-            myIcon.className = "glyphicon control glyphicon-play-circle";
+            myIcon.className = "control fa fa-play";
             myAudio.play();
-        } else {
-            myIcon.className = "glyphicon control glyphicon-play-circle";
+        } 
+        else {
+            myIcon.className = "control fa fa-refresh";
             myAudio.pause();
         }
         $("audio").on("play", function() {
