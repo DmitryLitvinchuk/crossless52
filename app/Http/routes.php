@@ -14,6 +14,8 @@
 
 Route::get('/', 'MainController@index');
 
+Route::get('/about', 'MainController@about');
+
 Route::get('/top', 'MainController@top');
 
 Route::get('/toptrack', 'TrackController@toptrack');
@@ -29,6 +31,8 @@ Route::post('/addnewtrack/', 'TrackController@AddNewTrack');
 Route::get('/home', 'HomeController@index');
 
 Route::get('/earnpoints', 'TrackController@earnpoints');
+
+Route::get('/newtracks', 'TrackController@newtracks');
 
 Route::get('tracks/{id}', 'TrackController@index');
 

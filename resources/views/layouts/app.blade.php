@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{{ asset('img/favicon.ico') }}}">
     {!! Html::style('css/bootstrap.css') !!}
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
     <!-- Scripts -->
@@ -24,7 +25,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="/" class="navbar-brand">CrossLess</a>
+          <a href="/" class="navbar-brand p-10"><img class="img-responsive" src="{{ URL::asset('img/kross.png') }}" alt="..." style="width:55px;"></a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -57,14 +58,17 @@
               </ul>
             </li> -->
             <li>
-              <a href="/top">TOP100</a>
+              <a href="/newtracks">New tracks</a>
+            </li>
+            <li>
+              <a href="/top">Top100</a>
             </li>
             <li>
               <a href="/addnewtrack/">Add New Track</a>
             </li>
-            <!-- <li>
-              <a href="http://news.bootswatch.com">Blog</a>
-            </li> -->
+            <li>
+              <a href="/about">About</a>
+            </li>
           </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -85,7 +89,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="{{ url('/') }}">{{ Auth::user()->points }} points</a></li>
+                    <li><a href="{{ url('/earnpoints') }}">{{ Auth::user()->points }} points</a></li>
                 @endif
             </ul>
 

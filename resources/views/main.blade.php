@@ -7,7 +7,7 @@
           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
               <h1>
                   New Tracks
-                  <a href="#" class="pull-right">all</a>
+                  <a href="/newtracks" class="pull-right">all</a>
               </h1>
               <div class="row">
                  @foreach ($tracks as $track)
@@ -62,7 +62,7 @@
         </div>
           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
              <h1> 
-                 Top Chart
+                 Top100
                  <a href="/top" class="pull-right">all</a>
              </h1>
               <div class="jumbotron" style="padding:0;">

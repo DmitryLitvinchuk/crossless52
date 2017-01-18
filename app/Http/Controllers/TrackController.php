@@ -36,6 +36,17 @@ class TrackController extends Controller
         }
     }
     
+    public function newtracks()
+    {
+        if (Auth::check()) {
+            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(25);
+            return view('newtracks', compact('tracks'));
+        }
+        else {
+            return redirect('/login');
+        }
+    }
+    
     public function ChooseUploadFile($id)
     {
         if (Auth::check()) {
@@ -126,8 +137,8 @@ class TrackController extends Controller
         //$track = Track::find($id);
         $label = $track -> label;
         $number = $track -> top_track_id;
-        $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(5);
-        $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(5);
+        $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
+        $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
         return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
         //return view('track')->with('track', $track); 
         }

@@ -5,13 +5,7 @@
     <div class="container">
         <div class="row">
           <div class="col-lg-12">
-           <h1>Add Track</h1>
-            <blockquote>
-                <p>
-                    You have not enough points?
-                </p>
-                <small>You can upload some NEW tracks !</small>
-            </blockquote>
+           <h1>New tracks available for downloading</h1>
           </div>
         </div>
         <div class="row">
