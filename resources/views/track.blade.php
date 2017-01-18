@@ -74,7 +74,7 @@
               </h1>
               <div class="row">
                  @foreach ($tracks as $track)
-                  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                     <div class="thumbnail p-0 pos-rel">
                       <img class="img-responsive img-100per" src="{{ $track -> cover }}" alt="...">
                       <div class="btn-group btn-group-justified hover mt--22">
@@ -134,7 +134,7 @@
               </h1>
               <div class="row">
                  @foreach ($labeltracks as $labeltrack)
-                  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                     <div class="thumbnail p-0 pos-rel">
                       <img class="img-responsive img-100per" src="{{ $labeltrack -> cover }}" alt="...">
                       <div class="btn-group btn-group-justified hover mt--22">

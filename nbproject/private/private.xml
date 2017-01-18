@@ -6,10 +6,9 @@
             <file>file:/C:/OpenServer/domains/crossless52/.gitignore</file>
             <file>file:/C:/OpenServer/domains/crossless52/app/Http/Controllers/MainController.php</file>
             <file>file:/C:/OpenServer/domains/crossless52/resources/views/track.blade.php</file>
-            <file>file:/C:/OpenServer/domains/crossless52/resources/views/parser.blade.php</file>
-            <file>file:/C:/OpenServer/domains/crossless52/resources/views/inputparser.blade.php</file>
             <file>file:/C:/OpenServer/domains/crossless52/app/Http/routes.php</file>
             <file>file:/C:/OpenServer/domains/crossless52/storage/logs/laravel.log</file>
+            <file>file:/C:/OpenServer/domains/crossless52/resources/views/main.blade.php</file>
             <file>file:/C:/OpenServer/domains/crossless52/app/Http/Controllers/TrackController.php</file>
         </group>
     </open-files>
