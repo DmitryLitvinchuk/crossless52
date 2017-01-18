@@ -88,7 +88,7 @@
                               </td>
 
                               <td>
-                                  <h5 class="mt-10"><a href="#">{{ $toptrack -> track -> title}}</a></h5>
+                                  <h5 class="mt-10"><a href="tracks/{{ $toptrack -> track -> id }}">{{ $toptrack -> track -> title}}</a></h5>
                                   <h6 class="mt-0">{{ $toptrack -> track -> artist}}</h6>
                               </td>
                               <td class="text-center">
