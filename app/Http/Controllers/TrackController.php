@@ -86,7 +86,7 @@ class TrackController extends Controller
             else {
                 $artist = $track->artist;
                 //$artist = preg_replace("/ /","_",$artist);
-                $trackname = $track->artist.'- '.$track->title.'('.' '.$track->remixer.' '.')'.'.wav';
+                $trackname = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
                 //$trackname = preg_replace("/ /","_",$trackname);
                 $track -> track = $trackname;
                     Storage::disk('s3')->put($trackname, File::get($trackfile), 'public');
@@ -94,7 +94,6 @@ class TrackController extends Controller
                 $user = Auth::user();
                 $user->points += 5;
                 $user->save();
-    
                 return redirect('/');
             }
         }
