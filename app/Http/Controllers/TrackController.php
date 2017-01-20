@@ -9,15 +9,18 @@ use App\TopTrack;
 use App\WrongTracks;
 use Auth;
 use DB;
-use Response;
+//use Response;
 use Illuminate\Support\Facades\Input;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Http\Response;
 
 class TrackController extends Controller
 {
@@ -39,7 +42,7 @@ class TrackController extends Controller
     public function newtracks()
     {
         if (Auth::check()) {
-            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(25);
+            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(25);
             return view('newtracks', compact('tracks'));
         }
         else {
@@ -77,12 +80,16 @@ class TrackController extends Controller
             ]);
             if ($v->fails())
             {
-                echo 'Your file is not WAV format';
+                $error = 'Your track is not in WAV format.';
+                return view('errors.validate', ['error' => $error]);
             }
             else {
+                $artist = $track->artist;
+                //$artist = preg_replace("/ /","_",$artist);
                 $trackname = $track->artist.'- '.$track->title.'('.' '.$track->remixer.' '.')'.'.wav';
+                //$trackname = preg_replace("/ /","_",$trackname);
                 $track -> track = $trackname;
-                    Storage::disk('local')->put($trackname, File::get($trackfile));
+                    Storage::disk('s3')->put($trackname, File::get($trackfile), 'public');
                 $track->save();
                 $user = Auth::user();
                 $user->points += 5;
@@ -211,10 +218,19 @@ class TrackController extends Controller
             $track = Track::findOrFail($id);
             $trackname = $track->track;
             //$filePath = 'app/tracks/';
-            $pathToFile = storage_path('app/tracks/'.$trackname);
+            //$image = Storage::disk('rackspace')->get($trackname);
+            //$pathToFile = Storage::url($trackname);
+            $url = Storage::disk('s3')->url($trackname);
             $user->points -= 1;
             $user->save();
-            return response()->download($pathToFile);
+            $tempTrack = tempnam(sys_get_temp_dir(), $trackname);
+            copy($url, $tempTrack);
+            return response()->download($tempTrack, $trackname);
+            //return $url;
+            //return (new Response($file, 200))
+            //  ->header('Content-Type', '.wav');
+            
+            //return response()->download($file, '1.wav', $headers);
         }
         else {
             //$tracks = Track::where('track','=',NULL)->orderBy('created_at', 'desc')->simplePaginate(15);

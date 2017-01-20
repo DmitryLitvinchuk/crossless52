@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'local',
+    'default' => 's3',
 
     /*
     |--------------------------------------------------------------------------
@@ -56,10 +56,20 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key' => 'AKIAJWDYK63WJI7ZPZZQ',
+            'secret' => 'Kc1Vq1WFJTfRRv31IuIngfsoewRImM8VhTPsJZ6P',
+            'region' => 'eu-central-1',
+            'bucket' => 'cl52',
+        ],
+        
+        'rackspace' => [
+            'driver'    => 'rackspace',
+            'username'  => 'colororiginal66',
+            'key'       => '9082c096c54943be8c56ea91bc01ecf6',
+            'container' => 'CL',
+            'endpoint'  => 'https://identity.api.rackspacecloud.com/v2.0/',
+            'region'    => 'HKG',
+            'url_type'  => 'publicURL',
         ],
 
     ],
