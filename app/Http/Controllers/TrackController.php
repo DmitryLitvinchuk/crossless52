@@ -105,53 +105,59 @@ class TrackController extends Controller
     
     public function create(Request $request, Track $track, User $user)
     {
-        $beat = $request['html'];
-        $html = new \Htmldom($beat);
-        //$track = new Track;
-        
-        $title=$html->find('div.interior-title h1', 0)->plaintext;
-        $remixer=$html->find('div.interior-title h1.remixed', 0)->plaintext;
-        foreach($html->find('div.interior-track-artists a') as $artist) {
-            $artist = $artist->innertext.' ';
-        }
-        $release=$html->find('li.interior-track-released span.value', 0)->plaintext;
-        $bpm=$html->find('li.interior-track-bpm span.value', 0)->plaintext;
-        $key=$html->find('li.interior-track-key span.value', 0)->plaintext;
-        $genre=$html->find('li.interior-track-genre span.value', 0)->plaintext;
-        $label=$html->find('li.interior-track-labels span.value', 0)->plaintext;
-        $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');;
-        $number=$html->find('button.playable-play',0)->getAttribute('data-track');
-        //$track = Track::find($id);
-        $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        $row = Track::where('top_track_id','=',$number)->count();
-        if ($row === 0) {
-           $track = Track::create(['title' => $title, 
-                                'user_id' => NULL, 
-                                'top_track_id' => $number, 
-                                'artist' => $artist, 
-                                'genre' => $genre, 
-                                'bpm' => $bpm, 
-                                'key' => $key, 
-                                'cover' => $img,
-                                'remixer' => $remixer,
-                                'label' => $label,
-                                'release' => $release, 
-                                'preview' => $audio_link,
-                                /*'link' => $beat*/]);
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        //$track = Track::find($id);
-        $label = $track -> label;
-        $number = $track -> top_track_id;
-        $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
-        $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
-        return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
-        //return view('track')->with('track', $track); 
+        if (Auth::check()) {
+            $beat = $request['html'];
+            $html = new \Htmldom($beat);
+            //$track = new Track;
+
+            $title=$html->find('div.interior-title h1', 0)->plaintext;
+            $remixer=$html->find('div.interior-title h1.remixed', 0)->plaintext;
+            foreach($html->find('div.interior-track-artists a') as $artist) {
+                $artist = $artist->innertext.' ';
+            }
+            $release=$html->find('li.interior-track-released span.value', 0)->plaintext;
+            $bpm=$html->find('li.interior-track-bpm span.value', 0)->plaintext;
+            $key=$html->find('li.interior-track-key span.value', 0)->plaintext;
+            $genre=$html->find('li.interior-track-genre span.value', 0)->plaintext;
+            $label=$html->find('li.interior-track-labels span.value', 0)->plaintext;
+            $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');;
+            $number=$html->find('button.playable-play',0)->getAttribute('data-track');
+            //$track = Track::find($id);
+            $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            $row = Track::where('top_track_id','=',$number)->count();
+            if ($row === 0) {
+               $track = Track::create(['title' => $title, 
+                                    'user_id' => NULL, 
+                                    'top_track_id' => $number, 
+                                    'artist' => $artist, 
+                                    'genre' => $genre, 
+                                    'bpm' => $bpm, 
+                                    'key' => $key, 
+                                    'cover' => $img,
+                                    'remixer' => $remixer,
+                                    'label' => $label,
+                                    'release' => $release, 
+                                    'preview' => $audio_link,
+                                    /*'link' => $beat*/]);
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+            $track = Track::where('top_track_id','=',$number);
+            $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
+            $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
+            return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
+            //return view('track')->with('track', $track); 
+            }
+            else {
+                $track = Track::where('top_track_id',$number)->first();
+                $label = $track -> label;
+                $number = $track -> top_track_id;
+                $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
+                $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
+                return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
+            }
         }
         else {
-            $track = Track::where('top_track_id',$number)->first();
-            return view('track')->with('track', $track);
-            
+            return redirect('/login');
         }
     }
     
