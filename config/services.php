@@ -16,7 +16,7 @@ return [
 
     'mailgun' => [
         'domain' => env('support@crossless.club'),
-        'secret' => env('5july1996godN'),
+        'secret' => env('key-f0fab67fd3684a1170d6ed27378799ae'),
     ],
 
     'ses' => [
