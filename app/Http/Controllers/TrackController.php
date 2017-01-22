@@ -141,7 +141,7 @@ class TrackController extends Controller
                                     'preview' => $audio_link,
                                     /*'link' => $beat*/]);
             DB::statement('SET FOREIGN_KEY_CHECKS=1');
-            $track = Track::where('top_track_id','=',$number);
+            $track = Track::where('top_track_id','=',$number)->first();
             $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
             $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
             return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
