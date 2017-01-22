@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <div class="row mt-25">
+        <div class="row mt-45">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <img src="{{ $track -> cover }}" alt="..." class="img-responsive" style="width:100%">
                 <div class="btn-group btn-group-justified mt-10 mb-10">
@@ -57,9 +57,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-warning btn-md pull-right">UPLOAD</button>
+                            <button type="submit" class="btn btn-warning btn-md pull-right" id="TrackSubmit">UPLOAD</button>
+                            <!--<button class="btn btn-warning btn-md pull-right" id="TrackSubmit">UPLOAD TRACK</button>-->
                         </div>
-                    </form>
+                    </form>              
                 @else
                 <h4 class="m-0 mt-25">If you think that it's wrong WAV file, PUSH THE BUTTON!</h4>
                     <a href="{{ $track -> id }}/wrong" class="btn btn-danger mt-10">WRONG TRACK</a>
@@ -185,5 +186,80 @@
 
     </div>
 
+@endsection
+        
+@section('scripts')
+        <script>
+            /*
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            function uploadTrack() {
+                
+                var request = $.ajax({
+                    url: "{{action('TrackController@UploadFile',['tracks'=>$track->id])}}",
+                    method: "POST",
+                    data: formdata,
+                    processData: false,
+                    contentType: false
+                });
+                
+                request.success(function (data) {
+                    console.log(data);
+                    $("#modalAlert").modal("show");
+                    $('#modalAlert').find("p").text('Файл успешно загружен!');
+                    $('#modalAlert').find();
+                    
+                    //window.location.href = data.redirect;
+                });
+                
+                request.error(function (data) {
+                    $("#modalAlert").modal("show");
+                    $('#modalAlert').find("p").text('Произошла ошибка!');
+                    console.log(data);
+                });
+            }
+            */
+            
+            formdata = new FormData();  
+            $("#TrackInputFile").on("change", function() {
+                var this_ = $(this);
+                // get the file name, possibly with path (depends on browser)
+                var filename = this_.val();
+
+                // Use a regular expression to trim everything before final dot
+                var extension = filename.replace(/^.*\./, '');
+
+                // Iff there is no dot anywhere in filename, we would have extension == filename,
+                // so we account for this possibility now
+                if (extension == filename) {
+                    extension = '';
+                } else {
+                    // if there is an extension, we convert to lower case
+                    // (N.B. this conversion will not effect the value of the extension
+                    // on the file upload.)
+                    extension = extension.toLowerCase();
+                }
+            
+                if (extension != 'wav') {
+                    $("#modalAlert").modal("show");
+                    $('#modalAlert').find(".modal-title").text('Error');
+                    $('#modalAlert').find("p").text('This is a not wav file!');
+                    this_.replaceWith(this_.val('').clone(true));
+                }
+                var file = this.files[0];
+                    if (formdata) {
+                        formdata.append("track", file);
+                    }
+            });
+        
+            /*
+            $("#TrackSubmit").on("click", function() {
+                uploadTrack();
+            }); */
+        </script>
 @endsection
     

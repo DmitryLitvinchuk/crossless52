@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <div class="row">
+        <div class="row mt-20">
           <div class="col-lg-12">
            <h1>Add Track</h1>
             <blockquote>
@@ -15,7 +15,7 @@
             </blockquote>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-20">
           <div class="col-lg-12">
                 <form method='POST' action="{{action('TrackController@create')}}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />

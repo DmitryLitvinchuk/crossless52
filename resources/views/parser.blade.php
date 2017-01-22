@@ -80,7 +80,7 @@
                  
           </div>
         </div>-->
-        <div class="row mt-25">
+        <div class="row mt-20">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <img src="{{ $track -> cover }}" alt="..." class="img-responsive" style="width:100%">
                 <div class="btn-group btn-group-justified mt-10 mb-10">

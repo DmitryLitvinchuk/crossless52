@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{{ asset('img/favicon.ico') }}}">
     {!! Html::style('css/bootstrap.css') !!}
+      {!! Html::style('css/crossless.css') !!}
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
     <!-- Scripts -->
     <script>
@@ -22,7 +23,7 @@
     <![endif]-->
   </head>
   <body>
-    <div class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar navbar-default navbar-fixed-top navbar-shadow">
       <div class="container">
         <div class="navbar-header">
           <a href="/" class="navbar-brand p-10"><img class="img-responsive" src="{{ URL::asset('img/kross.png') }}" alt="..." style="width:55px;"></a>
@@ -106,20 +107,54 @@
     function aud_play_pause(object) {
         var myAudio = object.querySelector(".xnine-player");
         var myIcon = object.querySelector(".control");
+        if (myAudio.duration > 0 && !myAudio.paused) {
+            myIcon.className = "control fa fa-play";
+            myAudio.pause();            
+        } else {
+            myIcon.className = "control fa fa-pause";
+            myAudio.play();              
+        }
+        /*
         if (myAudio.paused) {
             myIcon.className = "control fa fa-play";
             myAudio.play();
-        } 
-        else {
+        } else {
             myIcon.className = "control fa fa-refresh";
             myAudio.pause();
-        }
+        } */
         $("audio").on("play", function() {
-        $("audio").not(this).each(function(index, audio) {
-            audio.pause();
+            $("audio").not(this).each(function(index, audio) {
+                audio.pause();
+            });
         });
-    });
     }
 </script>
+      
+      @yield('scripts')
+      
+      
+    <!-- Modal Alerts -->
+    <div id="modalAlert" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+              <div class="row">
+                <div class="col-xs-12"><p></p></div>
+              </div>
+          </div>
+          <div class="modal-footer text-right">
+            <a type="button" class="btn btn-default" data-dismiss="modal">Close</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+      
   </body>
 </html>

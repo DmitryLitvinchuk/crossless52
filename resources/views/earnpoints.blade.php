@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <div class="row">
+        <div class="row mt-20">
           <div class="col-lg-12">
            <h1>Add Track</h1>
             <blockquote>
@@ -14,7 +14,7 @@
             </blockquote>
           </div>
         </div>
-        <div class="row">
+        <div class="row mt-20">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="jumbotron" style="padding:0;">
                   <div class="container-fluid" style="padding:0;">

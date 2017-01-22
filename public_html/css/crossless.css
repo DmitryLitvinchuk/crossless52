@@ -1,0 +1,19 @@
+/* Navbar shadow */
+.navbar-shadow {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 10px;
+}
+
+/* Navbar button */
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+
+/* Navbar button hover background */
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: transparent;
+}
+
+/* mt-50 */
+.mt-45 {
+    margin-top: 45px;
+}
