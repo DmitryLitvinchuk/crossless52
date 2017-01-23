@@ -70,9 +70,6 @@
             <li>
               <a href="/about">About</a>
             </li>
-            @if (Auth::user()->type === 'admin')
-                <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
-            @endif
           </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -94,6 +91,9 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/earnpoints') }}">{{ Auth::user()->points }} points</a></li>
+                    @if (Auth::user()->type === 'admin')
+                        <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
+                    @endif
                 @endif
             </ul>
 
