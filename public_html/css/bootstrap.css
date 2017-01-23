@@ -15,10 +15,12 @@ html {
   src: url('../fonts/Kelson Sans Regular.otf');
 }
 body {
-  padding-top: 38px;
+  padding-top: 50px;
   position: relative;
   padding-bottom: 70px;
   margin: 0;
+  min-height: 100vh !important;
+  padding-bottom: 120px;
 }
 article,
 aside,
@@ -4776,6 +4778,13 @@ fieldset[disabled] .navbar-inverse .btn-link:hover,
 fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: #cccccc;
 }
+.navbar-bottom {
+  background-color: #3a3f44;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100% !important;
+}
 .breadcrumb {
   padding: 8px 15px;
   margin-bottom: 20px;
@@ -5163,6 +5172,10 @@ a.thumbnail.active {
   transition: visibility 0.3s, opacity 0.3s linear;
 }
 .alert {
+  position: absolute;
+  top: 53px;
+  left: 50%;
+  z-index: 1029;
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
@@ -6718,6 +6731,9 @@ button.close {
 .p-0 {
   padding: 0 !important;
 }
+.pb-0 {
+  padding-bottom: 0 !important;
+}
 .p-10 {
   padding: 10px !important;
 }
@@ -6729,6 +6745,9 @@ button.close {
 }
 .w-74 {
   width: 74px !important;
+}
+.w-104 {
+  width: 104px !important;
 }
 .pos-rel {
   position: relative;

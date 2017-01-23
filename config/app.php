@@ -151,6 +151,7 @@ return [
         Illuminate\Html\HtmlServiceProvider::class,
         SleepingOwl\Admin\Providers\SleepingOwlServiceProvider::class,
         Liebig\Cron\Laravel5ServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -210,6 +211,7 @@ return [
         'Form' => Illuminate\Html\FormFacade::class,
         'Html' => Illuminate\Html\HtmlFacade::class,
         'Parser' => App\Providers\ParserServiceProvider::class,
+        'Flash' => Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 

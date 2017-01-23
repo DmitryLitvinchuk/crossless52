@@ -23,4 +23,5 @@ return array(
     'ce89ac35a6c330c55f4710717db9ff78' => $vendorDir . '/kriswallsmith/assetic/src/functions.php',
     'f18cc91337d49233e5754e93f3ed9ec3' => $vendorDir . '/laravelcollective/html/src/helpers.php',
     '752af1c2bdb339e8474c3c31b22b7d54' => $vendorDir . '/illuminate/html/helpers.php',
+    'e23faeee409e941dc9b4c80386209c39' => $vendorDir . '/laracasts/flash/src/Laracasts/Flash/functions.php',
 );

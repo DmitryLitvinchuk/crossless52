@@ -70,6 +70,9 @@
             <li>
               <a href="/about">About</a>
             </li>
+            @if (Auth::user()->type === 'admin')
+                <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
+            @endif
           </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -91,19 +94,45 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/earnpoints') }}">{{ Auth::user()->points }} points</a></li>
-                    @if (Auth::user()->type === 'admin')
-                        <li><a href="{{ url('/toptrack') }}">Resresh Top</a></li>
-                    @endif
                 @endif
             </ul>
 
         </div>
       </div>
     </div>
+    @include('flash::message')
     
-@yield('content')
+    @yield('content')
  
-  
+    <div class="navbar-bottom">
+      <div class="navbar-inner">
+          <div class="container">
+           <div class="row">
+               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                  <a href="/"><img class="img-responsive w-104 mt-10 center-block" src="{{ URL::asset('img/kross.png') }}" alt="..."></a>
+                   <h6 class="text-center mt-8 mb-10"><a href="/">2017 <i class="fa fa-copyright" aria-hidden="true"></i> CROSSLESS</a></h6>
+               </div>
+               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                   <h4 class="mt-20 text-center">Happy People</h4>
+                   <h5 class="text-center"><a href="/register">14000 accounts</a></h5>
+                   <h5 class="text-center"><a href="/newtracks">3745 tracks</a></h5>
+               </div>
+               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                   <h4 class="mt-25 text-center">We are social</h4>
+                   <h3 class="text-center mt-10">
+                       <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                       <a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                       <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                   </h3>
+               </div>
+               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                   <h4 class="mt-25 text-center">Collaboration & Info</h4>
+                   <h6 class="text-center">support@crossless.club</h6>
+               </div>
+           </div>
+          </div>
+      </div>
+    </div>
     <script src="{{ URL::asset('js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script>
@@ -132,7 +161,9 @@
         });
     }
 </script>
-      
+<script>
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+</script>
       @yield('scripts')
       
       
@@ -158,6 +189,5 @@
 
       </div>
     </div>
-      
   </body>
 </html>

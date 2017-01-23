@@ -13,6 +13,8 @@ use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Flash;
+use Session;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -84,6 +86,7 @@ class TrackController extends Controller
                 return view('errors.validate', ['error' => $error]);
             }
             else {
+                flash('Track was uploaded!', 'success');
                 $artist = $track->artist;
                 //$artist = preg_replace("/ /","_",$artist);
                 $trackname = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
@@ -164,6 +167,7 @@ class TrackController extends Controller
     public function TopTrack(Track $track, TopTrack $topTrack)
     {
         if (Auth::user()->type === 'admin') {
+            flash('Top100 was refreshed');
             $beat = 'https://www.beatport.com/top-100';
             $html = new \Htmldom($beat);
             DB::statement('SET FOREIGN_KEY_CHECKS=0');
@@ -176,8 +180,8 @@ class TrackController extends Controller
                 $topTrack = TopTrack::create(['title' => $title,
                                     'id' => $number, 
                                     'top' => $top]);
-                echo $top.' '.$title.'<br>';
             }
+            return redirect('/top');
         }
         else {
             return redirect('/');
@@ -194,18 +198,19 @@ class TrackController extends Controller
     public function wrong($id, WrongTracks $wrongTrack)
     {
         if (Auth::check()) {
-        $track = Track::find($id);
-        $title = $track->title;
-        $number = $track->top_track_id ;
-        $row = WrongTracks::where('id','=',$number)->count();
-        if ($row === 0) {
-        $wrongTracks = WrongTracks::create(['title' => $title,
-                                'id' => $number]);
-        return redirect('/');
-        }
-        else {
-            return redirect('/');
-        }
+            flash('Track was marked as a wrong track!', 'warning');
+            $track = Track::find($id);
+            $title = $track->title;
+            $number = $track->top_track_id ;
+            $row = WrongTracks::where('id','=',$number)->count();
+            if ($row === 0) {
+            $wrongTracks = WrongTracks::create(['title' => $title,
+                                    'id' => $number]);
+            return redirect()->back();
+            }
+            else {
+                return redirect()->back();
+            }
         }
         else {
             return redirect('/login');
@@ -216,6 +221,7 @@ class TrackController extends Controller
     public function deleteFile($id)
     {
         if (Auth::user()->type === 'admin') {
+            flash('Track was deleted!', 'warning');
             $track = Track::find($id);
             $trackname = $track->track;
             Storage::disk('s3')->delete($trackname);
@@ -233,6 +239,7 @@ class TrackController extends Controller
     public function acceptTrack($id)
     {
         if (Auth::user()->type === 'admin') {
+            flash('Track was accepted!', 'success');
             $track = Track::find($id);
             $track-> inspection = 1;
             $track->save();
@@ -269,7 +276,7 @@ class TrackController extends Controller
         }
         else {
             //$tracks = Track::where('track','=',NULL)->orderBy('created_at', 'desc')->simplePaginate(15);
-            return redirect('/earnpoints')/*view('earnpoints', compact('tracks'))*/;
+            return redirect('/earnpoints')->with('flash_message', "You don't have enough points")/*view('earnpoints', compact('tracks'))*/;
         }
         }
         else {
