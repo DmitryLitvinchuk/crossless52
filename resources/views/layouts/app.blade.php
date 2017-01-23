@@ -91,6 +91,9 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/earnpoints') }}">{{ Auth::user()->points }} points</a></li>
+                    @if (Auth::user()->type === 'admin')
+                        <li><a href="{{ url('/toptrack') }}">Resresh Top</a></li>
+                    @endif
                 @endif
             </ul>
 

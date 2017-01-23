@@ -18,6 +18,7 @@ class CreateTracksTable extends Migration
             $table->integer('user_id')->nullable();
             $table->integer('top_track_id')->unsigned();
             $table->string('title');
+            $table->integer('inspection')->default(0);
             $table->string('remixer');
             $table->string('label');
             $table->string('artist');

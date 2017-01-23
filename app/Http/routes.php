@@ -38,6 +38,10 @@ Route::get('tracks/{id}', 'TrackController@index');
 
 Route::get('tracks/{id}/wrong', 'TrackController@wrong');
 
+Route::get('tracks/{id}/delete', 'TrackController@deleteFile');
+
+Route::get('tracks/{id}/accept', 'TrackController@acceptTrack');
+
 Route::get('tracks/{id}/ChooseUploadFile/', 'TrackController@ChooseUploadFile');
 
 Route::post('tracks/{id}/ChooseUploadFile/UploadFile/', 'TrackController@UploadFile');

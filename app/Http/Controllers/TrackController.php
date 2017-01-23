@@ -94,7 +94,7 @@ class TrackController extends Controller
                 $user = Auth::user();
                 $user->points += 5;
                 $user->save();
-                return redirect('/');
+                return redirect()->back();
             }
         }
         else {
@@ -163,26 +163,25 @@ class TrackController extends Controller
     
     public function TopTrack(Track $track, TopTrack $topTrack)
     {
-        if (Auth::id() === 1) {
-        $beat = 'https://www.beatport.com/top-100';
-        $html = new \Htmldom($beat);
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('top_tracks')->delete();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
-        foreach($html->find('li.bucket-item') as $track) {
-            $number = $track->find('button.track-queue',0)->getAttribute('data-track');
-            $top = $track->find('div.buk-track-num',0)->plaintext;
-            $title = $track->find('span.buk-track-primary-title',0)->plaintext;
-            $topTrack = TopTrack::create(['title' => $title,
-                                'id' => $number, 
-                                'top' => $top]);
-            echo $top.' '.$title.'<br>';
-        }
+        if (Auth::user()->type === 'admin') {
+            $beat = 'https://www.beatport.com/top-100';
+            $html = new \Htmldom($beat);
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            DB::table('top_tracks')->delete();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+            foreach($html->find('li.bucket-item') as $track) {
+                $number = $track->find('button.track-queue',0)->getAttribute('data-track');
+                $top = $track->find('div.buk-track-num',0)->plaintext;
+                $title = $track->find('span.buk-track-primary-title',0)->plaintext;
+                $topTrack = TopTrack::create(['title' => $title,
+                                    'id' => $number, 
+                                    'top' => $top]);
+                echo $top.' '.$title.'<br>';
+            }
         }
         else {
             return redirect('/');
         }
-        //$parser->TopTrack();
     }
     
     public function destroy($id)
@@ -210,6 +209,37 @@ class TrackController extends Controller
         }
         else {
             return redirect('/login');
+        }
+        //return redirect('/');
+    }
+    
+    public function deleteFile($id)
+    {
+        if (Auth::user()->type === 'admin') {
+            $track = Track::find($id);
+            $trackname = $track->track;
+            Storage::disk('s3')->delete($trackname);
+            $track-> user_id = null;
+            $track-> track = null;
+            $track->save();
+            return redirect()->back();
+        }
+        else {
+            return redirect()->back();
+        }
+        //return redirect('/');
+    }
+    
+    public function acceptTrack($id)
+    {
+        if (Auth::user()->type === 'admin') {
+            $track = Track::find($id);
+            $track-> inspection = 1;
+            $track->save();
+            return redirect()->back();
+        }
+        else {
+            return redirect()->back();
         }
         //return redirect('/');
     }

@@ -36,6 +36,18 @@
                 <h4 class="m-0">{{$track -> genre }}</h4>
                 <p class="text-muted m-0">BPM:</p>
                 <h4 class="m-0">{{$track -> bpm }}</h4>
+                @if ($track -> track !== NULL)
+                    <p class="text-muted m-0">INSPECTION:</p>
+                    @if ($track -> inspection === 0)
+                        <h4 class="m-0">CHECKING <i class="fa warning fa-clock-o" aria-hidden="true"></i></h4>
+                        @if (Auth::user()->type === 'admin')
+                                <a href="{{ $track -> id }}/delete" class="btn btn-warning mt-10">DELETE TRACK</a>
+                                <a href="{{ $track -> id }}/accept" class="btn btn-success mt-10">ACCEPT TRACK</a>
+                        @endif
+                    @else
+                        <h4 class="m-0">CHECKED <i class="fa success fa-success fa-check" aria-hidden="true"></i></h4>
+                    @endif
+                @endif
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <p class="text-muted m-0">Artist:</p>
@@ -62,8 +74,10 @@
                         </div>
                     </form>              
                 @else
-                <h4 class="m-0 mt-25">If you think that it's wrong WAV file, PUSH THE BUTTON!</h4>
-                    <a href="{{ $track -> id }}/wrong" class="btn btn-danger mt-10">WRONG TRACK</a>
+                    @if ($track -> inspection === 0)
+                        <h4 class="m-0 mt-25">If you think that it's wrong WAV file, PUSH THE BUTTON!</h4>
+                            <a href="{{ $track -> id }}/wrong" class="btn btn-danger mt-10">WRONG TRACK</a>
+                    @endif
                 @endif
             </div>
         </div>
