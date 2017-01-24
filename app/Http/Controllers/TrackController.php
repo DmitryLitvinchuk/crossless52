@@ -7,6 +7,7 @@ use App\Track;
 use App\User;
 use App\TopTrack;
 use App\WrongTracks;
+use App\DownloadedTrack;
 use Auth;
 use DB;
 //use Response;
@@ -251,7 +252,7 @@ class TrackController extends Controller
         //return redirect('/');
     }
     
-    public function download($id)
+    public function download($id, DownloadedTrack $downloadedtrack)
     {
         if (Auth::check()) {
         $user = Auth::user();
@@ -265,6 +266,11 @@ class TrackController extends Controller
             $url = Storage::disk('s3')->url($trackname);
             $user->points -= 1;
             $user->save();
+            $downloadedtrack = DownloadedTrack::create([
+                                    'title' => $track->title, 
+                                    'user_id' => $user->id, 
+                                    'track_id' => $track->id, 
+                                    'artist' => $track->artist]);
             $tempTrack = tempnam(sys_get_temp_dir(), $trackname);
             copy($url, $tempTrack);
             return response()->download($tempTrack, $trackname);

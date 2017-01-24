@@ -109,15 +109,16 @@
           <div class="container">
            <div class="row">
                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                  <a href="/"><img class="img-responsive w-104 mt-10 center-block" src="{{ URL::asset('img/kross.png') }}" alt="..."></a>
-                   <h6 class="text-center mt-8 mb-10"><a href="/">2017 <i class="fa fa-copyright" aria-hidden="true"></i> CROSSLESS</a></h6>
+                  <a href="/"><img class="img-responsive w-104 mt-10 center-block" src="img/kross.png" alt="..."></a>
+                   <h6 class="hidden-xs text-center mt-8 mb-10"><a href="#">2017 <i class="fa fa-copyright" aria-hidden="true"></i> CROSSLESS</a></h6>
+                   <h6 class="visible-xs text-center">support@crossless.club</h6>
                </div>
-               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+               <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
                    <h4 class="mt-20 text-center">Happy People</h4>
-                   <h5 class="text-center"><a href="/register">14000 accounts</a></h5>
-                   <h5 class="text-center"><a href="/newtracks">3745 tracks</a></h5>
+                   <h5 class="text-center"><a href="#">14000 accounts</a></h5>
+                   <h5 class="text-center"><a href="#">3745 tracks</a></h5>
                </div>
-               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+               <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
                    <h4 class="mt-25 text-center">We are social</h4>
                    <h3 class="text-center mt-10">
                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -125,7 +126,7 @@
                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                    </h3>
                </div>
-               <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+               <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
                    <h4 class="mt-25 text-center">Collaboration & Info</h4>
                    <h6 class="text-center">support@crossless.club</h6>
                </div>
