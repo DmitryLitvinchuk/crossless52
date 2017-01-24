@@ -1,3 +1,0 @@
-<small {!! $attributes !!}>
-    {{ $value }}
-</small>
