@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="shortcut icon" href="{{{ asset('img/favicon.ico') }}}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
     {!! Html::style('css/bootstrap.css') !!}
       {!! Html::style('css/crossless.css') !!}
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
@@ -109,7 +109,7 @@
           <div class="container">
            <div class="row">
                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                  <a href="/"><img class="img-responsive w-104 mt-10 center-block" src="img/kross.png" alt="..."></a>
+                  <a href="/"><img class="img-responsive w-104 mt-10 center-block" src="{{ asset('img/kross.png') }}" alt="..."></a>
                    <h6 class="hidden-xs text-center mt-8 mb-10"><a href="#">2017 <i class="fa fa-copyright" aria-hidden="true"></i> CROSSLESS</a></h6>
                    <h6 class="visible-xs text-center">support@crossless.club</h6>
                </div>
