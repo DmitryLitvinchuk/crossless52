@@ -169,9 +169,10 @@
         
     var wavesurfer = WaveSurfer.create({
         container: '#waveform',
-        waveColor: 'violet',
+        waveColor: '#1c1e22',
+        cursorColor: '#c8c8c8',
         hideScrollbar: true,
-        progressColor: 'purple',
+        progressColor: '#c8c8c8',
         height: 60
     });
         
