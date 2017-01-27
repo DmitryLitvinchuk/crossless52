@@ -17,7 +17,7 @@
                       <div class="btn-group btn-group-justified hover mt--22">
                           <div class="btn-group btn-group-xs">
                             <!--<button type="button" class="btn btn-default"><i class="fa fa-play" aria-hidden="true"></i></button>-->
-                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default">
+                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default" data-id="{{ $track -> id }}">
                                 <i class="control fa fa-play" aria-hidden="true"></i>
                                 <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
                             </a>
@@ -35,7 +35,7 @@
                               </div>
                             @else
                               <div class="btn-group btn-group-xs">
-                                <a href="tracks/{{ $track -> id }}/download" class="btn btn-success">
+                                <a href="tracks/{{ $track -> id }}/download" class="btn btn-success btn-download">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </a>
                               </div>
@@ -76,7 +76,7 @@
                                  <h4 class="mt-20">{{ $toptrack -> top}}</h4>
                               </td>
                               <td class="text-center">
-                                  <a href="javascript:void(0)" onclick="aud_play_pause(this)">
+                                  <a href="javascript:void(0)" data-id="{{ $toptrack -> id }}" onclick="aud_play_pause(this)">
                                         <h4 class="mt-20">
                                           <i class="control fa fa-play" aria-hidden="true"></i>
                                         </h4>
@@ -100,7 +100,7 @@
                                         </a>
 
                                     @else
-                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download">
+                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download btn-download">
                                             <h4 class="mt-20">
                                               <i class="fa fa-download fa-success" aria-hidden="true"></i>
                                           </h4>

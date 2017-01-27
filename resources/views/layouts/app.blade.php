@@ -134,33 +134,111 @@
           </div>
       </div>
     </div>
+   <div class="bottom-player-block">
+        <div class="col-xs-3 col-md-3">
+            <img width=75 src="https://geo-media.beatport.com/image/15065864.jpg">
+            <div class="bottom-player-title">
+                <span class="title">Learning to Fall</span>
+                <span class="author">Petar Dundov</span>
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-7">
+            <div id="waveform"></div> 
+            <div id="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="col-xs-1 col-md-1 text-center bottom-player-block-buttons">
+            <div class="bottom-player-block-control play"><i class="fa fa-play"></i></div>
+        </div>
+        <div class="col-xs-1 col-md-1 text-center bottom-player-block-buttons">
+            <div class="bottom-player-block-control download"><a href="#" class="bottom-player-block-link"><i class="fa fa-download"></i></a></div>
+        </div>
+    </div>
+          
     <script src="{{ URL::asset('js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ URL::asset('js/wavesurfer.min.js') }}"></script>
     <script>
+
+    var current_id = null;
+        
+    var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'violet',
+        hideScrollbar: true,
+        progressColor: 'purple',
+        height: 60
+    });
+        
+    function iconToggle(obj) {
+        obj.toggleClass('fa-play');
+        obj.toggleClass('fa-pause');
+    }
+        
+    function iconPlay(obj) {
+        obj.removeClass("fa-pause").addClass("fa-play");
+    }
+        
+    function iconPause(obj) {
+        obj.removeClass("fa-play").addClass("fa-pause");
+    }
+        
+    wavesurfer.on('ready', function () {
+        wavesurfer.play();
+        $("#loading").hide();
+    });
+    
+    wavesurfer.on('play', function () {
+        iconPause($(".bottom-player-block-control.play").find("i"));
+        iconPause($(".btn[data-id="+current_id+"]").find("i"));
+    });
+        
+    wavesurfer.on('pause', function () {
+        iconPlay($(".bottom-player-block-control.play").find("i"));
+        iconPlay($(".btn[data-id="+current_id+"]").find("i"));
+    });
+        
     function aud_play_pause(object) {
         var myAudio = object.querySelector(".xnine-player");
         var myIcon = object.querySelector(".control");
-        if (myAudio.duration > 0 && !myAudio.paused) {
-            myIcon.className = "control fa fa-play";
-            myAudio.pause();            
-        } else {
-            myIcon.className = "control fa fa-pause";
-            myAudio.play();              
-        }
-        /*
-        if (myAudio.paused) {
-            myIcon.className = "control fa fa-play";
-            myAudio.play();
-        } else {
-            myIcon.className = "control fa fa-refresh";
-            myAudio.pause();
-        } */
-        $("audio").on("play", function() {
-            $("audio").not(this).each(function(index, audio) {
-                audio.pause();
-            });
-        });
+        
+        var id = $(object).data("id");
+        var image = $(object).closest(".thumbnail").find("img").attr("src");
+        var title = $(object).closest(".thumbnail").find("h4 > a").text();
+        var author = $.trim($(object).closest(".thumbnail").find("h6").eq(0).text());
+        var src = $(object).closest(".thumbnail").find("audio").attr("src");
+        var link = $(object).closest(".thumbnail").find(".btn-download").attr("href");
+        
+        if (wavesurfer.getCurrentTime() > 0 && current_id == id ) {
+            wavesurfer.playPause();
+        } 
+                
+        if (current_id != id) {
+            $("#loading").show();
+            wavesurfer.load(src);
+            current_id = id;
+            $("body").css("padding-bottom", "205px");
+            $(".navbar-bottom").css("bottom", "75px");
+            $(".bottom-player-block").css("bottom", "0px");
+        } 
+        
+        $(".bottom-player-block").find("img").attr("src", image);
+        $(".bottom-player-block").find(".bottom-player-title > .title").text(title);
+        $(".bottom-player-block").find(".bottom-player-title > .author").text(author);
+        $(".bottom-player-block").find(".bottom-player-title > .author").text(author);
+        $(".bottom-player-block-link").attr("href", link);
+                
     }
+        
+    $(".bottom-player-block-control > i").on("click", function() {
+        wavesurfer.playPause();
+    });
+        
 </script>
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
