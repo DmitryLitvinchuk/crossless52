@@ -24,30 +24,30 @@
                               <th></th>
                           </tr>
                            @foreach ($toptracks as $toptrack)
-                            <tr class="text-center">
+                            <tr class="text-center track">
                               <td>
                                  <h4 class="mt-20">{{ $toptrack -> top}}</h4>
                               </td>
                               <td class="w-74">
                                   
-                                    <a href="javascript:void(0)" onclick="aud_play_pause(this)">
+                                    <a href="javascript:void(0)" onclick="aud_play_pause(this)" data-id="{{ $toptrack -> track -> id }}">
                                         <h4 class="mt-20">
                                           <i class="control fa fa-play" aria-hidden="true"></i>
                                         </h4>
-                                        <audio class="xnine-player" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
+                                        <audio class="xnine-player track-source-url" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
                                     </a>
                               </td>
                               <td class="p-0 hidden-xs w-74">
-                                  <img src="{{ $toptrack -> track -> cover }}" alt="..." class="img-responsive img-74">
+                                  <img src="{{ $toptrack -> track -> cover }}" alt="..." class="img-responsive img-74 track-image">
                               </td>
                               <td class="hidden-xs">
                                   <h5 class="mt-22"><a href="tracks/{{ $toptrack -> track -> id }}">{{ $toptrack -> track -> title}}</a></h5>
                               </td>
                               <td class="visible-xs">
-                                  <h5 class="mt-22"><a href="#">{{ $toptrack -> track -> title}}</a></h5>
+                                  <h5 class="mt-22 track-title"><a href="#">{{ $toptrack -> track -> title}}</a></h5>
                               </td>
                               <td>
-                                  <h5 class="mt-22"><a href="#">{{ $toptrack -> track -> artist}}</a></h5>
+                                  <h5 class="mt-22 track-author"><a href="#">{{ $toptrack -> track -> artist}}</a></h5>
                               </td>
                               <td>
                                   <h6 class="mt-25"><a href="#">{{ $toptrack -> track -> genre}}</a></h6>
@@ -63,13 +63,13 @@
                               </td>
                               <td class="w-74 text-center">
                                 @if ($toptrack -> track -> track === NULL)
-                                    <a href="tracks/{{ $toptrack -> track -> id }}" class="upload">
+                                    <a href="tracks/{{ $toptrack -> track -> id }}" class="upload track-link">
                                         <h4 class="mt-20">
                                           <i class="fa fa-upload fa-warning" aria-hidden="true"></i>
                                       </h4>
                                     </a>
                                 @else
-                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download">
+                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link">
                                         <h4 class="mt-20">
                                           <i class="fa fa-download fa-success" aria-hidden="true"></i>
                                       </h4>

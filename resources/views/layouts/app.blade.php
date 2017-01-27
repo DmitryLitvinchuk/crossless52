@@ -156,7 +156,7 @@
             <div class="bottom-player-block-control play"><i class="fa fa-play"></i></div>
         </div>
         <div class="col-xs-1 col-md-1 text-center bottom-player-block-buttons">
-            <div class="bottom-player-block-control download"><a href="#" class="bottom-player-block-link"><i class="fa fa-download"></i></a></div>
+            <div class="bottom-player-block-control download_upload"><a href="#"><i class="fa fa-download"></i></a></div>
         </div>
     </div>
           
@@ -195,25 +195,26 @@
     
     wavesurfer.on('play', function () {
         iconPause($(".bottom-player-block-control.play").find("i"));
-        iconPause($(".btn[data-id="+current_id+"]").find("i"));
+        iconPause($("a[data-id="+current_id+"]").find("i"));
     });
         
     wavesurfer.on('pause', function () {
         iconPlay($(".bottom-player-block-control.play").find("i"));
-        iconPlay($(".btn[data-id="+current_id+"]").find("i"));
+        iconPlay($("a[data-id="+current_id+"]").find("i"));
     });
         
     function aud_play_pause(object) {
         var myAudio = object.querySelector(".xnine-player");
         var myIcon = object.querySelector(".control");
         
+ 
         var id = $(object).data("id");
-        var image = $(object).closest(".thumbnail").find("img").attr("src");
-        var title = $(object).closest(".thumbnail").find("h4 > a").text();
-        var author = $.trim($(object).closest(".thumbnail").find("h6").eq(0).text());
-        var src = $(object).closest(".thumbnail").find("audio").attr("src");
-        var link = $(object).closest(".thumbnail").find(".btn-download").attr("href");
-        
+        var image = $(object).closest(".track").find(".track-image").attr("src");
+        var title = $(object).closest(".track").find(".track-title").text();
+        var author = $.trim($(object).closest(".track").find(".track-author").text());
+        var src = $(object).closest(".track").find(".track-source-url").attr("src");
+        var link = $(object).closest(".track").find(".track-link");
+         
         if (wavesurfer.getCurrentTime() > 0 && current_id == id ) {
             wavesurfer.playPause();
         } 
@@ -230,8 +231,7 @@
         $(".bottom-player-block").find("img").attr("src", image);
         $(".bottom-player-block").find(".bottom-player-title > .title").text(title);
         $(".bottom-player-block").find(".bottom-player-title > .author").text(author);
-        $(".bottom-player-block").find(".bottom-player-title > .author").text(author);
-        $(".bottom-player-block-link").attr("href", link);
+        $(".bottom-player-block-control.download_upload").empty().append(link.clone().removeClass('btn-success').removeClass('btn-info')).find('i').removeClass('fa-success');
                 
     }
         

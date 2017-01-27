@@ -3,18 +3,18 @@
 @section('content')
 
     <div class="container">
-        <div class="row mt-25">
+        <div class="row mt-25 track">
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                <img src="{{ $track -> cover }}" alt="..." class="img-responsive" style="width:100%">
+                <img src="{{ $track -> cover }}" alt="..." class="img-responsive track-image" style="width:100%">
                 <div class="btn-group btn-group-justified mt-10 mb-10">
                       <div class="btn-group btn-group-lg">
-                        <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default">
+                        <a href="javascript:void(0)" data-id="{{ $track -> id }}" onclick="aud_play_pause(this)" class="btn btn-default">
                             <i class="control fa fa-play" aria-hidden="true"></i>
-                            <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
+                            <audio class="xnine-player track-source-url" src="{{ $track -> preview }}" preload="auto"></audio>
                         </a>
                       </div>
                         <div class="btn-group btn-group-lg">
-                            <a href="https://www.beatport.com/track/track/{{ $track -> top_track_id }}" class="btn btn-info" target="_blank">
+                            <a href="https://www.beatport.com/track/track/{{ $track -> top_track_id }}" class="btn btn-info track-link" target="_blank">
                                 <i class="fa fa-link" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <p class="text-muted m-0">Title:</p>
-                <h2 class="m-0">{{$track -> title }}</h2>
+                <h2 class="m-0 track-title">{{$track -> title }}</h2>
                 <p class="text-muted m-0">Remixer:</p>
                 <h3 class="m-0">{{$track -> remixer }}</h3>
                 <p class="text-muted m-0">Genre:</p>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <p class="text-muted m-0">Artist:</p>
-                <h2 class="m-0">{{$track -> artist }}</h2>
+                <h2 class="m-0 track-author">{{$track -> artist }}</h2>
                 <p class="text-muted m-0">Label:</p>
                 <h3 class="m-0">{{$track -> label }}</h3>
                 <p class="text-muted m-0">Key:</p>
@@ -89,15 +89,15 @@
               </h1>
               <div class="row">
                  @foreach ($tracks as $track)
-                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 track">
                     <div class="thumbnail p-0 pos-rel">
-                      <img class="img-responsive img-100per" src="{{ $track -> cover }}" alt="...">
+                      <img class="img-responsive img-100per track-image" src="{{ $track -> cover }}" alt="...">
                       <div class="btn-group btn-group-justified hover mt--22">
                           <div class="btn-group btn-group-xs">
                             <!--<button type="button" class="btn btn-default"><i class="fa fa-play" aria-hidden="true"></i></button>-->
-                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default">
+                            <a href="javascript:void(0)" data-id="{{ $track -> id }}" onclick="aud_play_pause(this)" class="btn btn-default">
                                 <i class="control fa fa-play" aria-hidden="true"></i>
-                                <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
+                                <audio class="xnine-player track-source-url" src="{{ $track -> preview }}" preload="auto"></audio>
                             </a>
                           </div>
                             <div class="btn-group btn-group-xs">
@@ -107,13 +107,13 @@
                             </div>
                            @if ($track -> track === NULL)
                               <div class="btn-group btn-group-xs">
-                                <a href="{{ $track -> id }}/ChooseUploadFile" class="btn btn-warning">
+                                <a href="{{ $track -> id }}/ChooseUploadFile" class="btn btn-warning track-link">
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                 </a>
                               </div>
                             @else
                               <div class="btn-group btn-group-xs">
-                                <a href="{{ $track -> id }}/download" class="btn btn-success">
+                                <a href="{{ $track -> id }}/download" class="btn btn-success track-link">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </a>
                               </div>
@@ -121,9 +121,9 @@
                      </div>
                      <div class="caption pos-rel">
                         <h4 class="m-0">
-                            <a href="{{ $track -> id }}">{{ $track -> title}}</a>
+                            <a href="{{ $track -> id }}" class="track-title">{{ $track -> title}}</a>
                         </h4>
-                        <h6 class="m-0">
+                        <h6 class="m-0 track-author">
                             {{ $track -> artist}}
                         </h6>
                         <h6 class="m-0 hover">
@@ -149,30 +149,30 @@
               </h1>
               <div class="row">
                  @foreach ($labeltracks as $labeltrack)
-                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                  <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 track">
                     <div class="thumbnail p-0 pos-rel">
-                      <img class="img-responsive img-100per" src="{{ $labeltrack -> cover }}" alt="...">
+                      <img class="img-responsive img-100per track-image" src="{{ $labeltrack -> cover }}" alt="...">
                       <div class="btn-group btn-group-justified hover mt--22">
                           <div class="btn-group btn-group-xs">
-                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default">
+                            <a href="javascript:void(0)" data-id="{{ $labeltrack -> top_track_id }}" onclick="aud_play_pause(this)" class="btn btn-default track-source-url">
                                 <i class="control fa fa-play" aria-hidden="true"></i>
-                                <audio class="xnine-player" src="{{ $labeltrack -> preview }}" preload="auto"></audio>
+                                <audio class="xnine-player track-source-url" src="{{ $labeltrack -> preview }}" preload="auto"></audio>
                             </a>
                           </div>
                             <div class="btn-group btn-group-xs">
-                                <a href="https://www.beatport.com/track/track/{{ $labeltrack -> top_track_id }}" class="btn btn-info" target="_blank">
+                                <a href="https://www.beatport.com/track/track/{{ $labeltrack -> top_track_id }}" class="btn btn-info track-link" target="_blank">
                                     <i class="fa fa-link" aria-hidden="true"></i>
                                 </a>
                             </div>
                            @if ($labeltrack -> track === NULL)
                               <div class="btn-group btn-group-xs">
-                                <a href="{{ $labeltrack -> id }}/ChooseUploadFile" class="btn btn-warning">
+                                <a href="{{ $labeltrack -> id }}/ChooseUploadFile" class="btn btn-warning track-link">
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                 </a>
                               </div>
                             @else
                               <div class="btn-group btn-group-xs">
-                                <a href="{{ $labeltrack -> id }}/download" class="btn btn-success">
+                                <a href="{{ $labeltrack -> id }}/download" class="btn btn-success track-link">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </a>
                               </div>
@@ -180,7 +180,7 @@
                      </div>
                      <div class="caption pos-rel">
                         <h4 class="m-0">
-                            <a href="{{ $labeltrack -> id }}">{{ $labeltrack -> title}}</a>
+                            <a href="{{ $labeltrack -> id }}" class="track-title">{{ $labeltrack -> title}}</a>
                         </h4>
                         <h6 class="m-0">
                             {{ $labeltrack -> artist}}

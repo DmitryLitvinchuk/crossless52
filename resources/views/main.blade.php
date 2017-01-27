@@ -12,30 +12,30 @@
               <div class="row">
                  @foreach ($tracks as $track)
                   <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
-                    <div class="thumbnail p-0 pos-rel">
-                      <img class="img-responsive img-100per" src="{{ $track -> cover }}" alt="...">
+                    <div class="thumbnail p-0 pos-rel track">
+                      <img class="img-responsive img-100per track-image" src="{{ $track -> cover }}" alt="...">
                       <div class="btn-group btn-group-justified hover mt--22">
                           <div class="btn-group btn-group-xs">
                             <!--<button type="button" class="btn btn-default"><i class="fa fa-play" aria-hidden="true"></i></button>-->
-                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default" data-id="{{ $track -> id }}">
+                            <a href="javascript:void(0)" onclick="aud_play_pause(this)" class="btn btn-default" data-id="{{ $track -> top_track_id }}">
                                 <i class="control fa fa-play" aria-hidden="true"></i>
-                                <audio class="xnine-player" src="{{ $track -> preview }}" preload="auto"></audio>
+                                <audio class="xnine-player track-source-url" src="{{ $track -> preview }}" preload="auto"></audio>
                             </a>
                           </div>
                             <div class="btn-group btn-group-xs">
-                                <a href="https://www.beatport.com/track/track/{{ $track -> top_track_id }}" class="btn btn-info" target="_blank">
+                                <a href="https://www.beatport.com/track/track/{{ $track -> top_track_id }}" class="btn btn-info track-source-url" target="_blank">
                                     <i class="fa fa-link" aria-hidden="true"></i>
                                 </a>
                             </div>
                            @if ($track -> track === NULL)
                               <div class="btn-group btn-group-xs">
-                                <a href="tracks/{{ $track -> id }}/ChooseUploadFile" class="btn btn-warning">
+                                <a href="tracks/{{ $track -> id }}/ChooseUploadFile" class="btn btn-warning track-link">
                                     <i class="fa fa-upload" aria-hidden="true"></i>
                                 </a>
                               </div>
                             @else
                               <div class="btn-group btn-group-xs">
-                                <a href="tracks/{{ $track -> id }}/download" class="btn btn-success btn-download">
+                                <a href="tracks/{{ $track -> id }}/download" class="btn btn-success track-link">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                                 </a>
                               </div>
@@ -43,9 +43,9 @@
                      </div>
                      <div class="caption pos-rel">
                         <h4 class="m-0">
-                            <a href="tracks/{{ $track -> id }}">{{ $track -> title}}</a>
+                            <a href="tracks/{{ $track -> id }}" class="track-title">{{ $track -> title}}</a>
                         </h4>
-                        <h6 class="m-0">
+                        <h6 class="m-0 track-author">
                             {{ $track -> artist}}
                         </h6>
                         <h6 class="m-0 hover">
@@ -71,7 +71,7 @@
                       <table class="table table-hover m-0">
                         <tbody>
                            @foreach ($toptracks as $toptrack)
-                            <tr>
+                            <tr class="track">
                               <td class="text-center">
                                  <h4 class="mt-20">{{ $toptrack -> top}}</h4>
                               </td>
@@ -80,27 +80,27 @@
                                         <h4 class="mt-20">
                                           <i class="control fa fa-play" aria-hidden="true"></i>
                                         </h4>
-                                        <audio class="xnine-player" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
+                                        <audio class="xnine-player track-source-url" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
                                     </a>
                               </td>
                               <td class="p-0 hidden-xs w-74">
-                                  <img src="{{ $toptrack -> track -> cover }}" alt="..." class="img-responsive img-74">
+                                  <img src="{{ $toptrack -> track -> cover }}" alt="..." class="img-responsive img-74 track-image">
                               </td>
 
                               <td>
-                                  <h5 class="mt-10"><a href="tracks/{{ $toptrack -> track -> id }}">{{ $toptrack -> track -> title}}</a></h5>
-                                  <h6 class="mt-0">{{ $toptrack -> track -> artist}}</h6>
+                                  <h5 class="mt-10"><a class="track-title" href="tracks/{{ $toptrack -> track -> id }}">{{ $toptrack -> track -> title}}</a></h5>
+                                  <h6 class="mt-0 track-author">{{ $toptrack -> track -> artist}}</h6>
                               </td>
                               <td class="text-center">
                                   @if ($toptrack -> track -> track === NULL)
-                                        <a href="tracks/{{ $toptrack -> track -> id }}" class="upload">
+                                        <a href="tracks/{{ $toptrack -> track -> id }}" class="upload track-link">
                                             <h4 class="mt-20">
                                               <i class="fa fa-upload fa-warning" aria-hidden="true"></i>
                                           </h4>
                                         </a>
 
                                     @else
-                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download btn-download">
+                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link">
                                             <h4 class="mt-20">
                                               <i class="fa fa-download fa-success" aria-hidden="true"></i>
                                           </h4>
