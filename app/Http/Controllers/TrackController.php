@@ -254,12 +254,31 @@ class TrackController extends Controller
         if (Auth::user()->type === 'admin') {
             flash('Track was accepted!', 'success');
             $track = Track::find($id);
-            $track-> inspection = 1;
+            $number = $track -> top_track_id;
+            $track -> inspection = 1;
             $user_id = $track->user_id;
             $track->save();
             $user = User::find($user_id);
-            $user -> points += 4;
-            $user -> save();
+            $release = $track -> release;
+            $current_year = '2017-01-01';
+            $last_year = '2016-01-01';
+            $row = TopTrack::where('id','=',$number)->count();
+            if ($row !== 0) {
+                $user -> points += 4;
+                $user -> save();
+            }
+            elseif ($release <= $last_year) {
+                $user -> points += 1;
+                $user -> save();
+            }
+            elseif ($release <= $current_year) {
+                $user -> points += 3;
+                $user -> save();  
+            }
+            else {
+                $user -> points += 4;
+                $user -> save();
+            }
             return redirect()->back();
         }
         else {
