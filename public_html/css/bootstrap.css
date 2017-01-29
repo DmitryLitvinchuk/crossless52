@@ -6828,6 +6828,15 @@ a:hover .fa-success {
 .warning {
   color: #f89406 !important;
 }
+.danger {
+  color: #ee5f5b !important;
+}
+.info {
+  color: #5bc0de !important;
+}
+.gray {
+  color: #7a8288 !important;
+}
 @-ms-viewport {
   width: device-width;
 }

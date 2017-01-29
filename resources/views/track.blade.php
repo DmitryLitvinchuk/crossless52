@@ -19,11 +19,19 @@
                             </a>
                         </div>
                         @if ($track -> track !== NULL)
-                            <div class="btn-group btn-group-lg">
-                              <a href="{{ $track -> id }}/download" class="btn btn-success">
-                                  <i class="fa fa-download" aria-hidden="true"></i>
-                              </a>
-                            </div>
+                            @if ($track -> inspection !== 0)
+                                <div class="btn-group btn-group-lg">
+                                  <a href="{{ $track -> id }}/download" class="btn btn-success">
+                                      <i class="fa fa-download" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                            @else
+                                <div class="btn-group btn-group-lg">
+                                  <a href="{{ $track -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
+                                      <i class="fa fa-download" aria-hidden="true"></i>
+                                  </a>
+                                </div>
+                            @endif
                         @endif
                  </div>
             </div>
@@ -112,11 +120,21 @@
                                 </a>
                               </div>
                             @else
-                              <div class="btn-group btn-group-xs">
-                                <a href="{{ $track -> id }}/download" class="btn btn-success track-link">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                </a>
-                              </div>
+                                @if ($track -> track !== NULL)
+                                    @if ($track -> inspection !== 0)
+                                        <div class="btn-group btn-group-xs">
+                                          <a href="{{ $track -> id }}/download" class="btn btn-success">
+                                              <i class="fa fa-download" aria-hidden="true"></i>
+                                          </a>
+                                        </div>
+                                    @else
+                                        <div class="btn-group btn-group-xs">
+                                          <a href="{{ $track -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
+                                              <i class="fa fa-download" aria-hidden="true"></i>
+                                          </a>
+                                        </div>
+                                    @endif
+                                @endif
                             @endif
                      </div>
                      <div class="caption pos-rel">
@@ -171,11 +189,21 @@
                                 </a>
                               </div>
                             @else
-                              <div class="btn-group btn-group-xs">
-                                <a href="{{ $labeltrack -> id }}/download" class="btn btn-success track-link">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                </a>
-                              </div>
+                                @if ($track -> track !== NULL)
+                                    @if ($labeltrack -> inspection !== 0)
+                                        <div class="btn-group btn-group-lg">
+                                          <a href="{{ $labeltrack -> id }}/download" class="btn btn-success">
+                                              <i class="fa fa-download" aria-hidden="true"></i>
+                                          </a>
+                                        </div>
+                                    @else
+                                        <div class="btn-group btn-group-lg">
+                                          <a href="{{ $labeltrack -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
+                                              <i class="fa fa-download" aria-hidden="true"></i>
+                                          </a>
+                                        </div>
+                                    @endif
+                                @endif
                             @endif
                      </div>
                      <div class="caption pos-rel">

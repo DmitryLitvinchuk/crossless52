@@ -34,11 +34,19 @@
                                 </a>
                               </div>
                             @else
-                              <div class="btn-group btn-group-xs">
-                                <a href="tracks/{{ $track -> id }}/download" class="btn btn-success track-link">
-                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                </a>
-                              </div>
+                                @if ($track -> inspection !== 0)
+                                    <div class="btn-group btn-group-xs">
+                                      <a href="{{ $track -> id }}/download" class="btn btn-success">
+                                          <i class="fa fa-download" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                @else
+                                    <div class="btn-group btn-group-xs">
+                                      <a href="{{ $track -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
+                                          <i class="fa fa-download" aria-hidden="true"></i>
+                                      </a>
+                                    </div>
+                                @endif
                             @endif
                      </div>
                      <div class="caption pos-rel">
@@ -100,11 +108,19 @@
                                         </a>
 
                                     @else
-                                    <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link">
-                                            <h4 class="mt-20">
-                                              <i class="fa fa-download fa-success" aria-hidden="true"></i>
-                                          </h4>
-                                        </a>
+                                        @if ($track -> inspection !== 0)
+                                            <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link">
+                                                <h4 class="mt-20">
+                                                  <i class="fa fa-download fa-success" aria-hidden="true"></i>
+                                              </h4>
+                                            </a>
+                                        @else
+                                            <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link" data-toggle="tooltip" title="This track has not been checked!">
+                                                <h4 class="mt-20">
+                                                  <i class="fa fa-download fa-warning" aria-hidden="true"></i>
+                                                </h4>
+                                            </a>
+                                        @endif
                                     @endif
                               </td>
                             </tr>
