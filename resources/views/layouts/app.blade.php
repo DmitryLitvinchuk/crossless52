@@ -16,11 +16,6 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
-      <script src="../bower_components/respond/dest/respond.min.js"></script>
-    <![endif]-->
   </head>
   <body>
     <div class="navbar navbar-default navbar-fixed-top navbar-shadow">
@@ -35,29 +30,6 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
-            <!-- <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Genres <span class="caret"></span></a>
-              <ul class="dropdown-menu" aria-labelledby="themes">
-                <li><a href="../default/">Default</a></li>
-                <li class="divider"></li>
-                <li><a href="../cerulean/">Cerulean</a></li>
-                <li><a href="../cosmo/">Cosmo</a></li>
-                <li><a href="../cyborg/">Cyborg</a></li>
-                <li><a href="../darkly/">Darkly</a></li>
-                <li><a href="../flatly/">Flatly</a></li>
-                <li><a href="../journal/">Journal</a></li>
-                <li><a href="../lumen/">Lumen</a></li>
-                <li><a href="../paper/">Paper</a></li>
-                <li><a href="../readable/">Readable</a></li>
-                <li><a href="../sandstone/">Sandstone</a></li>
-                <li><a href="../simplex/">Simplex</a></li>
-                <li><a href="../slate/">Slate</a></li>
-                <li><a href="../spacelab/">Spacelab</a></li>
-                <li><a href="../superhero/">Superhero</a></li>
-                <li><a href="../united/">United</a></li>
-                <li><a href="../yeti/">Yeti</a></li>
-              </ul>
-            </li> -->
             <li>
               <a href="/newtracks">New tracks</a>
             </li>
@@ -114,21 +86,20 @@
                    <h6 class="visible-xs text-center">support@crossless.club</h6>
                </div>
                <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
-                   <h4 class="mt-20 text-center">Happy People</h4>
-                   <h5 class="text-center"><a href="#">14000 accounts</a></h5>
-                   <h5 class="text-center"><a href="#">3745 tracks</a></h5>
+                   <h5 class="mt-20 text-center"><a href="/register">Register</a></h5>
+                   <h5 class="text-center"><a href="/top">Top100 Beatport</a></h5>
+                   <h5 class="text-center"><a href="/newtracks">Get tracks</a></h5>
                </div>
                <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
                    <h4 class="mt-25 text-center">We are social</h4>
                    <h3 class="text-center mt-10">
-                       <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                       <a href="#"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                       <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                       <a href="https://www.instagram.com/crossless.club/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                       <a href="https://vk.com/crossless.club" target="_blank"><i class="fa fa-vk" aria-hidden="true"></i></a>
                    </h3>
                </div>
                <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
                    <h4 class="mt-25 text-center">Collaboration & Info</h4>
-                   <h6 class="text-center">support@crossless.club</h6>
+                   <h6 class="text-center">crossless.club@gmail.com</h6>
                </div>
            </div>
           </div>

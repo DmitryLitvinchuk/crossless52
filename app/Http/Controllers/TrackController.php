@@ -87,7 +87,7 @@ class TrackController extends Controller
                 return view('errors.validate', ['error' => $error]);
             }
             else {
-                flash('Track was uploaded!', 'success');
+                flash('Track was uploaded! You will get remaining points after checking.', 'success');
                 $artist = $track->artist;
                 //$artist = preg_replace("/ /","_",$artist);
                 $trackname = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
