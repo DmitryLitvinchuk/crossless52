@@ -49,6 +49,11 @@
                     <li><a href="{{ url('/login') }}">Login</a></li>
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
+                    @if (Auth::user()->type === 'admin')
+                        <li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
+                        <li><a href="{{ url('/wrongtracks') }}">Wrong Tracks</a></li>
+                        <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
+                    @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -63,10 +68,6 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/earnpoints') }}">{{ Auth::user()->points }} points</a></li>
-                    @if (Auth::user()->type === 'admin')
-                        <li><a href="{{ url('/checkracks') }}" class="warning">Non-checked Tracks</a></li>
-                        <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
-                    @endif
                 @endif
             </ul>
 

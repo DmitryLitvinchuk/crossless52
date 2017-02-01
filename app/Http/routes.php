@@ -34,7 +34,9 @@ Route::get('/earnpoints', 'TrackController@earnpoints');
 
 Route::get('/newtracks', 'TrackController@newtracks');
 
-Route::get('/checkracks', 'TrackController@checkracks');
+Route::get('/wrongtracks', 'TrackController@wrongtracks');
+
+Route::get('/checktracks', 'TrackController@checktracks');
 
 Route::get('tracks/{id}', 'TrackController@index');
 
@@ -43,6 +45,8 @@ Route::get('tracks/{id}/wrong', 'TrackController@wrong');
 Route::get('tracks/{id}/delete', 'TrackController@deleteFile');
 
 Route::get('tracks/{id}/accept', 'TrackController@acceptTrack');
+
+Route::get('tracks/{id}/reaccept', 'TrackController@acceptTrack');
 
 Route::get('tracks/{id}/ChooseUploadFile/', 'TrackController@ChooseUploadFile');
 

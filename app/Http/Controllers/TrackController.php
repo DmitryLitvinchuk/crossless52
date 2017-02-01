@@ -53,11 +53,22 @@ class TrackController extends Controller
         }
     }
     
-    public function checkracks()
+    public function checktracks()
     {
         if (Auth::user()->type === 'admin') {
             $tracks = Track::where('track','!=',NULL)->where('inspection','==',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
             return view('newtracks', compact('tracks'));
+        }
+        else {
+            return redirect('/');
+        }
+    }
+    
+    public function wrongtracks(WrongTracks $wrongtrack)
+    {
+        if (Auth::user()->type === 'admin') {
+            $tracks = Track::where('wrong','!=',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
+            return view('wrongtracks', compact('tracks'));
         }
         else {
             return redirect('/');
@@ -215,7 +226,7 @@ class TrackController extends Controller
     public function destroy($id)
     {
         $track = Track::findOrFail($id);
-        $track->delete();
+        $track -> delete();
         return redirect('/');
     }
     
@@ -224,12 +235,14 @@ class TrackController extends Controller
         if (Auth::check()) {
             flash('Track was marked as a wrong track!', 'warning');
             $track = Track::find($id);
-            $title = $track->title;
-            $number = $track->id ;
-            $row = WrongTracks::where('id','=',$number)->count();
-            if ($row === 0) {
-            $wrongTracks = WrongTracks::create(['title' => $title,
-                                    'id' => $number]);
+            //$track  title;
+            //$number = $track->id ;
+            //$row = WrongTracks::where('id','=',$number)->count();
+            if ($track->wrong === 0) {
+            //$wrongTracks = WrongTracks::create(['title' => $title,
+            //                        'id' => $number]);
+                $track->wrong = 1;
+                $track->save();
             return redirect()->back();
             }
             else {
@@ -267,6 +280,7 @@ class TrackController extends Controller
             $track = Track::find($id);
             $number = $track -> top_track_id;
             $track -> inspection = 1;
+            $track -> wrong = 0;
             $user_id = $track->user_id;
             $track->save();
             $user = User::find($user_id);
@@ -290,6 +304,21 @@ class TrackController extends Controller
                 $user -> points += 4;
                 $user -> save();
             }
+            return redirect()->back();
+        }
+        else {
+            return redirect()->back();
+        }
+        //return redirect('/');
+    }
+    
+    public function reacceptTrack($id, User $user)
+    {
+        if (Auth::user()->type === 'admin') {
+            flash('Track was accepted!', 'success');
+            $track = Track::find($id);
+            $track -> wrong = 0;
+            $track->save();
             return redirect()->back();
         }
         else {

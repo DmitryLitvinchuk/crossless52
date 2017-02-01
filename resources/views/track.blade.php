@@ -54,6 +54,12 @@
                         @endif
                     @else
                         <h4 class="m-0">CHECKED <i class="fa success fa-success fa-check" aria-hidden="true"></i></h4>
+                        @if (Auth::user()->type === 'admin')
+                            @if ($track -> wrong !== 0)
+                                <a href="{{ $track -> id }}/reaccept" class="btn btn-success mt-10">REACCEPT TRACK</a>
+                            @endif
+                            <a href="{{ $track -> id }}/delete" class="btn btn-warning mt-10">DELETE TRACK</a>
+                        @endif
                     @endif
                 @endif
             </div>

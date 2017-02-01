@@ -18,6 +18,7 @@ class CreateWrongTracksTable extends Migration
             $table->string('title');
             $table->timestamps();
         });
+        
     }
 
     /**
