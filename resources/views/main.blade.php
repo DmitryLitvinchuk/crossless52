@@ -108,11 +108,11 @@
                                         </a>
 
                                     @else
-                                        @if ($track -> inspection !== 0)
+                                        @if ( $toptrack -> track -> inspection !== 0)
                                             <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link">
                                                 <h4 class="mt-20">
                                                   <i class="fa fa-download success" aria-hidden="true"></i>
-                                              </h4>
+                                                </h4>
                                             </a>
                                         @else
                                             <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link" data-toggle="tooltip" title="This track has not been checked!">
