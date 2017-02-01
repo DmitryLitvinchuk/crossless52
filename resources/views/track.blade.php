@@ -189,13 +189,13 @@
                             @else
                                 @if ($track -> track !== NULL)
                                     @if ($labeltrack -> inspection !== 0)
-                                        <div class="btn-group btn-group-lg">
+                                        <div class="btn-group btn-group-xs">
                                           <a href="{{ $labeltrack -> id }}/download" class="btn btn-success">
                                               <i class="fa fa-download" aria-hidden="true"></i>
                                           </a>
                                         </div>
                                     @else
-                                        <div class="btn-group btn-group-lg">
+                                        <div class="btn-group btn-group-xs">
                                           <a href="{{ $labeltrack -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
                                               <i class="fa fa-download" aria-hidden="true"></i>
                                           </a>
