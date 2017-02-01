@@ -214,7 +214,7 @@ class TrackController extends Controller
             flash('Track was marked as a wrong track!', 'warning');
             $track = Track::find($id);
             $title = $track->title;
-            $number = $track->top_track_id ;
+            $number = $track->id ;
             $row = WrongTracks::where('id','=',$number)->count();
             if ($row === 0) {
             $wrongTracks = WrongTracks::create(['title' => $title,

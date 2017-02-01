@@ -82,10 +82,8 @@
                         </div>
                     </form>              
                 @else
-                    @if ($track -> inspection === 0)
-                        <h4 class="m-0 mt-25">If you think that it's wrong WAV file, PUSH THE BUTTON!</h4>
-                            <a href="{{ $track -> id }}/wrong" class="btn btn-danger mt-10">WRONG TRACK</a>
-                    @endif
+                    <h4 class="m-0 mt-25">If you think that it's wrong WAV file, PUSH THE BUTTON!</h4>
+                    <a href="{{ $track -> id }}/wrong" class="btn btn-danger mt-10">WRONG TRACK</a>
                 @endif
             </div>
         </div>
