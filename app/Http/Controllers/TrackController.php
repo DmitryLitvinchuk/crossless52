@@ -33,8 +33,8 @@ class TrackController extends Controller
             $track = Track::find($id);
             $label = $track -> label;
             $number = $track -> top_track_id;
-            $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
-            $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
+            $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(4);
+            $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(4);
             return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
         }
         else {
