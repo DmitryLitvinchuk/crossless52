@@ -103,7 +103,7 @@
                                   @if ($toptrack -> track -> track === NULL)
                                         <a href="tracks/{{ $toptrack -> track -> id }}" class="upload track-link">
                                             <h4 class="mt-20">
-                                              <i class="fa fa-upload fa-warning" aria-hidden="true"></i>
+                                              <i class="fa fa-upload warning" aria-hidden="true"></i>
                                           </h4>
                                         </a>
 
@@ -111,13 +111,13 @@
                                         @if ($track -> inspection !== 0)
                                             <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link">
                                                 <h4 class="mt-20">
-                                                  <i class="fa fa-download fa-success" aria-hidden="true"></i>
+                                                  <i class="fa fa-download success" aria-hidden="true"></i>
                                               </h4>
                                             </a>
                                         @else
                                             <a href="tracks/{{ $toptrack -> track -> id }}/download" class="download track-link" data-toggle="tooltip" title="This track has not been checked!">
                                                 <h4 class="mt-20">
-                                                  <i class="fa fa-download fa-warning" aria-hidden="true"></i>
+                                                  <i class="fa fa-download gray" aria-hidden="true"></i>
                                                 </h4>
                                             </a>
                                         @endif
