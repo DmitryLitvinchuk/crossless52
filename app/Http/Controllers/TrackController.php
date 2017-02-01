@@ -53,6 +53,17 @@ class TrackController extends Controller
         }
     }
     
+    public function checkracks()
+    {
+        if (Auth::user()->type === 'admin') {
+            $tracks = Track::where('track','!=',NULL)->where('inspection','==',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
+            return view('newtracks', compact('tracks'));
+        }
+        else {
+            return redirect('/');
+        }
+    }
+    
     public function ChooseUploadFile($id)
     {
         if (Auth::check()) {

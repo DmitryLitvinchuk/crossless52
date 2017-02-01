@@ -34,6 +34,8 @@ Route::get('/earnpoints', 'TrackController@earnpoints');
 
 Route::get('/newtracks', 'TrackController@newtracks');
 
+Route::get('/checkracks', 'TrackController@checkracks');
+
 Route::get('tracks/{id}', 'TrackController@index');
 
 Route::get('tracks/{id}/wrong', 'TrackController@wrong');
