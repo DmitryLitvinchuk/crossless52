@@ -28,7 +28,7 @@ return [
 			 * Tracking ID: You have to set this
 			 * Format example: UA-XXXXXXXX-1
 			 */
-			'tracking_id' => env('ANALYTICS_TRACKING_ID', 'UA-XXXXXXXX-1'),
+			'tracking_id' => env('ANALYTICS_TRACKING_ID', 'UA-59859427-2'),
 
 			/**
 			 * Tracking Domain
