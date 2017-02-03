@@ -152,6 +152,7 @@ return [
         SleepingOwl\Admin\Providers\SleepingOwlServiceProvider::class,
         Liebig\Cron\Laravel5ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
+        Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -212,7 +213,7 @@ return [
         'Html' => Illuminate\Html\HtmlFacade::class,
         'Parser' => App\Providers\ParserServiceProvider::class,
         'Flash' => Laracasts\Flash\FlashServiceProvider::class,
-
+        'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,
     ],
 
 ];

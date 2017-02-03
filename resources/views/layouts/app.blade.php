@@ -10,6 +10,7 @@
     {!! Html::style('css/bootstrap.css') !!}
       {!! Html::style('css/crossless.css') !!}
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
+    {!! Analytics::render() !!}
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
