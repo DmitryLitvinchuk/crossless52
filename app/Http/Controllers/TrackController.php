@@ -10,7 +10,6 @@ use App\WrongTracks;
 use App\DownloadedTrack;
 use Auth;
 use DB;
-//use Response;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use File;
@@ -27,6 +26,8 @@ use Illuminate\Http\Response;
 
 class TrackController extends Controller
 {
+    
+    //Страница трека
     public function index($id)
     {
         if (Auth::check()) {
@@ -42,93 +43,7 @@ class TrackController extends Controller
         }
     }
     
-    public function newtracks()
-    {
-        if (Auth::check()) {
-            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(25);
-            return view('newtracks', compact('tracks'));
-        }
-        else {
-            return redirect('/login');
-        }
-    }
-    
-    public function checktracks()
-    {
-        if (Auth::user()->type === 'admin') {
-            $tracks = Track::where('track','!=',NULL)->where('inspection','==',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
-            return view('newtracks', compact('tracks'));
-        }
-        else {
-            return redirect('/');
-        }
-    }
-    
-    public function wrongtracks(WrongTracks $wrongtrack)
-    {
-        if (Auth::user()->type === 'admin') {
-            $tracks = Track::where('wrong','!=',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
-            return view('wrongtracks', compact('tracks'));
-        }
-        else {
-            return redirect('/');
-        }
-    }
-    
-    public function ChooseUploadFile($id)
-    {
-        if (Auth::check()) {
-            Auth::user()->name;
-            $track = Track::find($id);
-            //echo $track->title;
-            return view('uploadtrack')->with('track', $track);
-        }
-        else {
-            return redirect('/login');
-        }
-    }
-    
-    public function UploadFile(Request $request, Track $track, $id)
-    {
-        if (Auth::check()) {
-            $track = Track::find($id);
-            $track-> user_id = Auth::id();
-            
-            /*$file = $request -> song;
-            $coverfilename = $request['name'].'.jpg';
-            $track -> track = $coverfilename;
-            Storage::disk('local')->put($coverfilename, File::get($file));
-            $track->save();*/
-            $trackfile = $request->file('track');
-            $v = Validator::make($request->all(), [
-                'track' => 'required|mimes:wav'
-            ]);
-            if ($v->fails())
-            {
-                $error = 'Your track is not in WAV format.';
-                return view('errors.validate', ['error' => $error]);
-            }
-            else {
-                flash('Track was uploaded! You will get remaining points after checking.', 'success');
-                $artist = $track->artist;
-                //$artist = preg_replace("/ /","_",$artist);
-                $trackname = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
-                //$trackname = preg_replace("/ /","_",$trackname);
-                $track -> track = $trackname;
-                    Storage::disk('s3')->put($trackname, File::get($trackfile), 'public');
-                $track->save();
-                $user = Auth::user();
-                $user->points += 1;
-                $user->save();
-                return redirect()->back();
-            }
-        }
-        else {
-            return redirect('/login');
-        }
-        
-    }
-    
+    //Создать трек через Add Track
     public function create(Request $request, Track $track, User $user)
     {
         if (Auth::check()) {
@@ -141,7 +56,6 @@ class TrackController extends Controller
             }
             else {
                 $html = new \Htmldom($beat);
-                //$track = new Track;
 
                 $title=$html->find('div.interior-title h1', 0)->plaintext;
                 $remixer=$html->find('div.interior-title h1.remixed', 0)->plaintext;
@@ -155,7 +69,6 @@ class TrackController extends Controller
                 $label=$html->find('li.interior-track-labels span.value', 0)->plaintext;
                 $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');;
                 $number=$html->find('button.playable-play',0)->getAttribute('data-track');
-                //$track = Track::find($id);
                 $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
                 DB::statement('SET FOREIGN_KEY_CHECKS=0');
                 $row = Track::where('top_track_id','=',$number)->count();
@@ -171,25 +84,14 @@ class TrackController extends Controller
                                         'remixer' => $remixer,
                                         'label' => $label,
                                         'release' => $release, 
-                                        'preview' => $audio_link,
-                                        /*'link' => $beat*/]);
+                                        'preview' => $audio_link,]);
                 DB::statement('SET FOREIGN_KEY_CHECKS=1');
                 $id = $track -> id;
-                //$track = Track::where('top_track_id','=',$number)->first();
-                //$tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
-                //$labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
-                //return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
-                //return view('track')->with('track', $track); 
                 return redirect('/tracks/'.$id);
                 }
                 else {
                     $track = Track::where('top_track_id',$number)->first();
                     $id = $track -> id;
-                    //$label = $track -> label;
-                    //$number = $track -> top_track_id;
-                    //$tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->orderBy('updated_at', 'desc')->paginate(4);
-                    //$labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->orderBy('updated_at', 'desc')->paginate(4);
-                    //return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
                     return redirect('/tracks/'.$id);
                 }
             }
@@ -199,6 +101,7 @@ class TrackController extends Controller
         }
     }
     
+    //Страница с Top-100 Tracks
     public function TopTrack(Track $track, TopTrack $topTrack)
     {
         if (Auth::user()->type === 'admin') {
@@ -223,24 +126,108 @@ class TrackController extends Controller
         }
     }
     
-    public function destroy($id)
+    
+    //Страница с новыми треками
+    public function newtracks()
+    {
+        if (Auth::check()) {
+            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(25);
+            return view('newtracks', compact('tracks'));
+        }
+        else {
+            return redirect('/login');
+        }
+    }
+    
+    
+    //Страница проверки треков
+    public function checktracks()
+    {
+        if (Auth::user()->type === 'admin') {
+            $tracks = Track::where('track','!=',NULL)->where('inspection','==',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
+            return view('newtracks', compact('tracks'));
+        }
+        else {
+            return redirect('/');
+        }
+    }
+    
+    
+    //Страница неправильных треков
+    public function wrongtracks(WrongTracks $wrongtrack)
+    {
+        if (Auth::user()->type === 'admin') {
+            $tracks = Track::where('wrong','!=',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
+            return view('wrongtracks', compact('tracks'));
+        }
+        else {
+            return redirect('/');
+        }
+    }
+    
+    
+    //Выбрать трек для загрузки
+    public function ChooseUploadFile($id)
+    {
+        if (Auth::check()) {
+            Auth::user()->name;
+            $track = Track::find($id);
+            return view('uploadtrack')->with('track', $track);
+        }
+        else {
+            return redirect('/login');
+        }
+    }
+    
+    
+    //Загрузка трека
+    public function UploadFile(Request $request, Track $track, $id)
+    {
+        if (Auth::check()) {
+            $track = Track::find($id);
+            $track-> user_id = Auth::id();
+            $trackfile = $request->file('track');
+            $v = Validator::make($request->all(), [
+                'track' => 'required|mimes:wav'
+            ]);
+            if ($v->fails())
+            {
+                $error = 'Your track is not in WAV format.';
+                return view('errors.validate', ['error' => $error]);
+            }
+            else {
+                flash('Track was uploaded! You will get remaining points after checking.', 'success');
+                $number = $track->top_track_id.'.wav';
+                Storage::disk('s3')->put($number, File::get($trackfile), 'public');
+                $track -> track = $number;
+                $track->save();
+                $user = Auth::user();
+                $user->points += 1;
+                $user->save();
+                return redirect()->back();
+            }
+        }
+        else {
+            return redirect('/login');
+        }
+        
+    }
+    
+    /*public function destroy($id)
     {
         $track = Track::findOrFail($id);
         $track -> delete();
         return redirect('/');
-    }
+    }*/
     
+    
+    //Отметить трек как неправильный
     public function wrong($id, WrongTracks $wrongTrack)
     {
         if (Auth::check()) {
             flash('Track was marked as a wrong track!', 'warning');
             $track = Track::find($id);
-            //$track  title;
-            //$number = $track->id ;
-            //$row = WrongTracks::where('id','=',$number)->count();
             if ($track->wrong === 0) {
-            //$wrongTracks = WrongTracks::create(['title' => $title,
-            //                        'id' => $number]);
                 $track->wrong = 1;
                 $track->save();
             return redirect()->back();
@@ -252,9 +239,10 @@ class TrackController extends Controller
         else {
             return redirect('/login');
         }
-        //return redirect('/');
     }
     
+    
+    //Удалить трек
     public function deleteFile($id)
     {
         if (Auth::user()->type === 'admin') {
@@ -270,9 +258,10 @@ class TrackController extends Controller
         else {
             return redirect()->back();
         }
-        //return redirect('/');
     }
     
+    
+    //Верефицировать трек
     public function acceptTrack($id, User $user)
     {
         if (Auth::user()->type === 'admin') {
@@ -309,9 +298,10 @@ class TrackController extends Controller
         else {
             return redirect()->back();
         }
-        //return redirect('/');
     }
     
+    
+    //Переверифицировать трек
     public function reacceptTrack($id, User $user)
     {
         if (Auth::user()->type === 'admin') {
@@ -324,40 +314,54 @@ class TrackController extends Controller
         else {
             return redirect()->back();
         }
-        //return redirect('/');
     }
     
+    
+    //Скачать трек
     public function download($id, DownloadedTrack $downloadedtrack)
     {
         if (Auth::check()) {
         $user = Auth::user();
-        //$points = $user->points;
         if ($user->points >= 1) {
             $track = Track::findOrFail($id);
             $trackname = $track->track;
-            //$filePath = 'app/tracks/';
-            //$image = Storage::disk('rackspace')->get($trackname);
-            //$pathToFile = Storage::url($trackname);
-            $url = Storage::disk('s3')->url($trackname);
-            $user->points -= 1;
-            $user->save();
-            $downloadedtrack = DownloadedTrack::create([
-                                    'title' => $track->title, 
-                                    'user_id' => $user->id, 
-                                    'track_id' => $track->id, 
-                                    'artist' => $track->artist]);
-            $tempTrack = tempnam(sys_get_temp_dir(), $trackname);
-            copy($url, $tempTrack);
-            return response()->download($tempTrack, $trackname);
-            //return $url;
-            //return (new Response($file, 200))
-            //  ->header('Content-Type', '.wav');
-            
-            //return response()->download($file, '1.wav', $headers);
+            $number = $track->top_track_id.'.wav';
+            if ($trackname !== $number) {
+                Storage::disk('s3')->move($trackname, $number);
+                $track -> track = $number;
+                $track->save();
+                $trackname = $track->track;
+                $url = Storage::disk('s3')->url($number);
+                $user->points -= 1;
+                $user->save();
+                $downloadedtrack = DownloadedTrack::create([
+                                        'title' => $track->title, 
+                                        'user_id' => $user->id, 
+                                        'track_id' => $track->id, 
+                                        'artist' => $track->artist]);
+                $tempTrack = tempnam(sys_get_temp_dir(), 'trackname');
+                copy($url, $tempTrack);
+                $track_title = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
+                return response()->download($tempTrack, $track_title);
+            }
+            else {
+                $trackname = $track->track;
+                $url = Storage::disk('s3')->url($trackname);
+                $user->points -= 1;
+                $user->save();
+                $downloadedtrack = DownloadedTrack::create([
+                                        'title' => $track->title, 
+                                        'user_id' => $user->id, 
+                                        'track_id' => $track->id, 
+                                        'artist' => $track->artist]);
+                $tempTrack = tempnam(sys_get_temp_dir(), 'trackname');
+                copy($url, $tempTrack);
+                $track_title = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
+                return response()->download($tempTrack, $track_title);
+            }
         }
         else {
-            //$tracks = Track::where('track','=',NULL)->orderBy('created_at', 'desc')->simplePaginate(15);
-            return redirect('/earnpoints')->with('flash_message', "You don't have enough points")/*view('earnpoints', compact('tracks'))*/;
+            return redirect('/earnpoints')->with('flash_message', "You don't have enough points");
         }
         }
         else {
@@ -365,6 +369,8 @@ class TrackController extends Controller
         }
     }
     
+    
+    //Страница с треками, которые нужно загрузить
     public function earnpoints() {
         if (Auth::check()) {
             $tracks = Track::where('track','=',NULL)->orderBy('created_at', 'desc')->simplePaginate(15);
@@ -375,14 +381,10 @@ class TrackController extends Controller
         }
     }
     
+    
+    //Страница с вводом ссылки для парсера
     public function ParseNewTrack(Request $request)
     {
         return view('inputparser');
     }
-    
-    /*public function ShowNewTrack(Request $request)
-    {
-        $html = $request->input('html');
-        return view('showtrack');
-    }*/
 }

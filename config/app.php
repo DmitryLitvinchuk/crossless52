@@ -153,6 +153,7 @@ return [
         Liebig\Cron\Laravel5ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
+        Skydiver\LaravelFlysystemB2\B2ServiceProvider::class,
 
         /*
          * Application Service Providers...
