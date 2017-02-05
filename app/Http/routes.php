@@ -40,6 +40,8 @@ Route::get('/checktracks', 'TrackController@checktracks');
 
 Route::get('tracks/{id}', 'TrackController@index');
 
+Route::get('tracks/{id}/info', 'TrackController@info');
+
 Route::get('tracks/{id}/wrong', 'TrackController@wrong');
 
 Route::get('tracks/{id}/delete', 'TrackController@deleteFile');

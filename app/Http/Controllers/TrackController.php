@@ -9,6 +9,7 @@ use App\TopTrack;
 use App\WrongTracks;
 use App\DownloadedTrack;
 use Auth;
+use Flavy;
 use DB;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
@@ -252,6 +253,7 @@ class TrackController extends Controller
             Storage::disk('s3')->delete($trackname);
             $track-> user_id = null;
             $track-> track = null;
+            $track-> wrong = null;
             $track->save();
             return redirect()->back();
         }
@@ -326,14 +328,16 @@ class TrackController extends Controller
             $track = Track::findOrFail($id);
             $trackname = $track->track;
             $number = $track->top_track_id.'.wav';
+            $track_user_id = $track -> user_id;
             if ($trackname !== $number) {
                 Storage::disk('s3')->move($trackname, $number);
                 $track -> track = $number;
-                $track->save();
+                $track -> user_id = $track_user_id;
+                $track -> save();
                 $trackname = $track->track;
                 $url = Storage::disk('s3')->url($number);
-                $user->points -= 1;
-                $user->save();
+                $user -> points -= 1;
+                $user -> save();
                 $downloadedtrack = DownloadedTrack::create([
                                         'title' => $track->title, 
                                         'user_id' => $user->id, 
@@ -386,5 +390,23 @@ class TrackController extends Controller
     public function ParseNewTrack(Request $request)
     {
         return view('inputparser');
+    }
+    
+    public function info($id)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->type === 'admin') {
+                $track = Track::findOrFail($id);
+                $trackname = $track->track;
+                $url = Storage::disk('local')->get($trackname);
+                Flavy::info($url);
+            }
+            else {
+                return redirect()->back();
+            }
+        }
+        else {
+            return redirect('/login');
+        }
     }
 }

@@ -10,6 +10,7 @@ use App\TopTrack;
 
 class MainController extends Controller
 {
+    //Главная страница
     public function index(Track $track, TopTrack $toptrack)
     {
         $tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
@@ -17,11 +18,13 @@ class MainController extends Controller
         return view('main', compact('tracks', 'toptracks'));
     }
     
+    //Страница информации
     public function about()
     {
         return view('about');
     }
     
+    //Страница Топ100
     public function top(Track $track)
     {
         //$toptracks = TopTrack::all();
