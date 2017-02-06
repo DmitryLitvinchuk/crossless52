@@ -12,6 +12,13 @@
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
     {!! Analytics::render() !!}
     <!-- Scripts -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> 
+    <script> 
+        (adsbygoogle = window.adsbygoogle || []).push({ 
+        google_ad_client: "ca-pub-6510754704680801", 
+        enable_page_level_ads: true 
+        }); 
+    </script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -31,10 +38,35 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar-main">
           <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    Genres <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ url('genres/Big Room') }}">Big Room</a></li>
+                    <li><a href="{{ url('genres/Deep House') }}">Deep House</a></li>
+                    <li><a href="{{ url('genre/drum-bass') }}">Drum&Bass</a></li>
+                    <li><a href="{{ url('genres/Dubstep') }}">Dubstep</a></li>
+                    <li><a href="{{ url('genres/Electro House') }}">Electro House</a></li>
+                    <li><a href="{{ url('genre/electronica-downtempo') }}">Electronica / Downtempo</a></li>
+                    <li><a href="{{ url('genres/Future House') }}">Future House</a></li>
+                    <li><a href="{{ url('genre/hardcore-hard-techno') }}">Hardcore / Hard Techno</a></li>
+                    <li><a href="{{ url('genres/Hard Dance') }}">Hard Dance</a></li>
+                    <li><a href="{{ url('genres/Hip-Hop') }}">Hip-Hop</a></li>
+                    <li><a href="{{ url('genres/House') }}">House</a></li>
+                    <li><a href="{{ url('genre/indie-dance-nu-disco') }}">Indie Dance / Nu Disco</a></li>
+                    <li><a href="{{ url('genres/Minimal') }}">Minimal</a></li>
+                    <li><a href="{{ url('genres/Progressive House') }}">Progressive House</a></li>
+                    <li><a href="{{ url('genres/Psy-Trance') }}">Psy-Trance</a></li>
+                    <li><a href="{{ url('genres/Tech House') }}">Tech House</a></li>
+                    <li><a href="{{ url('genres/Techno') }}">Techno</a></li>
+                    <li><a href="{{ url('genres/Trance') }}">Trance</a></li>
+                </ul>
+            </li>
             <li>
               <a href="/newtracks">New tracks</a>
             </li>
-            <li>
+            <li class="hidden-sm">
               <a href="/top">Top100</a>
             </li>
             <li>

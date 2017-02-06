@@ -155,6 +155,7 @@ return [
         Ipunkt\LaravelAnalytics\AnalyticsServiceProvider::class,
         Skydiver\LaravelFlysystemB2\B2ServiceProvider::class,
         Folour\Flavy\Provider\FlavyServiceProvider::class,
+        Mastergalen\AdsenseAds\AdsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -217,6 +218,7 @@ return [
         'Flash' => Laracasts\Flash\FlashServiceProvider::class,
         'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,
         'Flavy' => Folour\Flavy\FlavyFacade::class,
+        'Ads' => Mastergalen\AdsenseAds\AdsFacade::class,
     ],
 
 ];

@@ -50,13 +50,35 @@
                                   <h5 class="mt-22 track-author"><a href="#">{{ $toptrack -> track -> artist}}</a></h5>
                               </td>
                               <td>
-                                  <h6 class="mt-25"><a href="#">{{ $toptrack -> track -> genre}}</a></h6>
+                                <h6 class="mt-25">
+                                    @if ($toptrack -> track -> genre === 'Indie Dance / Nu Disco')
+                                        <a href="genre/indie-dance-nu-disco">{{ $toptrack -> track -> genre}}</a>
+                                    @elseif($toptrack -> track -> genre === 'Drum &amp; Bass')
+                                        <a href="genre/drum-bass">{{ $toptrack -> track -> genre}}</a>
+                                    @elseif($toptrack -> track -> genre === 'Electronica / Downtempo')
+                                        <a href="genre/electronica-downtempo">{{ $toptrack -> track -> genre}}</a>
+                                    @elseif($toptrack -> track -> genre === 'Hardcore / Hard Techno')
+                                        <a href="genre/hardcore-hard-techno">{{ $toptrack -> track -> genre}}</a>
+                                    @elseif($toptrack -> track -> genre === 'Hardcore / Hard Techno')
+                                        <a href="genre/hardcore-hard-techno">{{ $toptrack -> track -> genre}}</a>
+                                    @else
+                                        <a href="genres/{{ $toptrack -> track -> genre}}">{{ $toptrack -> track -> genre}}</a>
+                                    @endif
+                                </h6>
                               </td>
                               <td class="hidden-xs">
                                   <h6 class="mt-25">{{ $toptrack -> track -> bpm}}</h6>
                               </td>
                               <td class="hidden-xs">
-                                  <h5 class="mt-22"><a href="#">{{ $toptrack -> track -> label}}</a></h5>
+                                <h5 class="mt-22">
+                                    @if ($toptrack -> track -> label === 'Spinnin&#39; Remixes')
+                                        <a href="label/spinnin">{{ $toptrack -> track -> label}}</a>
+                                    @elseif($toptrack -> track -> label === 'SPINNIN&#39; RECORDS')
+                                        <a href="label/spinnin">{{ $toptrack -> track -> label}}</a>
+                                    @else
+                                        <a href="labels/{{ $toptrack -> track -> label}}">{{ $toptrack -> track -> label}}</a>
+                                    @endif  
+                                </h5>
                               </td>
                               <td class="hidden-xs w-74">
                                   <h6 class="mt-25">{{ $toptrack -> track -> release}}</h6>

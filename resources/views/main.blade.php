@@ -6,7 +6,7 @@
         <div class="row mt-20">
           <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
               <h1>
-                  New Tracks
+                  {{ $page_name }}
                   <a href="/newtracks" class="pull-right">all</a>
               </h1>
               <div class="row">
@@ -36,7 +36,7 @@
                             @else
                                 @if ($track -> inspection !== 0)
                                     <div class="btn-group btn-group-xs">
-                                      <a href="{{ $track -> id }}/download" class="btn btn-success">
+                                      <a href="tracks/{{ $track -> id }}/download" class="btn btn-success">
                                           <i class="fa fa-download" aria-hidden="true"></i>
                                       </a>
                                     </div>
@@ -57,10 +57,10 @@
                             {{ $track -> artist}}
                         </h6>
                         <h6 class="m-0 hover">
-                            <a href="#">{{ $track -> label}}</a>
+                            @include('label-link')
                         </h6>
                         <h6 class="m-0 hover">
-                            <a href="#">{{ $track -> genre}}</a>
+                            @include('genre-link')
                         </h6>
                       </div>
                     </div>

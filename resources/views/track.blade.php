@@ -65,6 +65,7 @@
                                 <a href="{{ $track -> id }}/reaccept" class="btn btn-success mt-10">REACCEPT TRACK</a>
                             @endif
                             <a href="{{ $track -> id }}/delete" class="btn btn-warning mt-10">DELETE TRACK</a>
+                            <a href="{{ $track -> id }}/changes" class="btn btn-info mt-10">CHANGES</a>
                         @endif
                     @endif
                 @endif
@@ -173,7 +174,7 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <h1>
                   Other tracks from this label
-                  <a href="#" class="pull-right">all</a>
+                  <a href="../{{ $link_label }}" class="pull-right">all</a>
               </h1>
               <div class="row">
                  @foreach ($labeltracks as $labeltrack)

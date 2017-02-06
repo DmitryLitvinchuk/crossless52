@@ -40,7 +40,23 @@ Route::get('/checktracks', 'TrackController@checktracks');
 
 Route::get('tracks/{id}', 'TrackController@index');
 
+Route::get('genres/{genre?}', 'MainController@genre');
+
+Route::get('genre/indie-dance-nu-disco', 'MainController@IndieDanceNuDisco');
+
+Route::get('genre/electronica-downtempo', 'MainController@ElectronicaDowntempo');
+
+Route::get('genre/hardcore-hard-techno', 'MainController@HardcoreHardTechno');
+
+Route::get('genre/drum-bass', 'MainController@DrumBass');
+
+Route::get('labels/{label}', 'MainController@label');
+
+Route::get('label/spinnin', 'MainController@Spinnin');
+
 Route::get('tracks/{id}/info', 'TrackController@info');
+
+Route::get('tracks/{id}/changes', 'TrackController@changes');
 
 Route::get('tracks/{id}/wrong', 'TrackController@wrong');
 

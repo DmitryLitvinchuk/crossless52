@@ -34,10 +34,19 @@ class TrackController extends Controller
         if (Auth::check()) {
             $track = Track::find($id);
             $label = $track -> label;
+            if ($label === 'Spinnin&#39; Remixes') {
+                $link_label = 'label/spinnin';
+            }
+            elseif ($label === 'SPINNIN&#39; RECORDS') {
+                $link_label = 'label/spinnin';
+            }
+            else {
+                $link_label = 'labels/'.$label;
+            }
             $number = $track -> top_track_id;
             $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(4);
             $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(4);
-            return view('track', compact('track', 'tracks'))->with('labeltracks', $labeltracks);
+            return view('track', compact('track', 'tracks','link_label'))->with('labeltracks', $labeltracks);
         }
         else {
             return redirect('/login');
@@ -60,14 +69,17 @@ class TrackController extends Controller
 
                 $title=$html->find('div.interior-title h1', 0)->plaintext;
                 $remixer=$html->find('div.interior-title h1.remixed', 0)->plaintext;
-                foreach($html->find('div.interior-track-artists a') as $artist) {
+                /*foreach($html->find('div.interior-track-artists a') as $artist) {
                     $artist = $artist->innertext.' ';
-                }
+                }*/
+                $artist = $html->find('div.interior-track-artists a', 0)->innertext;
                 $release=$html->find('li.interior-track-released span.value', 0)->plaintext;
                 $bpm=$html->find('li.interior-track-bpm span.value', 0)->plaintext;
                 $key=$html->find('li.interior-track-key span.value', 0)->plaintext;
                 $genre=$html->find('li.interior-track-genre span.value', 0)->plaintext;
+                $new_genre = trim($genre);
                 $label=$html->find('li.interior-track-labels span.value', 0)->plaintext;
+                $new_label = trim($label);
                 $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');;
                 $number=$html->find('button.playable-play',0)->getAttribute('data-track');
                 $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
@@ -78,12 +90,12 @@ class TrackController extends Controller
                                         'user_id' => NULL, 
                                         'top_track_id' => $number, 
                                         'artist' => $artist, 
-                                        'genre' => $genre, 
+                                        'genre' => $new_genre, 
                                         'bpm' => $bpm, 
                                         'key' => $key, 
                                         'cover' => $img,
                                         'remixer' => $remixer,
-                                        'label' => $label,
+                                        'label' => $new_label,
                                         'release' => $release, 
                                         'preview' => $audio_link,]);
                 DB::statement('SET FOREIGN_KEY_CHECKS=1');
@@ -254,6 +266,7 @@ class TrackController extends Controller
             $track-> user_id = null;
             $track-> track = null;
             $track-> wrong = null;
+            $track -> inspection = 0;
             $track->save();
             return redirect()->back();
         }
@@ -392,13 +405,37 @@ class TrackController extends Controller
         return view('inputparser');
     }
     
+    //Страница с вводом ссылки для парсера
+    public function changes($id)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->type === 'admin') {
+                flash('Track was canged!', 'success');
+
+                $track = Track::find($id);
+                $label = $track -> label;
+                $new_label = trim($label);
+                $track -> label = $new_label;
+                $track->save();
+                return redirect()->back();
+            }
+            else {
+                return redirect()->back();
+            }
+        }
+        else {
+            return redirect('/login');
+        }
+        
+    }
+    
     public function info($id)
     {
         if (Auth::check()) {
             if (Auth::user()->type === 'admin') {
                 $track = Track::findOrFail($id);
                 $trackname = $track->track;
-                $url = Storage::disk('local')->get($trackname);
+                $url = Storage::disk('s3')->get($trackname);
                 Flavy::info($url);
             }
             else {

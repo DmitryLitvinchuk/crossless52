@@ -49,13 +49,15 @@
                                   <h5 class="mt-22"><a href="#" class="track-author">{{ $track -> artist}}</a></h5>
                               </td>
                               <td>
-                                  <h6 class="mt-25"><a href="#">{{ $track -> genre}}</a></h6>
+                                <h6 class="mt-25">
+                                    @include('genre-link')
+                                </h6>
                               </td>
                               <td class="hidden-xs">
                                   <h6 class="mt-25">{{ $track -> bpm}}</h6>
                               </td>
                               <td class="hidden-xs">
-                                  <h5 class="mt-22"><a href="#">{{ $track -> label}}</a></h5>
+                                  <h5 class="mt-22">@include('label-link')</h5>
                               </td>
                               <td class="hidden-xs w-74">
                                   <h6 class="mt-25">{{ $track -> release}}</h6>
