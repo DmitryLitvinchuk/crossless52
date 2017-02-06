@@ -75,6 +75,10 @@
                                         <a href="label/spinnin">{{ $toptrack -> track -> label}}</a>
                                     @elseif($toptrack -> track -> label === 'SPINNIN&#39; RECORDS')
                                         <a href="label/spinnin">{{ $toptrack -> track -> label}}</a>
+                                    @elseif($toptrack -> track -> label === 'SPRS')
+                                        <a href="label/spinnin">{{ $toptrack -> track -> label}}</a>
+                                    @elseif($toptrack -> track -> label === "SPINNIN'%20DEEP")
+                                        <a href="label/spinnin">{{ $toptrack -> track -> label}}</a>
                                     @else
                                         <a href="labels/{{ $toptrack -> track -> label}}">{{ $toptrack -> track -> label}}</a>
                                     @endif  

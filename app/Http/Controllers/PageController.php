@@ -8,7 +8,7 @@ use DB;
 use App\Track;
 use App\TopTrack;
 
-class MainController extends Controller
+class PageController extends Controller
 {
     //Главная страница
     public function index(Track $track, TopTrack $toptrack)
@@ -138,3 +138,4 @@ class MainController extends Controller
         return view('top', compact('toptracks'));
     }
 }
+

@@ -40,6 +40,12 @@ class TrackController extends Controller
             elseif ($label === 'SPINNIN&#39; RECORDS') {
                 $link_label = 'label/spinnin';
             }
+            elseif ($label === 'SPRS') {
+                $link_label = 'label/spinnin';
+            }
+            elseif ($label === "SPINNIN&#39; DEEP") {
+                $link_label = 'label/spinnin';
+            }
             else {
                 $link_label = 'labels/'.$label;
             }
@@ -405,8 +411,8 @@ class TrackController extends Controller
         return view('inputparser');
     }
     
-    //Страница с вводом ссылки для парсера
-    public function changes($id)
+    //Изменения для трека
+    /*public function changes($id)
     {
         if (Auth::check()) {
             if (Auth::user()->type === 'admin') {
@@ -427,7 +433,7 @@ class TrackController extends Controller
             return redirect('/login');
         }
         
-    }
+    }*/
     
     public function info($id)
     {

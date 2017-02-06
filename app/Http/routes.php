@@ -12,11 +12,11 @@
 */
 
 
-Route::get('/', 'MainController@index');
+Route::get('/', 'PageController@index');
 
-Route::get('/about', 'MainController@about');
+Route::get('/about', 'PageController@about');
 
-Route::get('/top', 'MainController@top');
+Route::get('/top', 'PageController@top');
 
 Route::get('/toptrack', 'TrackController@toptrack');
 
@@ -40,23 +40,23 @@ Route::get('/checktracks', 'TrackController@checktracks');
 
 Route::get('tracks/{id}', 'TrackController@index');
 
-Route::get('genres/{genre?}', 'MainController@genre');
+Route::get('genres/{genre?}', 'PageController@genre');
 
-Route::get('genre/indie-dance-nu-disco', 'MainController@IndieDanceNuDisco');
+Route::get('genre/indie-dance-nu-disco', 'PageController@IndieDanceNuDisco');
 
-Route::get('genre/electronica-downtempo', 'MainController@ElectronicaDowntempo');
+Route::get('genre/electronica-downtempo', 'PageController@ElectronicaDowntempo');
 
-Route::get('genre/hardcore-hard-techno', 'MainController@HardcoreHardTechno');
+Route::get('genre/hardcore-hard-techno', 'PageController@HardcoreHardTechno');
 
-Route::get('genre/drum-bass', 'MainController@DrumBass');
+Route::get('genre/drum-bass', 'PageController@DrumBass');
 
-Route::get('labels/{label}', 'MainController@label');
+Route::get('labels/{label}', 'PageController@label');
 
-Route::get('label/spinnin', 'MainController@Spinnin');
+Route::get('label/spinnin', 'PageController@Spinnin');
 
 Route::get('tracks/{id}/info', 'TrackController@info');
 
-Route::get('tracks/{id}/changes', 'TrackController@changes');
+//Route::get('tracks/{id}/changes', 'TrackController@changes');
 
 Route::get('tracks/{id}/wrong', 'TrackController@wrong');
 
