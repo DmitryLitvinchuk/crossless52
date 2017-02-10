@@ -217,7 +217,7 @@ class TrackController extends Controller
             else {
                 flash('Track was uploaded! You will get remaining points after checking.', 'success');
                 $number = $track->top_track_id.'.wav';
-                Storage::disk('local')->put($number, File::get($trackfile), 'public');
+                Storage::disk('s3')->put($number, File::get($trackfile), 'public');
                 $track -> track = $number;
                 $track->save();
                 $user = Auth::user();
@@ -274,7 +274,7 @@ class TrackController extends Controller
             flash('Track was deleted!', 'warning');
             $track = Track::find($id);
             $trackname = $track->track;
-            Storage::disk('local')->delete($trackname);
+            Storage::disk('s3')->delete($trackname);
             $user = User::find($track -> user_id);
             $user -> accepted_tracks = 0;
             $user->save();
