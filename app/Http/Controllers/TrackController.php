@@ -217,13 +217,19 @@ class TrackController extends Controller
             else {
                 flash('Track was uploaded! You will get remaining points after checking.', 'success');
                 $number = $track->top_track_id.'.wav';
-                Storage::disk('s3')->put($number, File::get($trackfile), 'public');
+                Storage::disk('local')->put($number, File::get($trackfile), 'public');
                 $track -> track = $number;
                 $track->save();
                 $user = Auth::user();
-                $user->points += 1;
-                $user->save();
-                return redirect()->back();
+                if (Auth::user()->accepted_tracks > 10) {
+                    $user->points += 1;
+                    $user->save();
+                    return redirect()->back();
+                }
+                else {
+                    return redirect()->back();
+                }
+                
             }
         }
         else {
@@ -268,7 +274,10 @@ class TrackController extends Controller
             flash('Track was deleted!', 'warning');
             $track = Track::find($id);
             $trackname = $track->track;
-            Storage::disk('s3')->delete($trackname);
+            Storage::disk('local')->delete($trackname);
+            $user = User::find($track -> user_id);
+            $user -> accepted_tracks = 0;
+            $user->save();
             $track-> user_id = null;
             $track-> track = null;
             $track-> wrong = null;
@@ -291,30 +300,56 @@ class TrackController extends Controller
             $number = $track -> top_track_id;
             $track -> inspection = 1;
             $track -> wrong = 0;
-            $user_id = $track->user_id;
             $track->save();
-            $user = User::find($user_id);
+            $user = User::find($track->user_id);
             $release = $track -> release;
             $current_year = '2017-01-01';
             $last_year = '2016-01-01';
-            $row = TopTrack::where('id','=',$number)->count();
-            if ($row !== 0) {
-                $user -> points += 4;
-                $user -> save();
-            }
-            elseif ($release <= $last_year) {
-                $user -> points += 1;
-                $user -> save();
-            }
-            elseif ($release <= $current_year) {
-                $user -> points += 3;
-                $user -> save();  
+            if ($user -> accepted_tracks > 10) {
+                $user -> accepted_tracks +=1;
+                $row = TopTrack::where('id','=',$number)->count();
+                if ($row !== 0) {
+                    $user -> points += 5;
+                    $user -> save();
+                }
+                elseif ($release <= $last_year) {
+                    $user -> points += 1;
+                    $user -> save();
+                }
+                elseif ($release <= $current_year) {
+                    $user -> points += 3;
+                    $user -> save();  
+                }
+                else {
+                    $user -> points += 4;
+                    $user -> save();
+                }
+                return redirect()->back(); 
             }
             else {
-                $user -> points += 4;
-                $user -> save();
+                $row = TopTrack::where('id','=',$number)->count();
+                if ($row !== 0) {
+                    $user -> accepted_tracks +=2;
+                    $user -> points += 6;
+                    $user -> save();
+                }
+                elseif ($release <= $last_year) {
+                    $user -> accepted_tracks +=1;
+                    $user -> points += 2;
+                    $user -> save();
+                }
+                elseif ($release <= $current_year) {
+                    $user -> accepted_tracks +=1;
+                    $user -> points += 4;
+                    $user -> save();  
+                }
+                else {
+                    $user -> accepted_tracks +=2;
+                    $user -> points += 5;
+                    $user -> save();
+                }
+                return redirect()->back();
             }
-            return redirect()->back();
         }
         else {
             return redirect()->back();

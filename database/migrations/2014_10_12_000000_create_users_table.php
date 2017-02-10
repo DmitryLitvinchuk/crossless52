@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('type')->default('user');
             $table->string('email')->unique();
+            $table->integer('accepted_tracks');
             $table->string('password');
             $table->integer('points');
             $table->rememberToken();
