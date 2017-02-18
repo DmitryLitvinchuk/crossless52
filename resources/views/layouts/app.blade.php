@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>CrossLess</title>
+    @yield('meta')
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,13 +12,7 @@
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
     {!! Analytics::render() !!}
     <!-- Scripts -->
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> 
-    <script> 
-        (adsbygoogle = window.adsbygoogle || []).push({ 
-        google_ad_client: "ca-pub-6510754704680801", 
-        enable_page_level_ads: true 
-        }); 
-    </script>
+    
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),

@@ -7,6 +7,9 @@ use User;
 use DB;
 use App\Track;
 use App\TopTrack;
+use SEOMeta;
+use OpenGraph;
+use Twitter;
 
 class PageController extends Controller
 {
@@ -52,6 +55,15 @@ class PageController extends Controller
         return view('genre', compact('tracks', 'page_name'));
     }
     
+    //Страница Spinnin
+    public function AfraidOf138()
+    {
+        //UPDATE tracks SET label=TRIM(label)
+        $page_name = "Who's Afraid Of 138?!";
+        $tracks = Track::where('label',"Who&#39;s Afraid Of 138?!")->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
+        return view('genre', compact('tracks', 'page_name'));
+    }
+    
     //Страница Indie Dance / Nu Disco
     public function IndieDanceNuDisco()
     {
@@ -92,6 +104,7 @@ class PageController extends Controller
     public function top(Track $track)
     {
         //$toptracks = TopTrack::all();
+        SEOMeta::setKeywords(['lossless', 'download wav', 'beatport', 'download music', 'top 100']);
         $toptracks = DB::table('top_tracks')->get();
         foreach ($toptracks as $toptrack) {
             //echo $toptrack->id;

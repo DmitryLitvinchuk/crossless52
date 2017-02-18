@@ -156,6 +156,7 @@ return [
         Skydiver\LaravelFlysystemB2\B2ServiceProvider::class,
         Folour\Flavy\Provider\FlavyServiceProvider::class,
         Mastergalen\AdsenseAds\AdsServiceProvider::class,
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -219,6 +220,9 @@ return [
         'Analytics' => Ipunkt\LaravelAnalytics\AnalyticsFacade::class,
         'Flavy' => Folour\Flavy\FlavyFacade::class,
         'Ads' => Mastergalen\AdsenseAds\AdsFacade::class,
+        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
     ],
 
 ];

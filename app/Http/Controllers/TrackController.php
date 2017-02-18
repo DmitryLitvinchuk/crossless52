@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Response;
+use SEOMeta;
+use OpenGraph;
+use Twitter;
 
 class TrackController extends Controller
 {
@@ -45,6 +48,9 @@ class TrackController extends Controller
             }
             elseif ($label === "SPINNIN&#39; DEEP") {
                 $link_label = 'label/spinnin';
+            }
+            elseif ($label === "Who&#39;s Afraid Of 138?!") {
+                $link_label = 'label/who-is-afraid-of-138';
             }
             else {
                 $link_label = 'labels/'.$label;
@@ -149,6 +155,7 @@ class TrackController extends Controller
     //Страница с новыми треками
     public function newtracks()
     {
+        SEOMeta::setKeywords(['lossless', 'download wav', 'beatport', 'download music', 'new tracks']);
         if (Auth::check()) {
             $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(25);
             return view('newtracks', compact('tracks'));

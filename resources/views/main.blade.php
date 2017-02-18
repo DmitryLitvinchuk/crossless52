@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('meta')
+    {!! SEOMeta::generate() !!}
+@endsection
+
+
 @section('content')
 
     <div class="container">

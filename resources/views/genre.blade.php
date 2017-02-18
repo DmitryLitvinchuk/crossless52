@@ -35,13 +35,13 @@
                             @else
                                 @if ($track -> inspection !== 0)
                                     <div class="btn-group btn-group-xs">
-                                      <a href="{{ $track -> id }}/download" class="btn btn-success">
+                                      <a href="../tracks/{{ $track -> id }}/download" class="btn btn-success">
                                           <i class="fa fa-download" aria-hidden="true"></i>
                                       </a>
                                     </div>
                                 @else
                                     <div class="btn-group btn-group-xs">
-                                      <a href="{{ $track -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
+                                      <a href="../tracks/{{ $track -> id }}/download" class="btn btn-default" data-toggle="tooltip" title="This track has not been checked!">
                                           <i class="fa fa-download" aria-hidden="true"></i>
                                       </a>
                                     </div>
@@ -56,10 +56,34 @@
                             {{ $track -> artist}}
                         </h6>
                         <h6 class="m-0 hover">
-                            <a href="#">{{ $track -> label}}</a>
+                            @if ($track -> label === 'Spinnin&#39; Remixes')
+                                <a href="../label/spinnin">{{ $track -> label}}</a>
+                            @elseif($track -> label === 'SPINNIN&#39; RECORDS')
+                                <a href="../label/spinnin">{{ $track -> label}}</a>
+                            @elseif($track -> label === 'SPRS')
+                                <a href="../label/spinnin">{{ $track -> label}}</a>
+                            @elseif($track -> label === "SPINNIN&#39; DEEP")
+                                <a href="../label/spinnin">{{ $track -> label}}</a>
+                            @elseif($track -> label === "Who&#39;s Afraid Of 138?!")
+                                <a href="../label/who-is-afraid-of-138">{{ $track -> label}}</a>
+                            @else
+                                <a href="../labels/{{ $track -> label}}">{{ $track -> label}}</a>
+                            @endif
                         </h6>
                         <h6 class="m-0 hover">
-                            <a href="{{ $track -> genre}}">{{ $track -> genre}}</a>
+                            @if ($track -> genre === 'Indie Dance / Nu Disco')
+                                <a href="../genre/indie-dance-nu-disco">{{ $track -> genre}}</a>
+                            @elseif($track -> genre === 'Drum &amp; Bass')
+                                <a href="../genre/drum-bass">{{ $track -> genre}}</a>
+                            @elseif($track -> genre === 'Electronica / Downtempo')
+                                <a href="genre/electronica-downtempo">{{ $track -> genre}}</a>
+                            @elseif($track -> genre === 'Hardcore / Hard Techno')
+                                <a href="../genre/hardcore-hard-techno">{{ $track -> genre}}</a>
+                            @elseif($track -> genre === 'Hardcore / Hard Techno')
+                                <a href="../genre/hardcore-hard-techno">{{ $track -> genre}}</a>
+                            @else
+                                <a href="../genres/{{ $track -> genre}}">{{ $track -> genre}}</a>
+                            @endif
                         </h6>
                       </div>
                     </div>

@@ -54,6 +54,8 @@ Route::get('labels/{label}', 'PageController@label');
 
 Route::get('label/spinnin', 'PageController@Spinnin');
 
+Route::get('label/who-is-afraid-of-138', 'PageController@AfraidOf138');
+
 Route::get('tracks/{id}/info', 'TrackController@info');
 
 //Route::get('tracks/{id}/changes', 'TrackController@changes');
