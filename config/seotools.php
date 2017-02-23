@@ -8,7 +8,7 @@ return [
         'defaults'       => [
             'title'        => 'CrossLess', // set false to total remove
             'description'  => 'The easiest way to exchange your lossless collection!', // set false to total remove
-            'separator'    => ' - ',
+            'separator'    => ' | ',
             'keywords'     => ['lossless', 'download wav', 'beatport', 'beatport free','free lossless', 'download music'],
             'canonical'    => false, // Set null for using Url::current(), set false to total remove
         ],
@@ -31,10 +31,10 @@ return [
         'defaults' => [
             'title'       => 'CrossLess', // set false to total remove
             'description' => 'The easiest way to exchange your lossless collection!', // set false to total remove
-            'url'         => false, // Set null for using Url::current(), set false to total remove
+            'url'         => 'http://crossless.club/', // Set null for using Url::current(), set false to total remove
             'type'        => false,
-            'site_name'   => false,
-            'images'      => [],
+            'site_name'   => 'CrossLess',
+            'images'      => ['http://crossless.club/img/kross.png'],
         ],
     ],
     'twitter' => [

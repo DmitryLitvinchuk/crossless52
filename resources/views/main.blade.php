@@ -2,6 +2,7 @@
 
 @section('meta')
     {!! SEOMeta::generate() !!}
+    {!! OpenGraph::generate() !!}
 @endsection
 
 

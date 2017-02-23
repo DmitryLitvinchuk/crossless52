@@ -56,6 +56,11 @@ class TrackController extends Controller
                 $link_label = 'labels/'.$label;
             }
             $number = $track -> top_track_id;
+            SEOMeta::setTitle($track->artist.' - '.$track->title);
+            SEOMeta::setKeywords([$track->artist,$track->title,$track->remixer,$track->genre,$track->label,'lossless', 'download wav', 'beatport', 'download music', 'top 100']);
+            OpenGraph::addImage(['url' => $track->cover, 'size' => 300]);
+            OpenGraph::setTitle('FREE DOWNLOAD WAV'.' | '.$track->artist.'- '.$track->title);
+            OpenGraph::setUrl('http://crossless.club/tracks/'.$track->id);
             $tracks = Track::where('label','!=',$label)->where('track','!=',NULL)->where('top_track_id','!=',$number)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(4);
             $labeltracks = Track::where('label','=',$label)->where('top_track_id','!=',$number)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(4);
             return view('track', compact('track', 'tracks','link_label'))->with('labeltracks', $labeltracks);
@@ -155,6 +160,7 @@ class TrackController extends Controller
     //Страница с новыми треками
     public function newtracks()
     {
+        SEOMeta::setTitle('New Tracks');
         SEOMeta::setKeywords(['lossless', 'download wav', 'beatport', 'download music', 'new tracks']);
         if (Auth::check()) {
             $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(25);

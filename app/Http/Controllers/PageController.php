@@ -25,6 +25,7 @@ class PageController extends Controller
     //Страница информации
     public function about()
     {
+        SEOMeta::setTitle('About Us');
         return view('about');
     }
     
@@ -32,7 +33,9 @@ class PageController extends Controller
     public function genre($genre, Track $track)
     {
         //UPDATE tracks SET genre=TRIM(genre)
+        
         $page_name = $genre;
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('genre',$genre)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -42,6 +45,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = $label;
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('label',$label)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -51,6 +55,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = "SPINNIN' RECORDS";
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('label','Spinnin&#39; Remixes')->orWhere('label','SPRS')->orWhere('label','SPINNIN&#39; RECORDS')->orWhere('label',"SPINNIN&#39; DEEP")->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -60,6 +65,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = "Who's Afraid Of 138?!";
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('label',"Who&#39;s Afraid Of 138?!")->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -69,6 +75,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = 'Indie Dance / Nu Disco';
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('genre','Indie Dance / Nu Disco')->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -78,6 +85,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = 'Drum&Bass';
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('genre','Drum &amp; Bass')->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -87,6 +95,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = 'Electronica / Downtempo';
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('genre','Electronica / Downtempo')->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -96,6 +105,7 @@ class PageController extends Controller
     {
         //UPDATE tracks SET label=TRIM(label)
         $page_name = 'Hardcore / Hard Techno';
+        SEOMeta::setTitle($page_name);
         $tracks = Track::where('genre','Hardcore / Hard Techno')->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
@@ -104,6 +114,7 @@ class PageController extends Controller
     public function top(Track $track)
     {
         //$toptracks = TopTrack::all();
+        SEOMeta::setTitle('TOP100');
         SEOMeta::setKeywords(['lossless', 'download wav', 'beatport', 'download music', 'top 100']);
         $toptracks = DB::table('top_tracks')->get();
         foreach ($toptracks as $toptrack) {
