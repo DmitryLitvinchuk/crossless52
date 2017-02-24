@@ -18,6 +18,8 @@ Route::get('/about', 'PageController@about');
 
 Route::get('/top', 'PageController@top');
 
+Route::get('/analytics', 'PageController@analytics');
+
 Route::get('/toptrack', 'TrackController@toptrack');
 
 Route::post('/find', 'TrackController@create');

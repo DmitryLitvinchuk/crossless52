@@ -82,6 +82,7 @@
                             Administration <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('/analytics') }}">Analytics</a></li>
                             <li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
                             <li><a href="{{ url('/wrongtracks') }}">Wrong Tracks</a></li>
                             <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>

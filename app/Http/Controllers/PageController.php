@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use User;
+use App\User;
 use DB;
+use Auth;
 use App\Track;
 use App\TopTrack;
 use SEOMeta;
@@ -160,6 +161,21 @@ class PageController extends Controller
         }
         $toptracks = TopTrack::orderBy('top')->paginate(100);
         return view('top', compact('toptracks'));
+    }
+    
+    //Страница стстистики
+    public function analytics(User $User)
+    {
+        if (Auth::user()->type === 'admin') {
+            $page_name = 'Analytics';
+            $number_of_tracks = Track::where('track','!=',NULL)->count();
+            $number_of_users = User::count();
+            $checked_tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->count();
+            return view('analytics', compact('page_name', 'number_of_tracks', 'checked_tracks', 'number_of_users'));
+        }
+        else {
+            return redirect('/');
+        }
     }
 }
 
