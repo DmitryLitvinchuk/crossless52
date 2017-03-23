@@ -289,7 +289,7 @@ class TrackController extends Controller
             $track = Track::find($id);
             $trackname = $track->track;
             $current = Carbon::now();
-            $newtrackname = '('.$current.')'.$track->artist.' - '.$track->title.$trackname;
+            $newtrackname = '('.$current.')'.' '.$track->artist.' - '.$track->title.' '.$trackname;
             Storage::disk('s3')->move($trackname, 'deleted/'.$newtrackname);
             $user = User::find($track -> user_id);
             $user -> accepted_tracks = 0;
@@ -415,7 +415,7 @@ class TrackController extends Controller
                                         'artist' => $track->artist]);
                 $tempTrack = tempnam(sys_get_temp_dir(), 'trackname');
                 copy($url, $tempTrack);
-                $track_title = $track->artist.'- '.$track->title.' '.'('.$track->remixer.')'.'.wav';
+                $track_title = $track->artist.' - '.$track->title.' '.'('.$track->remixer.')'.'.wav';
                 return response()->download($tempTrack, $track_title);
             }
             else {
