@@ -8,6 +8,7 @@ use App\User;
 use App\TopTrack;
 use App\WrongTracks;
 use App\DownloadedTrack;
+use Carbon\Carbon;
 use Auth;
 use Flavy;
 use DB;
@@ -287,7 +288,9 @@ class TrackController extends Controller
             flash('Track was deleted!', 'warning');
             $track = Track::find($id);
             $trackname = $track->track;
-            Storage::disk('s3')->delete($trackname);
+            $current = Carbon::now();
+            $newtrackname = '('.$current.')'.$track->artist.' - '.$track->title.$trackname;
+            Storage::disk('s3')->move($trackname, 'deleted/'.$newtrackname);
             $user = User::find($track -> user_id);
             $user -> accepted_tracks = 0;
             $user->save();
