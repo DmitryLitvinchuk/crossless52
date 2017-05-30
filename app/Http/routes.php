@@ -42,7 +42,7 @@ Route::get('/checktracks', 'TrackController@checktracks');
 
 Route::get('tracks/{id}', 'TrackController@index');
 
-Route::get('genres/{genre?}', 'PageController@genre');
+Route::get('genres/{genre_alias}', 'PageController@genre');
 
 Route::get('genre/indie-dance-nu-disco', 'PageController@IndieDanceNuDisco');
 

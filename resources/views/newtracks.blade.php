@@ -55,7 +55,7 @@
                               </td>
                               <td>
                                 <h6 class="mt-25">
-                                    @include('genre-link')
+                                    <a href="genres/{{ $track -> genre_alias}}">{{ $track -> genre}}</a>
                                 </h6>
                               </td>
                               <td class="hidden-xs">

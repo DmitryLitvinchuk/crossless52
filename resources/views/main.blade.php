@@ -66,7 +66,7 @@
                             @include('label-link')
                         </h6>
                         <h6 class="m-0 hover">
-                            @include('genre-link')
+                            <a href="genres/{{ $track -> genre_alias}}">{{ $track -> genre}}</a>
                         </h6>
                       </div>
                     </div>

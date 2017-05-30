@@ -9,5 +9,5 @@
 @elseif($track -> genre === 'Hardcore / Hard Techno')
     <a href="genre/hardcore-hard-techno">{{ $track -> genre}}</a>
 @else
-    <a href="genres/{{ $track -> genre}}">{{ $track -> genre}}</a>
+    <a href="genres/{{ $track -> genre_alias}}">{{ $track -> genre}}</a>
 @endif

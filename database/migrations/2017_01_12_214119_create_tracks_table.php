@@ -15,6 +15,7 @@ class CreateTracksTable extends Migration
        Schema::create('tracks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('downloads');
             $table->integer('user_id')->nullable();
             $table->integer('top_track_id')->unsigned()->unique();
             $table->string('title');
@@ -24,6 +25,7 @@ class CreateTracksTable extends Migration
             $table->string('label');
             $table->string('artist');
             $table->string('genre');
+            $table->string('genre_alias');
             $table->integer('bpm');
             $table->string('key');
             $table->string('cover');

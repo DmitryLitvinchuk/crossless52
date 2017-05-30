@@ -176,19 +176,7 @@
                             @endif
                         </h6>
                         <h6 class="m-0 hover">
-                            @if ($track -> genre === 'Indie Dance / Nu Disco')
-                                <a href="../genre/indie-dance-nu-disco">{{ $track -> genre}}</a>
-                            @elseif($track -> genre === 'Drum &amp; Bass')
-                                <a href="../genre/drum-bass">{{ $track -> genre}}</a>
-                            @elseif($track -> genre === 'Electronica / Downtempo')
-                                <a href="../genre/electronica-downtempo">{{ $track -> genre}}</a>
-                            @elseif($track -> genre === 'Hardcore / Hard Techno')
-                                <a href="../genre/hardcore-hard-techno">{{ $track -> genre}}</a>
-                            @elseif($track -> genre === 'Hardcore / Hard Techno')
-                                <a href="../genre/hardcore-hard-techno">{{ $track -> genre}}</a>
-                            @else
-                                <a href="../genres/{{ $track -> genre}}">{{ $track -> genre}}</a>
-                            @endif
+                            <a href="../genres/{{ $track -> genre_alias}}">{{ $track -> genre}}</a>
                         </h6>
                       </div>
                     </div>
@@ -269,19 +257,7 @@
                             @endif
                         </h6>
                         <h6 class="m-0 hover">
-                            @if ($labeltrack -> genre === 'Indie Dance / Nu Disco')
-                                <a href="../genre/indie-dance-nu-disco">{{ $labeltrack -> genre}}</a>
-                            @elseif($labeltrack -> genre === 'Drum &amp; Bass')
-                                <a href="../genre/drum-bass">{{ $labeltrack -> genre}}</a>
-                            @elseif($labeltrack -> genre === 'Electronica / Downtempo')
-                                <a href="../genre/electronica-downtempo">{{ $labeltrack -> genre}}</a>
-                            @elseif($labeltrack -> genre === 'Hardcore / Hard Techno')
-                                <a href="../genre/hardcore-hard-techno">{{ $labeltrack -> genre}}</a>
-                            @elseif($labeltrack -> genre === 'Hardcore / Hard Techno')
-                                <a href="../genre/hardcore-hard-techno">{{ $labeltrack -> genre}}</a>
-                            @else
-                                <a href="../genres/{{ $labeltrack -> genre}}">{{ $labeltrack -> genre}}</a>
-                            @endif
+                            <a href="../genres/{{ $track -> genre_alias}}">{{ $track -> genre}}</a>
                         </h6>
                       </div>
                     </div>

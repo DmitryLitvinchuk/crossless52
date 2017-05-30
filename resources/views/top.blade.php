@@ -56,19 +56,7 @@
                               </td>
                               <td>
                                 <h6 class="mt-25">
-                                    @if ($toptrack -> track -> genre === 'Indie Dance / Nu Disco')
-                                        <a href="genre/indie-dance-nu-disco">{{ $toptrack -> track -> genre}}</a>
-                                    @elseif($toptrack -> track -> genre === 'Drum &amp; Bass')
-                                        <a href="genre/drum-bass">{{ $toptrack -> track -> genre}}</a>
-                                    @elseif($toptrack -> track -> genre === 'Electronica / Downtempo')
-                                        <a href="genre/electronica-downtempo">{{ $toptrack -> track -> genre}}</a>
-                                    @elseif($toptrack -> track -> genre === 'Hardcore / Hard Techno')
-                                        <a href="genre/hardcore-hard-techno">{{ $toptrack -> track -> genre}}</a>
-                                    @elseif($toptrack -> track -> genre === 'Hardcore / Hard Techno')
-                                        <a href="genre/hardcore-hard-techno">{{ $toptrack -> track -> genre}}</a>
-                                    @else
-                                        <a href="genres/{{ $toptrack -> track -> genre}}">{{ $toptrack -> track -> genre}}</a>
-                                    @endif
+                                    <a href="genres/{{ $toptrack -> track -> genre_alias}}">{{ $toptrack -> track -> genre}}</a>
                                 </h6>
                               </td>
                               <td class="hidden-xs">

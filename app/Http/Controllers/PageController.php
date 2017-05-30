@@ -31,13 +31,95 @@ class PageController extends Controller
     }
     
     //Страница жанра
-    public function genre($genre, Track $track)
+    public function genre($genre)
     {
         //UPDATE tracks SET genre=TRIM(genre)
-        
-        $page_name = $genre;
+        if ($genre=='funk-soul-disco') {
+                        $page_name='Funk / Soul / Disco';
+        }
+        elseif ($genre=='indiedance-nudisco') {
+                        $page_name='Indie Dance / Nu Disco';
+        }
+        elseif ($genre=='deep-house') {
+                        $page_name='Deep House';
+        }
+        elseif ($genre=='tech-house') {
+                        $page_name='Tech House';
+        }
+        elseif ($genre=='big-room') {
+                        $page_name='Big Room';
+        }
+        elseif ($genre=='house') {
+                        $page_name='House';
+        }
+        elseif ($genre=='techno') {
+                        $page_name='Techno';
+        }
+        elseif ($genre=='psy-trance') {
+                        $page_name='Psy-Trance';
+        }
+        elseif ($genre=='future-house') {
+                        $page_name='Future House';
+        }
+        elseif ($genre=='drumnbass') {
+                        $page_name='Drum &amp; Bass';
+        }
+        elseif ($genre=='electro-house') {
+                        $page_name='Electro House';
+        }
+        elseif ($genre=='dance') {
+                        $page_name='Dance';
+        }
+        elseif ($genre=='hiphop') {
+                        $page_name='Hip-Hop';
+        }
+        elseif ($genre=='trance') {
+                        $page_name='Trance';
+        }
+        elseif ($genre=='minimal') {
+                        $page_name='Minimal';
+        }
+        elseif ($genre=='electronica-downtempo') {
+                        $page_name='Electronica / Downtempo';
+        }
+        elseif ($genre=='trap') {
+                        $page_name='Trap';
+        }
+        elseif ($genre=='progressive-house') {
+                        $page_name='Progressive House';
+        }
+        elseif ($genre=='dubstep') {
+                        $page_name='Dubstep';
+        }
+        elseif ($genre=='hard-dance') {
+                        $page_name='Hard Dance';
+        }
+        elseif ($genre=='funk-rnb') {
+                        $page_name='Funk / R&amp;B';
+        }
+        elseif ($genre=='breaks') {
+                        $page_name='Breaks';
+        }
+        elseif ($genre=='glitch-hop') {
+                        $page_name='Glitch Hop';
+        }
+        elseif ($genre=='dubstep') {
+                        $page_name='Dubstep';
+        }
+        elseif ($genre=='hardcore-hardtechno') {
+                        $page_name='Hardcore / Hard Techno';
+        }
+        elseif ($genre=='funk-soul-disco') {
+                        $page_name='Funk / Soul / Disco';
+        }
+        elseif ($genre=='reggae-dancehall-dub-dancehall') {
+                        $page_name='Reggae / Dancehall / Dub';
+        }
+        elseif ($genre=='funky-groove-jackin-house') {
+                        $page_name='Funky / Groove / Jackin&#39; House';
+        }
         SEOMeta::setTitle($page_name);
-        $tracks = Track::where('genre',$genre)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
+        $tracks = Track::where('genre_alias',$genre)->where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->simplePaginate(24);
         return view('genre', compact('tracks', 'page_name'));
     }
     
