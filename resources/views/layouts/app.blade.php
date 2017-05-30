@@ -37,24 +37,27 @@
                     Genres <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{ url('genres/Big Room') }}">Big Room</a></li>
-                    <li><a href="{{ url('genres/Deep House') }}">Deep House</a></li>
-                    <li><a href="{{ url('genre/drum-bass') }}">Drum&Bass</a></li>
-                    <li><a href="{{ url('genres/Dubstep') }}">Dubstep</a></li>
-                    <li><a href="{{ url('genres/Electro House') }}">Electro House</a></li>
-                    <li><a href="{{ url('genre/electronica-downtempo') }}">Electronica / Downtempo</a></li>
-                    <li><a href="{{ url('genres/Future House') }}">Future House</a></li>
-                    <li><a href="{{ url('genre/hardcore-hard-techno') }}">Hardcore / Hard Techno</a></li>
-                    <li><a href="{{ url('genres/Hard Dance') }}">Hard Dance</a></li>
-                    <li><a href="{{ url('genres/Hip-Hop') }}">Hip-Hop</a></li>
-                    <li><a href="{{ url('genres/House') }}">House</a></li>
-                    <li><a href="{{ url('genre/indie-dance-nu-disco') }}">Indie Dance / Nu Disco</a></li>
-                    <li><a href="{{ url('genres/Minimal') }}">Minimal</a></li>
-                    <li><a href="{{ url('genres/Progressive House') }}">Progressive House</a></li>
-                    <li><a href="{{ url('genres/Psy-Trance') }}">Psy-Trance</a></li>
-                    <li><a href="{{ url('genres/Tech House') }}">Tech House</a></li>
-                    <li><a href="{{ url('genres/Techno') }}">Techno</a></li>
-                    <li><a href="{{ url('genres/Trance') }}">Trance</a></li>
+                    <li><a href="{{ url('genres/big-room') }}">Big Room</a></li>
+                    <li><a href="{{ url('genres/breaks') }}">Breaks</a></li>
+                    <li><a href="{{ url('genres/deep-house') }}">Deep House</a></li>
+                    <li><a href="{{ url('genres/drumnbass') }}">Drum&Bass</a></li>
+                    <li><a href="{{ url('genres/dubstep') }}">Dubstep</a></li>
+                    <li><a href="{{ url('genres/electro-house') }}">Electro House</a></li>
+                    <li><a href="{{ url('genres/electronica-downtempo') }}">Electronica / Downtempo</a></li>
+                    <li><a href="{{ url('genres/future-house') }}">Future House</a></li>
+                    <li><a href="{{ url('genres/glitch-hop') }}">Glitch Hop</a></li>
+                    <li><a href="{{ url('genres/hardcore-hardtechno') }}">Hardcore / Hard Techno</a></li>
+                    <li><a href="{{ url('genres/hard-dance') }}">Hard Dance</a></li>
+                    <li><a href="{{ url('genres/hiphop') }}">Hip-Hop</a></li>
+                    <li><a href="{{ url('genres/house') }}">House</a></li>
+                    <!--<li><a href="{{ url('genres/indiedance-nudisco') }}">Indie Dance / Nu Disco</a></li>-->
+                    <li><a href="{{ url('genres/minimal') }}">Minimal</a></li>
+                    <li><a href="{{ url('genres/progressive-house') }}">Progressive House</a></li>
+                    <li><a href="{{ url('genres/psy-trance') }}">Psy-Trance</a></li>
+                    <li><a href="{{ url('genres/reggae-dancehall-dub-dancehall') }}">Reggae / Dancehall / Dub</a></li>
+                    <li><a href="{{ url('genres/tech-house') }}">Tech House</a></li>
+                    <li><a href="{{ url('genres/techno') }}">Techno</a></li>
+                    <li><a href="{{ url('genres/trance') }}">Trance</a></li>
                 </ul>
             </li>
             <li>
