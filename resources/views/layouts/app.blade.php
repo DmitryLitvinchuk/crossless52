@@ -80,17 +80,19 @@
                     <li><a href="{{ url('/register') }}">Register</a></li>
                 @else
                     @if (Auth::user()->type === 'admin')
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            Administration <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/analytics') }}">Analytics</a></li>
-                            <li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
-                            <li><a href="{{ url('/wrongtracks') }}">Wrong Tracks</a></li>
-                            <li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
-                        </ul>
-                    </li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+								Administration <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="{{ url('/analytics') }}">Analytics</a></li>
+								<li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
+								<li><a href="{{ url('/wrongtracks') }}">Wrong Tracks</a></li>
+								<li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
+							</ul>
+						</li>
+                    @elseif (Auth::user()->type === 'checker')
+                    	<li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
                     @endif
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

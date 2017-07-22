@@ -89,14 +89,7 @@
                               <td class="text-center">
                                  <h4 class="mt-20">{{ $toptrack -> top}}</h4>
                               </td>
-                              <td class="text-center">
-                                  <a href="javascript:void(0)" data-id="{{ $toptrack -> id }}" onclick="aud_play_pause(this)">
-                                        <h4 class="mt-20">
-                                          <i class="control fa fa-play" aria-hidden="true"></i>
-                                        </h4>
-                                        <audio class="xnine-player track-source-url" src="{{ $toptrack -> track -> preview }}" preload="auto"></audio>
-                                    </a>
-                              </td>
+                              
                               <td class="p-0 hidden-xs w-74">
                                   <img src="{{ $toptrack -> track -> cover }}" alt="..." class="img-responsive img-74 track-image">
                               </td>

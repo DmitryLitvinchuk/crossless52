@@ -264,7 +264,7 @@ class TrackController extends Controller
     //Страница проверки треков
     public function checktracks()
     {
-        if (Auth::user()->type === 'admin') {
+        if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker') {
             $tracks = Track::where('track','!=',NULL)->where('inspection','==',0)->orderBy('updated_at', 'asc')->simplePaginate(25);
             return view('newtracks', compact('tracks'));
         }
@@ -372,7 +372,7 @@ class TrackController extends Controller
     //Удалить трек
     public function deleteFile($id)
     {
-        if (Auth::user()->type === 'admin') {
+        if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker') {
             flash('Track was deleted!', 'warning');
             $track = Track::find($id);
             $trackname = $track->track;
@@ -398,7 +398,7 @@ class TrackController extends Controller
     //Верефицировать трек
     public function acceptTrack($id, User $user)
     {
-        if (Auth::user()->type === 'admin') {
+        if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker') {
             flash('Track was accepted!', 'success');
             $track = Track::find($id);
             $number = $track -> top_track_id;
@@ -482,6 +482,9 @@ class TrackController extends Controller
     {
         if (Auth::check()) {
         $user = Auth::user();
+		if ($user -> type == 'admin' or $user -> type == 'checker') {
+			$user -> points += 1;
+		}
         if ($user->points >= 1) {
             $track = Track::findOrFail($id);
             $trackname = $track->track;

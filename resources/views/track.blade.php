@@ -59,7 +59,7 @@
                     <p class="text-muted m-0">INSPECTION:</p>
                     @if ($track -> inspection === 0)
                         <h4 class="m-0">CHECKING <i class="fa warning fa-clock-o" aria-hidden="true"></i></h4>
-                        @if (Auth::user()->type === 'admin')
+                        @if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker')
                                 <a href="{{ $track -> id }}/accept" class="btn btn-success mt-10">ACCEPT TRACK</a>
                                 <a href="{{ $track -> id }}/delete" class="btn btn-warning mt-10">DELETE TRACK</a>
                         @endif
