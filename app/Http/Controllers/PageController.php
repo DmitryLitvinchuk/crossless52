@@ -8,6 +8,7 @@ use DB;
 use Auth;
 use App\Track;
 use App\TopTrack;
+use App\CustomTrack;
 use SEOMeta;
 use OpenGraph;
 use Twitter;
@@ -21,6 +22,15 @@ class PageController extends Controller
         $tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
         $toptracks = TopTrack::orderBy('top')->paginate(10);
         return view('main', compact('tracks', 'toptracks','page_name'));
+    }
+	
+	//Главная страница
+    public function AllCustomTracks(CustomTrack $customtrack)
+    {
+        //$page_name = 'Custom tracks';
+        //$tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
+        $customtracks = CustomTrack::All();
+        return view('custom.alltracks', compact('customtracks'));
     }
     
     //Страница информации

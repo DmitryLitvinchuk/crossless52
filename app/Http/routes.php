@@ -30,6 +30,12 @@ Route::get('/addnewtrack/', 'TrackController@ParseNewTrack');
 
 Route::post('/addnewtrack/', 'TrackController@AddNewTrack');
 
+Route::get('/customtracks/create', 'TrackController@CreateCustomTrack');
+
+Route::get('/customtracks', 'PageController@AllCustomTracks');
+
+Route::post('/customtracks', 'TrackController@CustomTracksStore');
+
 Route::get('/home', 'HomeController@index');
 
 Route::get('/earnpoints', 'TrackController@earnpoints');

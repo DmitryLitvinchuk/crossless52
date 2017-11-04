@@ -35,7 +35,13 @@
                 </form>
           </div>
         </div>
-
+        @if (Auth::user()->type === 'admin')
+		<div class="row mt-20">
+			<div class="col-lg-12">
+				<a href="/customtracks/create" class="btn btn-primary">custom track</a>
+			</div>
+		</div>
+     	@endif
       <footer>
         <div class="row">
           <div class="col-lg-12">

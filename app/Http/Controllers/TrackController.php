@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use App\Track;
 use App\User;
 use App\TopTrack;
 use App\WrongTracks;
 use App\DownloadedTrack;
+use App\CustomTrack;
 use Carbon\Carbon;
 use Auth;
 use Flavy;
@@ -28,6 +29,7 @@ use Illuminate\Http\Response;
 use SEOMeta;
 use OpenGraph;
 use Twitter;
+use Illuminate\Http\Request;
 
 class TrackController extends Controller
 {
@@ -219,6 +221,64 @@ class TrackController extends Controller
             return redirect('/login');
         }
     }
+	
+	//Страница добавления кастомного трека
+	public function CreateCustomTrack()
+	{
+		return view('custom.create');
+	}
+	
+	public function CustomTracksStore(Request $request)
+	{
+		//$input = Request::All();
+		$user = Auth::user();
+		$title = $request->input('title');
+		$artist = $request->input('artist');
+		//$trackfile = $request->file('track');
+		$cover = $request->file('image');
+		$storagePath  = "C:\\OpenServer\\domains\\crossless52\\storage\\app\\public\\";
+		$v = Validator::make($request->all(), [
+			'track' => 'required|mimes:wav'
+		]);
+			$track = CustomTrack::create(['title' => $title, 
+										'user_id' => $user->id,
+										'artist' => $artist, 
+										/*'genre' => $new_genre,
+										'genre_alias' => $new_genre_alias,
+										'bpm' => $bpm, 
+										'key' => $key, 
+										'cover' => $img,
+										'remixer' => $remixer,
+										'label' => $new_label,
+										'release' => $release, 
+										'preview' => $audio_link,*/]);
+
+			if ($v->fails())
+			{
+				$error = 'Your track is not in WAV format.';
+				return view('errors.validate', ['error' => $error]);
+			}
+			else {
+				flash('Track was uploaded! You will get remaining points after checking.', 'success');
+				$number = 'c'.'_'.$track->id;
+				Storage::disk('public')->put($number.'.jpg', File::get($cover), 'public');
+				//Storage::disk('s3')->put($number.'.wav', File::get($trackfile), 'public');
+				$track -> cover = $storagePath.$number.'.jpg';
+				$track->save();
+				//$user = Auth::user();
+				/*if (Auth::user()->accepted_tracks > 10) {
+					$user->points += 1;
+					$user->save();
+					return redirect()->back();
+				}
+				else {
+					return redirect()->back();
+				}*/
+
+			}
+		
+		return redirect('/customtracks');
+	}
     
     //Страница с Top-100 Tracks
     public function TopTrack(Track $track, TopTrack $topTrack)
