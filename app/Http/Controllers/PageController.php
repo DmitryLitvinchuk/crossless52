@@ -9,6 +9,7 @@ use Auth;
 use App\Track;
 use App\TopTrack;
 use App\CustomTrack;
+use App\SoundcloudTrack;
 use SEOMeta;
 use OpenGraph;
 use Twitter;
@@ -31,7 +32,8 @@ class PageController extends Controller
         //$page_name = 'Custom tracks';
         //$tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
         $customtracks = CustomTrack::All();
-		return view('custom.alltracks', compact('customtracks'));
+		$image = Storage::disk('public')->url('c_44.jpg');
+		return view('custom.alltracks', compact('customtracks', 'image'));
     }
     
     //Страница информации

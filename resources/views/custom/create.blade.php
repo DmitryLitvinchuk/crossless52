@@ -24,7 +24,7 @@
 			  </div>
         	  <div class="form-group">
 				{!! Form::label('image', 'Image:') !!}
-				{!! Form::file('image') !!}
+				{!! Form::text('image') !!}
 			  </div>
          	  <div class="form-group">
 				{!! Form::submit('create', ['class' => 'btn btn-success btn-md form-control pull-right']) !!}

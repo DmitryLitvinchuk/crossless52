@@ -42,6 +42,14 @@ Route::get('/earnpoints', 'TrackController@earnpoints');
 
 Route::get('/newtracks', 'TrackController@newtracks');
 
+//Soundcloud tracks
+Route::get('/soundcloudtracks', 'SoundcloudController@AllTracks');
+Route::get('/soundcloudtracks/addnewtrack/', 'SoundcloudController@InputSoundcloudParserLink');
+Route::get('/soundcloudtracks/{id}', 'SoundcloudController@TrackPage');
+Route::post('/soundcloudtracks', 'SoundcloudController@SoundcloudTrackCreate');
+//
+
+
 Route::get('/wrongtracks', 'TrackController@wrongtracks');
 
 Route::get('/checktracks', 'TrackController@checktracks');

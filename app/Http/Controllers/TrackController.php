@@ -30,6 +30,7 @@ use SEOMeta;
 use OpenGraph;
 use Twitter;
 use Illuminate\Http\Request;
+use GrahamCampbell\Dropbox\Facades\Dropbox;
 
 class TrackController extends Controller
 {
@@ -235,14 +236,15 @@ class TrackController extends Controller
 		$title = $request->input('title');
 		$artist = $request->input('artist');
 		//$trackfile = $request->file('track');
-		$cover = $request->file('image');
-		$storagePath  = public_path();
+		$cover = $request->input('image');
+		//$storagePath  = public_path();
 		$v = Validator::make($request->all(), [
 			'track' => 'required|mimes:wav'
 		]);
 			$track = CustomTrack::create(['title' => $title, 
 										'user_id' => $user->id,
 										'artist' => $artist, 
+										'cover' => $cover,
 										/*'genre' => $new_genre,
 										'genre_alias' => $new_genre_alias,
 										'bpm' => $bpm, 
@@ -261,9 +263,10 @@ class TrackController extends Controller
 			else {
 				flash('Track was uploaded! You will get remaining points after checking.', 'success');
 				$number = 'c'.'_'.$track->id;
-				Storage::disk('public')->put($number.'.jpg', File::get($cover), 'public');
+				//Storage::disk('dropbox')->put($number.'.jpg', File::get($cover));
+				//Storage::disk('public')->put($number.'.jpg', File::get($cover), 'public');
 				//Storage::disk('s3')->put($number.'.wav', File::get($trackfile), 'public');
-				$track -> cover = $storagePath."\\".$number.'.jpg';
+				//$track -> cover = $storagePath."\\".$number.'.jpg';
 				$track->save();
 				//$user = Auth::user();
 				/*if (Auth::user()->accepted_tracks > 10) {
