@@ -17,7 +17,7 @@
                  @foreach ($customtracks as $customtrack)
                  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <div class="thumbnail p-0 pos-rel track">
-                      <img class="img-responsive img-100per track-image" src="{{asset('storage/app/public/c_35.jpg')}}" alt="...">
+                      <img class="img-responsive img-100per track-image" src="{{url('/images/c_43.jpg')}}" alt="...">
                       <div class="btn-group btn-group-justified hover mt--22">
                      </div>
                      <div class="caption pos-rel">

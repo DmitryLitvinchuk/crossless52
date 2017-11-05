@@ -12,6 +12,7 @@ use App\CustomTrack;
 use SEOMeta;
 use OpenGraph;
 use Twitter;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -30,7 +31,7 @@ class PageController extends Controller
         //$page_name = 'Custom tracks';
         //$tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
         $customtracks = CustomTrack::All();
-        return view('custom.alltracks', compact('customtracks'));
+		return view('custom.alltracks', compact('customtracks'));
     }
     
     //Страница информации

@@ -236,7 +236,7 @@ class TrackController extends Controller
 		$artist = $request->input('artist');
 		//$trackfile = $request->file('track');
 		$cover = $request->file('image');
-		$storagePath  = "C:\\OpenServer\\domains\\crossless52\\storage\\app\\public\\";
+		$storagePath  = public_path();
 		$v = Validator::make($request->all(), [
 			'track' => 'required|mimes:wav'
 		]);
@@ -263,7 +263,7 @@ class TrackController extends Controller
 				$number = 'c'.'_'.$track->id;
 				Storage::disk('public')->put($number.'.jpg', File::get($cover), 'public');
 				//Storage::disk('s3')->put($number.'.wav', File::get($trackfile), 'public');
-				$track -> cover = $storagePath.$number.'.jpg';
+				$track -> cover = $storagePath."\\".$number.'.jpg';
 				$track->save();
 				//$user = Auth::user();
 				/*if (Auth::user()->accepted_tracks > 10) {
