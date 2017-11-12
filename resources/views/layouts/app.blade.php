@@ -39,14 +39,14 @@
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('genres/big-room') }}">Big Room</a></li>
-                    <li><a href="{{ url('genres/breaks') }}">Breaks <span class="label label-success">New</span></a></li>
+                    <li><a href="{{ url('genres/breaks') }}">Breaks </a></li>
                     <li><a href="{{ url('genres/deep-house') }}">Deep House</a></li>
                     <li><a href="{{ url('genres/drumnbass') }}">Drum&Bass</a></li>
                     <li><a href="{{ url('genres/dubstep') }}">Dubstep</a></li>
                     <li><a href="{{ url('genres/electro-house') }}">Electro House</a></li>
                     <li><a href="{{ url('genres/electronica-downtempo') }}">Electronica / Downtempo</a></li>
                     <li><a href="{{ url('genres/future-house') }}">Future House</a></li>
-                    <li><a href="{{ url('genres/glitch-hop') }}">Glitch Hop <span class="label label-success">New</span></a></li>
+                    <li><a href="{{ url('genres/glitch-hop') }}">Glitch Hop</a></li>
                     <li><a href="{{ url('genres/hardcore-hardtechno') }}">Hardcore / Hard Techno</a></li>
                     <li><a href="{{ url('genres/hard-dance') }}">Hard Dance</a></li>
                     <li><a href="{{ url('genres/hiphop') }}">Hip-Hop</a></li>
@@ -54,15 +54,15 @@
                     <!--<li><a href="{{ url('genres/indiedance-nudisco') }}">Indie Dance / Nu Disco</a></li>-->
                     <li><a href="{{ url('genres/minimal') }}">Minimal</a></li>
                     <li><a href="{{ url('genres/progressive-house') }}">Progressive House</a></li>
-                    <li><a href="{{ url('genres/psy-trance') }}">Psy-Trance <span class="label label-success">New</span></a></li>
-                    <li><a href="{{ url('genres/reggae-dancehall-dub-dancehall') }}">Reggae / Dancehall / Dub <span class="label label-success">New</span></a></li>
+                    <li><a href="{{ url('genres/psy-trance') }}">Psy-Trance </a></li>
+                    <li><a href="{{ url('genres/reggae-dancehall-dub-dancehall') }}">Reggae / Dancehall / Dub </a></li>
                     <li><a href="{{ url('genres/tech-house') }}">Tech House</a></li>
                     <li><a href="{{ url('genres/techno') }}">Techno</a></li>
                     <li><a href="{{ url('genres/trance') }}">Trance</a></li>
                 </ul>
             </li>
             <li>
-              <a href="/newtracks">New tracks</a>
+              <a href="/soundcloudtracks">Soundcloud tracks <span class="label label-success">New</span></a>
             </li>
             <li class="hidden-sm">
               <a href="/top">Top100</a>
