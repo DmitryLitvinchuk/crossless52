@@ -41,7 +41,7 @@
 										'Techno' => 'Techno',
 										'Psy-Trance' => 'Psy-Trance',
 										'Future House' => 'Future House',
-										'Drum &amp; Bass' => 'Drum &amp; Bass',
+										"Drum'n'Bass" => "Drum'n'Bass",
 										'Electro House' => 'Electro House',
 										'Dance' => 'Dance',
 										'Hip-Hop' => 'Hip-Hop',
@@ -52,14 +52,14 @@
 										'Progressive House' => 'Progressive House',
 										'Dubstep' => 'Dubstep',
 										'Hard Dance' => 'Hard Dance',
-										'Funk / R&amp;B' => 'Funk / R&amp;B',
+										"Hip-Hop / R'n'B" => "Hip-Hop / R'n'B",
 										'Breaks' => 'Breaks',
 										'Glitch Hop' => 'Glitch Hop',
 										'Dubstep' => 'Dubstep',
 										'Hardcore / Hard Techno' => 'Hardcore / Hard Techno',
 										'Funk / Soul / Disco' => 'Funk / Soul / Disco',
 										'Reggae / Dancehall / Dub' => 'Reggae / Dancehall / Dub',
-										'Funky / Groove / Jackin&#39; House' => 'Funky / Groove / Jackin&#39; House',], null, ['class' => 'form-control']) !!}
+										'Funky / Groove / Jackin House' => 'Funky / Groove / Jackin House',], null, ['class' => 'form-control']) !!}
 					  </div>
 					  <div class="form-group">
 						{!! Form::label('release', 'Release date:') !!}
