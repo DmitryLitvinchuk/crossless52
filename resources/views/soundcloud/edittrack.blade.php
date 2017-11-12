@@ -96,7 +96,7 @@
 					  </div>
 					  <div class="form-group">
 						{!! Form::label('cover', 'Cover:') !!}
-						{!! Form::text('cover', null, ['class' => 'form-control']) !!}
+						{!! Form::text('cover', $soundcloudtrack -> cover, ['class' => 'form-control']) !!}
 					  </div>
 					  <div class="form-group">
 						{!! Form::submit('edit', ['class' => 'btn btn-success btn-md form-control pull-right']) !!}
