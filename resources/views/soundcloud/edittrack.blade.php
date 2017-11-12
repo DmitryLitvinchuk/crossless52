@@ -87,6 +87,10 @@
 										'Funky / Groove / Jackin&#39; House' => 'Funky / Groove / Jackin&#39; House',], $soundcloudtrack -> genre, ['class' => 'form-control']) !!}
 					  </div>
 					  <div class="form-group">
+						{!! Form::label('link', 'Link:') !!}
+						{!! Form::text('link', $soundcloudtrack -> link, ['class' => 'form-control']) !!}
+					  </div>
+					  <div class="form-group">
 						{!! Form::label('release', 'Release date:') !!}
 						{!! Form::text('release', $soundcloudtrack -> release, array('id' => 'datepicker'), ['class' => 'form-control']) !!}
 					  </div>

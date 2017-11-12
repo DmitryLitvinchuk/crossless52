@@ -23,7 +23,7 @@
                       <div class="btn-group btn-group-justified hover mt--22">
                           <div class="btn-group btn-group-xs">
                             <!--<button type="button" class="btn btn-default"><i class="fa fa-play" aria-hidden="true"></i></button>-->
-                             <a href="{{ $soundcloudtrack -> link }}" class="btn btn-default track-link">
+                             <a href="{{ $soundcloudtrack -> link }}" class="btn btn-default track-link " target="_blank">
                                     <i class="fa fa-link" aria-hidden="true"></i>
 							</a>
                           </div>

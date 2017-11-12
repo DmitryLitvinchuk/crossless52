@@ -48,8 +48,14 @@ class SoundcloudController extends Controller
     public function TrackPage($id)
     {
 		// Доступ к треку, который создал, для проверки его состояния
-		$soundcloudtrack = SoundcloudTrack::find($id);
-		return view('soundcloud.track', compact('soundcloudtrack'));
+		if (Auth::check()) {
+			$soundcloudtrack = SoundcloudTrack::find($id);
+			//$link = $soundcloudtrack->link;
+			return view('soundcloud.track', compact('soundcloudtrack'));
+		}
+        else {
+            return redirect('/login');
+        }
     }
 	
 	
@@ -70,17 +76,17 @@ class SoundcloudController extends Controller
     {
 		if (Auth::user()->type === 'admin') {
 			$soundcloudtrack = SoundcloudTrack::find($id);	
-			$title = $request->input('title');
-			$artist = $request->input('artist');
-			$genre = $request->input('genre');
+			//$title = $request->input('title');
+			//$artist = $request->input('artist');
+			//$genre = $request->input('genre');
 			$cover = $request->input('cover');
-			$link = $request->input('link');
-			$release = $request->input('release');
-			$soundcloudtrack->title = $title;
-			$soundcloudtrack->artist = $artist;
-			$soundcloudtrack->genre = $genre;
-			$soundcloudtrack->link = $link;
-			$soundcloudtrack->release = $release;
+			//$link = $request->input('link');
+			//$release = $request->input('release');
+			$soundcloudtrack->title = $request->input('title');
+			$soundcloudtrack->artist = $request->input('artist');
+			$soundcloudtrack->genre = $request->input('genre');
+			$soundcloudtrack->link = $request->input('link');
+			$soundcloudtrack->release = $request->input('release');
 			$soundcloudtrack->cover = $cover;
 			$soundcloudtrack->save();
 			return redirect ('/soundcloudtracks/'.$id);
