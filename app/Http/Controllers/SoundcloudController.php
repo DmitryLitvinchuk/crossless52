@@ -103,10 +103,98 @@ class SoundcloudController extends Controller
 		$title = $request->input('title');
 		$artist = $request->input('artist');
 		$genre = $request->input('genre');
-		$cover = "http://crossless/img/placeholder.jpg";
+		$new_genre = $genre;
+		$cover = "http://crossless.club/img/placeholder.jpg";
 		$email = $request->input('email');
 		$link = $request->input('link');
 		$release = $request->input('release');
+					if ($new_genre=='Funk / Soul / Disco') {
+							$new_genre_alias='funk-soul-disco';
+					}
+					elseif ($new_genre=='Indie Dance / Nu Disco') {
+							$new_genre_alias='indiedance-nudisco';
+					}
+					elseif ($new_genre=='Deep House') {
+							$new_genre_alias='deep-house';
+					}
+					elseif ($new_genre=='Tech House') {
+							$new_genre_alias='tech-house';
+					}
+					elseif ($new_genre=='Big Room') {
+							$new_genre_alias='big-room';
+					}
+					elseif ($new_genre=='House') {
+							$new_genre_alias='house';
+					}
+					elseif ($new_genre=='Techno') {
+							$new_genre_alias='techno';
+					}
+					elseif ($new_genre=='Psy-Trance') {
+							$new_genre_alias='psy-trance';
+					}
+					elseif ($new_genre=='Future House') {
+							$new_genre_alias='future-house';
+					}
+					elseif ($new_genre=='Drum &amp; Bass') {
+							$new_genre_alias='drumnbass';
+					}
+					elseif ($new_genre=='Electro House') {
+							$new_genre_alias='electro-house';
+					}
+					elseif ($new_genre=='Dance') {
+							$new_genre_alias='dance';
+					}
+					elseif ($new_genre=='Hip-Hop') {
+							$new_genre_alias='hiphop';
+					}
+					elseif ($new_genre=='Trance') {
+							$new_genre_alias='trance';
+					}
+					elseif ($new_genre=='Minimal') {
+							$new_genre_alias='minimal';
+					}
+					elseif ($new_genre=='Electronica / Downtempo') {
+							$new_genre_alias='electronica-downtempo';
+					}
+					elseif ($new_genre=='Trap') {
+							$new_genre_alias='trap';
+					}
+					elseif ($new_genre=='Progressive House') {
+							$new_genre_alias='progressive-house';
+					}
+					elseif ($new_genre=='Dubstep') {
+							$new_genre_alias='dubstep';
+					}
+					elseif ($new_genre=='Hard Dance') {
+							$new_genre_alias='hard-dance';
+					}
+					elseif ($new_genre=='Funk / R&amp;B') {
+							$new_genre_alias='funk-rnb';
+					}
+					elseif ($new_genre=='Breaks') {
+							$new_genre_alias='breaks';
+					}
+					elseif ($new_genre=='Glitch Hop') {
+							$new_genre_alias='glitch-hop';
+					}
+					elseif ($new_genre=='Dubstep') {
+							$new_genre_alias='dubstep';
+					}
+					elseif ($new_genre=='Hardcore / Hard Techno') {
+							$new_genre_alias='hardcore-hardtechno';
+					}
+					elseif ($new_genre=='Funk / Soul / Disco') {
+							$new_genre_alias='funk-soul-disco';
+					}
+					elseif ($new_genre=='Hip-Hop / R&amp;B') {
+							$new_genre_alias='hiphop';
+					}
+					elseif ($new_genre=='Reggae / Dancehall / Dub') {
+							$new_genre_alias='reggae-dancehall-dub-dancehall';
+					}
+					elseif ($new_genre=='Funky / Groove / Jackin&#39; House') {
+							$new_genre_alias='funky-groove-jackin-house';
+					}
 		//$track = $request->input('track');
 		//echo $title, $artist, $genre, $link /*$track*/;
 		$v = Validator::make($request->all(), [
@@ -123,6 +211,7 @@ class SoundcloudController extends Controller
 									'artist' => $artist, 
 									'cover' => $cover,
 									'genre' => $genre,
+								    'genre_alias' => $new_genre_alias,
 									'email' => $email,
 									'release' => $release,
 									'link' => $link,]);
