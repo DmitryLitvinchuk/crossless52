@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     {!! Html::style('css/bootstrap.css') !!}
       {!! Html::style('css/crossless.css') !!}
     {!! Html::style('font-awesome-4.7.0/css/font-awesome.min.css') !!}
@@ -86,6 +87,7 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/analytics') }}">Analytics</a></li>
+								<li><a href="{{ url('/checksoundcloudtracks') }}">Soundcloud Tracks</a></li>
 								<li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
 								<li><a href="{{ url('/wrongtracks') }}">Wrong Tracks</a></li>
 								<li><a href="{{ url('/toptrack') }}" class="warning">Refresh Top100</a></li>
@@ -176,6 +178,8 @@
     <script src="{{ URL::asset('js/jquery-1.10.2.min.js') }}"></script>
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('js/wavesurfer.min.js') }}"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
     <script>
 
     var current_id = null;
@@ -266,6 +270,14 @@
 </script>
 <script>
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+</script>
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+		$( ".selector" ).datepicker({
+		  dateFormat: "yy-mm-dd"
+		});
+  });
 </script>
       @yield('scripts')
       

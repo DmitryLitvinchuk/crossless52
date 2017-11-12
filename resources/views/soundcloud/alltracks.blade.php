@@ -10,9 +10,12 @@
 
     <div class="container">
         <div class="row mt-20">
-          <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h1>
+                  {{ $page_name }}
+                  <a href="/soundcloudtracks/addnewtrack/">upload your track</a>
+              </h1>
               <div class="row">
-                <a href="/soundcloudtracks/addnewtrack/">create new</a>
                  @foreach ($soundcloudtracks as $soundcloudtrack)
                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
                     <div class="thumbnail p-0 pos-rel track">
@@ -61,6 +64,7 @@
                  </div>
                  @endforeach
               </div>
+              <?php echo $soundcloudtracks->render(); ?>
         </div>
       </div>
 

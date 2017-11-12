@@ -38,16 +38,18 @@
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 <p class="text-muted m-0">Title:</p>
                 <h2 class="m-0 track-title">{{$soundcloudtrack -> title }}</h2>
-                <p class="text-muted m-0">Genre:</p>
-                <h4 class="m-0">{{$soundcloudtrack -> genre }}</h4>
                 <p class="text-muted m-0">Artist:</p>
                 <h2 class="m-0 track-author">{{$soundcloudtrack -> artist }}</h2>
+                <p class="text-muted m-0">Genre:</p>
+                <h4 class="m-0">{{$soundcloudtrack -> genre }}</h4>
                 <p class="text-muted m-0">Release:</p>
                 <h4 class="m-0">{{$soundcloudtrack -> release }}</h4>
                 @if ($soundcloudtrack -> track !== NULL)
                     @if (Auth::user()->type === 'admin')
                         <p class="text-muted m-0">User:</p>
                         <h4 class="m-0">{{$soundcloudtrack -> user_id }}</h4>
+                        <p class="text-muted m-0">Email:</p>
+                        <h4 class="m-0">{{$soundcloudtrack -> email }}</h4>
                         <p class="text-muted m-0">Time:</p>
                         <h4 class="m-0">{{$soundcloudtrack -> updated_at }}</h4>
                     @endif
@@ -56,16 +58,12 @@
                         <h4 class="m-0">CHECKING <i class="fa warning fa-clock-o" aria-hidden="true"></i></h4>
                         @if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker')
                                 <a href="{{ $soundcloudtrack -> id }}/accept" class="btn btn-success mt-10">ACCEPT TRACK</a>
-                                <a href="{{ $soundcloudtrack -> id }}/delete" class="btn btn-warning mt-10">DELETE TRACK</a>
+                                <a href="{{ $soundcloudtrack -> id }}/edit" class="btn btn-warning mt-10">EDIT TRACK</a>
                         @endif
                     @else
                         <h4 class="m-0">CHECKED <i class="fa success fa-success fa-check" aria-hidden="true"></i></h4>
                         @if (Auth::user()->type === 'admin')
-                            @if ($soundcloudtrack -> wrong !== 0)
-                                <a href="{{ $soundcloudtrack -> id }}/reaccept" class="btn btn-success mt-10">REACCEPT TRACK</a>
-                            @endif
-                            <a href="{{ $soundcloudtrack -> id }}/delete" class="btn btn-warning mt-10">DELETE TRACK</a>
-                            
+                                <a href="{{ $soundcloudtrack -> id }}/edit" class="btn btn-warning mt-10">EDIT TRACK</a>    
                         @endif
                     @endif
                 @endif
@@ -73,7 +71,7 @@
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                 @if ($soundcloudtrack -> track === NULL)
                     <h1>Upload WAV file</h1>
-                    <form method='POST' action="{{action('TrackController@UploadFile',['tracks'=>$soundcloudtrack->id])}}" enctype="multipart/form-data">
+                    <form method='POST' action="{{action('SoundcloudController@Upload',['soundcloudtracks'=>$soundcloudtrack->id])}}" enctype="multipart/form-data">
                         <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
@@ -85,11 +83,13 @@
                             <button type="submit" class="btn btn-warning btn-md pull-right" id="TrackSubmit">UPLOAD</button>
                             <!--<button class="btn btn-warning btn-md pull-right" id="TrackSubmit">UPLOAD TRACK</button>-->
                         </div>
-                    </form>              
-                @else
-                    <h4 class="m-0 mt-25">If you think that it's wrong WAV file, PUSH THE BUTTON!</h4>
-                    <a href="{{ $soundcloudtrack -> id }}/wrong" class="btn btn-danger mt-10">WRONG TRACK</a>
+                    </form>
                 @endif
+                @if ($soundcloudtrack -> track !== NULL)
+						@if (Auth::user()->type === 'admin')
+								<a href="{{ $soundcloudtrack -> id }}/delete" class="btn btn-danger mt-10 pull-right">DELETE TRACK</a>
+						@endif
+				@endif
             </div>
         </div>
     </div>

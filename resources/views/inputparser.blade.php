@@ -35,13 +35,18 @@
                 </form>
           </div>
         </div>
-        @if (Auth::user()->type === 'admin')
-		<div class="row mt-20">
-			<div class="col-lg-12">
-				<a href="/customtracks/create" class="btn btn-primary">custom track</a>
-			</div>
-		</div>
-     	@endif
+        <div class="row mt-20">
+          <div class="col-lg-12">
+           <h1>Something NEW!</h1>
+            <blockquote>
+                <p>
+                    Now you can upload your track from SOUNDCLOUD and get a GREAT PROMOTION!
+                </p>
+                <small>It's free, but it will soon become a paid feature.<cite class="text-primary" title="Source Title">Hurry up!</cite></small>
+            </blockquote>
+            <a href="/soundcloudtracks/addnewtrack" class="btn btn-success input-block-level form-control">LET'S GO</a>
+          </div>
+        </div>
       <footer>
         <div class="row">
           <div class="col-lg-12">

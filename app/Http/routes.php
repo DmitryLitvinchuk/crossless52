@@ -46,7 +46,14 @@ Route::get('/newtracks', 'TrackController@newtracks');
 Route::get('/soundcloudtracks', 'SoundcloudController@AllTracks');
 Route::get('/soundcloudtracks/addnewtrack/', 'SoundcloudController@InputSoundcloudParserLink');
 Route::get('/soundcloudtracks/{id}', 'SoundcloudController@TrackPage');
+Route::get('/soundcloudtracks/{id}/edit', 'SoundcloudController@EditTrack');
+Route::put('/soundcloudtracks/{id}', 'SoundcloudController@update');
 Route::post('/soundcloudtracks', 'SoundcloudController@SoundcloudTrackCreate');
+//Route::get('soundcloudtracks/{id}/ChooseUploadFile/', 'SoundcloudController@ChooseUploadFile');
+Route::get('soundcloudtracks/{id}/download', 'SoundcloudController@download');
+Route::post('soundcloudtracks/{id}/UploadFile/', 'SoundcloudController@Upload');
+Route::get('soundcloudtracks/{id}/accept', 'SoundcloudController@acceptTrack');
+Route::get('/checksoundcloudtracks', 'SoundcloudController@CheckTracks');
 //
 
 
@@ -84,7 +91,7 @@ Route::get('tracks/{id}/accept', 'TrackController@acceptTrack');
 
 Route::get('tracks/{id}/reaccept', 'TrackController@acceptTrack');
 
-Route::get('tracks/{id}/ChooseUploadFile/', 'TrackController@ChooseUploadFile');
+//Route::get('tracks/{id}/ChooseUploadFile/', 'TrackController@ChooseUploadFile');
 
 Route::post('tracks/{id}/ChooseUploadFile/UploadFile/', 'TrackController@UploadFile');
 

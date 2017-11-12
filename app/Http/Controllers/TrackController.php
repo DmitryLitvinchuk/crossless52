@@ -83,7 +83,8 @@ class TrackController extends Controller
                 "html" => "required|url"
             ]);
             if ($v->fails()) {
-                echo 'invalid url';
+                $error = 'INVALID URL';
+				return view('errors.validate', compact('error'));
             }
             else {
                 $html = new \Htmldom($beat);
@@ -553,7 +554,7 @@ class TrackController extends Controller
             $trackname = $track->track;
             $number = $track->top_track_id.'.wav';
             $track_user_id = $track -> user_id;
-            if ($trackname !== $number) {
+            if ($trackname !== $number) {  //Изменение названия файла, если оно не соответствует стандарту
                 Storage::disk('s3')->move($trackname, $number);
                 $track -> track = $number;
                 $track -> user_id = $track_user_id;

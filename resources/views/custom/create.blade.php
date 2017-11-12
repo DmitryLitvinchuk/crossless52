@@ -9,7 +9,7 @@
 
     <div class="container mt-20">
         <div class="row">
-          {!! Form::open(['url' => 'customtracks', 'files' => true]) !!}
+          {!! Form::open(['action' => 'SoundcloudController@SoundcloudTrackCreate', 'files' => true]) !!}
 			  <div class="form-group">
 				{!! Form::label('title', 'Titile:') !!}
 				{!! Form::text('title', null, ['class' => 'form-control']) !!}
