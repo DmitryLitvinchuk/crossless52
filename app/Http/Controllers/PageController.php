@@ -214,6 +214,17 @@ class PageController extends Controller
         SEOMeta::setKeywords(['lossless', 'download wav', 'beatport', 'download music', 'top 100']);
         $toptracks = DB::table('top_tracks')->get();
         foreach ($toptracks as $toptrack) {
+			$date = $toptrack -> updated_at;
+			if ($date < '2017-11-27 01:23:30') {
+				$track_id = $toptrack -> id;
+				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+				$track = Track::where('top_track_id','=', $track_id)->first();
+				$track -> cover = $img;
+				$track->save();
+				//echo $track -> cover;
+				//$track->save();
+			}
             //echo $toptrack->id;
             $number = $toptrack->id;
             $track = DB::table('tracks')->where('top_track_id', $number)->first();

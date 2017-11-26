@@ -15,6 +15,19 @@ class MainController extends Controller
     {
         $page_name = 'New Tracks';
         $tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
+		//parser #1
+		foreach($tracks as $track) {
+			$date = $track -> updated_at;
+			if ($date < '2017-11-27 02:23:30') {
+				$track_id = $track -> top_track_id;
+				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+				$track -> cover = $img;
+				$track->save();
+			}
+			
+		}
+		//parser #1
         $toptracks = TopTrack::orderBy('top')->paginate(10);
         return view('main', compact('tracks', 'toptracks','page_name'));
     }

@@ -60,6 +60,16 @@ class TrackController extends Controller
                 $link_label = 'labels/'.$label;
             }
             $number = $track -> top_track_id;
+			//parser #1
+			$date = $track -> updated_at;
+			if ($date < '2017-11-27 01:23:30') {
+				$track_id = $track -> top_track_id;
+				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+				$track -> cover = $img;
+				$track->save();
+			}
+			//parser #1
             SEOMeta::setTitle($track->artist.' - '.$track->title);
             SEOMeta::setKeywords([$track->artist,$track->title,$track->remixer,$track->genre,$track->label,'lossless', 'download wav', 'beatport', 'download music', 'top 100']);
             OpenGraph::addImage(['url' => $track->cover, 'size' => 300]);
@@ -74,6 +84,35 @@ class TrackController extends Controller
         }
     }
     
+	
+	//Отметить трек как неправильный
+    public function UpdateImage($id, Track $Track)
+    {
+        if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker') {
+            flash('Image was updated!', 'success');
+			//$track = Track::find($id);
+			$track = Track::find($id)/*where('genre','!=','Breaks')*/;
+			$track_id = $track -> top_track_id;
+			$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+			$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+			$track -> cover = $img;
+			$track->save();
+			/*foreach($tracks as $track) {
+				$track_id = $track -> top_track_id;
+				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+				$track -> cover = $img;
+				$track->save();
+				
+			}*/
+            return redirect()->back();
+        }
+        else {
+            return redirect('/login');
+        }
+    }
+	
+	
     //Создать трек через Add Track
     public function create(Request $request, Track $track, User $user)
     {
@@ -189,7 +228,7 @@ class TrackController extends Controller
 					}
                 $label=$html->find('li.interior-track-labels span.value', 0)->plaintext;
                 $new_label = trim($label);
-                $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');;
+                $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
                 $number=$html->find('button.playable-play',0)->getAttribute('data-track');
                 $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
                 DB::statement('SET FOREIGN_KEY_CHECKS=0');
@@ -316,7 +355,18 @@ class TrackController extends Controller
         SEOMeta::setTitle('New Tracks');
         SEOMeta::setKeywords(['lossless', 'download wav', 'beatport', 'download music', 'new tracks']);
         if (Auth::check()) {
-            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(25);
+            $tracks = Track::where('track','!=',NULL)->orderBy('updated_at', 'desc')->simplePaginate(10);
+			foreach($tracks as $track) {
+				$date = $track -> updated_at;
+				if ($date < '2017-11-27 01:23:30') {
+					$track_id = $track -> top_track_id;
+					$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+					$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+					$track -> cover = $img;
+					$track->save();
+				}
+				
+			}
             return view('newtracks', compact('tracks'));
         }
         else {
@@ -349,6 +399,7 @@ class TrackController extends Controller
             return redirect('/');
         }
     }
+	
     
     
     //Выбрать трек для загрузки

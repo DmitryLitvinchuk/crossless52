@@ -56,6 +56,7 @@ Route::get('soundcloudtracks/{id}/accept', 'SoundcloudController@acceptTrack');
 Route::get('/checksoundcloudtracks', 'SoundcloudController@CheckTracks');
 //
 
+Route::get('tracks/{id}/updateimage', 'TrackController@UpdateImage');
 
 Route::get('/wrongtracks', 'TrackController@wrongtracks');
 
