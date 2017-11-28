@@ -9,12 +9,27 @@
 @section('content')
 
     <div class="container">
-        <div class="row mt-20">
+        <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h1>
+          <div class="row">
+          	  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          	  	<h1>
                   {{ $page_name }}
-                  <a href="/soundcloudtracks/addnewtrack/">upload your track</a>
-              </h1>
+                  <a href="/soundcloudtracks/addnewtrack/" class="pull-right">add</a>
+                </h1>
+			  </div>
+			  <div class="col-xs-12 col-sm-12 col-md-offset-2 col-md-8 col-lg-offset-2 col-lg-8">
+				  <h3>
+					You can becomes more popular by getting a promotion with our service. Hurry Up! <a href="/soundcloudtracks/addnewtrack/">Upload your tracks!</a>
+				  </h3>
+				  <blockquote>
+					  <p>Now you can upload your track and show it to the world.</p>
+					  <small>
+						Those tracks are FREE for downloading - we don't take points.
+					  </small>
+				  </blockquote>
+			  </div>
+          </div>
               <div class="row">
                  @foreach ($soundcloudtracks as $soundcloudtrack)
                   <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">

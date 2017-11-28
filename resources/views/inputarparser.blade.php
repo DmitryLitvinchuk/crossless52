@@ -10,13 +10,11 @@
     <div class="container">
         <div class="row mt-20">
           <div class="col-lg-12">
-           <h1>Add Track</h1>
+           <h1>Parse from AUTOdoc</h1>
             <blockquote>
                 <p>
-                    If you have not found a track on CrossLess, but you wanna add it. 
-                    Paste link to this track in Beatport into this field.
+                    This parser can scan pages on autodoc.ru and give some data_
                 </p>
-                <small>Link should be something like that <cite class="text-primary" title="Source Title">https://www.beatport.com/track/learning-to-fall-petar-dundov-remix/8762114</cite></small>
             </blockquote>
           </div>
         </div>
@@ -25,7 +23,7 @@
                 <form method='POST' action="{{action('PageController@arpartsParser')}}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <div class="form-group">
-                        <label class="control-label" for="html">Beatport:</label>
+                        <label class="control-label" for="html">Autodoc:</label>
                         <input class="form-control" id="html" name="html" type="text">
                     </div>
                     <div class="form-group">

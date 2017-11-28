@@ -131,7 +131,7 @@
                </div>
                <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
                    <h5 class="mt-20 text-center"><a href="/register">Register</a></h5>
-                   <h5 class="text-center"><a href="/top">Top100 Beatport</a></h5>
+                   <h5 class="text-center"><a href="/donate">Donate</a></h5>
                    <h5 class="text-center"><a href="/newtracks">Get tracks</a></h5>
                </div>
                <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">

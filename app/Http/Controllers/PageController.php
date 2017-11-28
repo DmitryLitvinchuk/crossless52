@@ -19,12 +19,24 @@ use Illuminate\Support\Facades\Validator;
 class PageController extends Controller
 {
     //Главная страница
-    public function index(Track $track, TopTrack $toptrack)
+    public function index(SoundcloudTrack $soundcloudtrack, Track $track, TopTrack $toptrack)
     {
         $page_name = 'New Tracks';
+		$soundcloudtracks = SoundcloudTrack::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(2);
         $tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
+		/*foreach($tracks as $track) {
+			$date = $track -> updated_at;
+			if ($date < '2017-11-27 02:23:30') {
+				$track_id = $track -> top_track_id;
+				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+				$track -> cover = $img;
+				$track->save();
+			}
+		}*/
+		$needTracks = Track::where('track','!=',NULL)->orderBy('downloads', 'desc')->paginate(4);
         $toptracks = TopTrack::orderBy('top')->paginate(10);
-        return view('main', compact('tracks', 'toptracks','page_name'));
+        return view('main', compact('tracks', 'toptracks', 'soundcloudtracks', 'needTracks', 'page_name'));
     }
 	
 	//Главная страница
@@ -270,7 +282,7 @@ class PageController extends Controller
         return view('top', compact('toptracks'));
     }
     
-    /*//Страница стстистики
+    //Страница стстистики
     public function analytics(User $User)
     {
         if (Auth::user()->type === 'admin') {
@@ -306,8 +318,45 @@ class PageController extends Controller
             else {
                 $html = new \Htmldom($beat);
 
-                $title=$html->find('div.infoBlock h1', 0)->innertext;
-				$models=$html->find('div.brands div', 0)->plaintext;
+                $title=$html->find('.ContentHeader', 0)->innertext;
+				echo $title.' для ';
+				/*foreach ($html->find('.fil-brands li') as $model) {
+					echo $model->plaintext.'<br>';
+				}*/
+				//echo $model=$html->find('.fil-brands li', 0)->plaintext.'<br>';
+				//echo $brand='fil'.$model;
+				/*foreach ($html->find('.fil-brands li') as $brand) {
+					echo $brand->plaintext.'<br>';
+					
+				}
+				foreach ($html->find('.fil-models li') as $model) {
+						echo $model->plaintext.'<br>';
+				}*/
+				
+				foreach ($html->find('.fil-models') as $model) {
+					
+					echo substr($model->id, 3).' ';
+					echo '(';
+					foreach ($model->find('li') as $mark) {
+						echo $mark->plaintext.', ';
+					}
+					echo ')';
+					echo ', ';
+				}
+				echo 'в интернет-магазине ARparts';
+				echo '<hr>';
+				echo $title.', ';
+				foreach ($html->find('.fil-models') as $model) {
+					
+					echo substr($model->id, 3).', ';
+					foreach ($model->find('li') as $mark) {
+						echo $mark->plaintext.', ';
+					}
+				}
+				echo 'Санкт-Петербург, Спб, Питер, Отправка в регионы, Доставка по России';
+				/*foreach ($html->find('.fil-models li') as $model) {
+					echo $model->plaintext.'<br>';
+				}*/
                 //$remixer=$html->find('div.interior-title h1.remixed', 0)->plaintext;
                 /*foreach($html->find('div.interior-track-artists a') as $artist) {
                     $artist = $artist->innertext.' ';
@@ -323,12 +372,23 @@ class PageController extends Controller
                 $number=$html->find('button.playable-play',0)->getAttribute('data-track');
                 $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
                 DB::statement('SET FOREIGN_KEY_CHECKS=0');
-                $row = Track::where('top_track_id','=',$number)->count();
-                echo $title, $models;
+                $row = Track::where('top_track_id','=',$number)->count();*/
+                //echo $title, $models;
             }
         }
         else {
             return redirect('/login');
         }
-    }*/
+    }
+	
+	//Донаты
+    public function donate( )
+    {
+        if (Auth::check()) {
+            return view('billing');
+        }
+        else {
+            return redirect('/login');
+        }
+    }
 }

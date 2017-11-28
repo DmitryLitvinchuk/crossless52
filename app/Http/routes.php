@@ -104,6 +104,9 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
+//Donation
+Route::get('/donate', 'PageController@donate');
+
 //ARparts
 Route::get('/arparts/', 'PageController@arparts');
 Route::post('/arparts/', 'PageController@arpartsParser');
