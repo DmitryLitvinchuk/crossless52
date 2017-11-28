@@ -92,11 +92,16 @@ class TrackController extends Controller
             flash('Image was updated!', 'success');
 			//$track = Track::find($id);
 			$track = Track::find($id)/*where('genre','!=','Breaks')*/;
-			$track_id = $track -> top_track_id;
+			/*$track_id = $track -> top_track_id;
 			$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
 			$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
 			$track -> cover = $img;
-			$track->save();
+			$track->save();*/
+			$track_id = $track -> top_track_id;
+				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
+				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+				$track -> cover = $img;
+				$track->save();
 			/*foreach($tracks as $track) {
 				$track_id = $track -> top_track_id;
 				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
@@ -714,3 +719,4 @@ class TrackController extends Controller
         }
     }
 }
+

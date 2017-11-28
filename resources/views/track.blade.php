@@ -84,6 +84,9 @@
                 <h4 class="m-0">{{$track -> key }}</h4>
                 <p class="text-muted m-0">Release:</p>
                 <h4 class="m-0">{{$track -> release }}</h4>
+                @if (Auth::user()->type === 'admin')
+						<a href="{{ $track -> id }}/updateimage" class="btn btn-success mt-10">REFRESH IMAGE</a>
+				@endif
                 @if ($track -> track === NULL)
                     <h1>Upload WAV file</h1>
                     <form method='POST' action="{{action('TrackController@UploadFile',['tracks'=>$track->id])}}" enctype="multipart/form-data">

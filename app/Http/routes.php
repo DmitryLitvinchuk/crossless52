@@ -103,3 +103,7 @@ Route::auth();
 //Route::get('auth/logout', 'Auth\AuthController@logout');
 
 Route::get('/home', 'HomeController@index');
+
+//ARparts
+Route::get('/arparts/', 'PageController@arparts');
+Route::post('/arparts/', 'PageController@arpartsParser');
