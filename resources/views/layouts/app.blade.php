@@ -65,7 +65,7 @@
               <a href="/soundcloudtracks">Soundcloud tracks <span class="label label-success">New</span></a>
             </li>
             <li class="hidden-sm">
-              <a href="/top">Top100</a>
+              <a href="/donate">Donate Us</a>
             </li>
             <li>
               <a href="/addnewtrack/">Add New Track</a>
