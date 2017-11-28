@@ -22,7 +22,7 @@ class PageController extends Controller
     public function index(SoundcloudTrack $soundcloudtrack, Track $track, TopTrack $toptrack)
     {
         $page_name = 'New Tracks';
-		$soundcloudtracks = SoundcloudTrack::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(2);
+		$soundcloudtracks = SoundcloudTrack::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(3);
         $tracks = Track::where('track','!=',NULL)->where('inspection','!=',0)->orderBy('updated_at', 'desc')->paginate(12);
 		/*foreach($tracks as $track) {
 			$date = $track -> updated_at;
