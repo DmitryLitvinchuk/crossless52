@@ -319,15 +319,17 @@ class SoundcloudController extends Controller
             $trackname = $track->track;
             $current = Carbon::now();
             $newtrackname = '('.$current.')'.' '.$track->artist.' - '.$track->title.' '.$trackname;
+			$track-> track = null;
+            $track -> inspection = 0;
+            $track->save();
             Storage::disk('s3')->move($trackname, 'deleted/'.$newtrackname);
             /*$user = User::find($track -> user_id);
             $user -> accepted_tracks = 0;
             $user->save();*/
             //$track-> user_id = null;
-            $track-> track = null;
-            $track-> wrong = null;
+            /*$track-> track = null;
             $track -> inspection = 0;
-            $track->save();
+            $track->save();*/
             return redirect()->back();
         }
         else {
