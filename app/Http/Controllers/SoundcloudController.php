@@ -311,4 +311,28 @@ class SoundcloudController extends Controller
         }
     }
 	
+	public function deleteFile($id)
+    {
+        if (Auth::user()->type === 'admin') {
+            flash('Track was deleted!', 'warning');
+            $track = SoundcloudTrack::find($id);
+            $trackname = $track->track;
+            $current = Carbon::now();
+            $newtrackname = '('.$current.')'.' '.$track->artist.' - '.$track->title.' '.$trackname;
+            Storage::disk('s3')->move($trackname, 'deleted/'.$newtrackname);
+            /*$user = User::find($track -> user_id);
+            $user -> accepted_tracks = 0;
+            $user->save();*/
+            //$track-> user_id = null;
+            $track-> track = null;
+            $track-> wrong = null;
+            $track -> inspection = 0;
+            $track->save();
+            return redirect()->back();
+        }
+        else {
+            return redirect()->back();
+        }
+    }
+	
 }

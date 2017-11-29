@@ -53,6 +53,7 @@ Route::post('/soundcloudtracks', 'SoundcloudController@SoundcloudTrackCreate');
 Route::get('soundcloudtracks/{id}/download', 'SoundcloudController@download');
 Route::post('soundcloudtracks/{id}/UploadFile/', 'SoundcloudController@Upload');
 Route::get('soundcloudtracks/{id}/accept', 'SoundcloudController@acceptTrack');
+Route::get('soundcloudtracks/{id}/delete', 'SoundcloudController@deleteFile');
 Route::get('/checksoundcloudtracks', 'SoundcloudController@CheckTracks');
 //
 
