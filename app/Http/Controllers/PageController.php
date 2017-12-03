@@ -304,19 +304,19 @@ class PageController extends Controller
     }
 
 	//Создать трек через Add Track
-    public function arpartsParser(Request $request)
+    public function arpartsParser1(Request $request)
     {
         if (Auth::user()->type === 'admin') {
             $beat = $request['html'];
             $v = Validator::make($request->all(), [
                 "html" => "required|url"
             ]);
-            if ($v->fails()) {
-                $error = 'INVALID URL';
-				return view('errors.validate', compact('error'));
-            }
-            else {
-                $html = new \Htmldom($beat);
+            //if ($v->fails()) {
+            //    $error = 'INVALID URL';
+			//	return view('errors.validate', compact('error'));
+            //}
+            //else {
+                $html = new \Htmldom('https://www.autodoc.ru/part/vdo--83/'.$beat.'/');
 
                 $title=$html->find('.ContentHeader', 0)->innertext;
 				echo $title.' для ';
@@ -353,7 +353,15 @@ class PageController extends Controller
 						echo $mark->plaintext.', ';
 					}
 				}
-				echo 'Санкт-Петербург, Спб, Питер, Отправка в регионы, Доставка по России';
+				echo 'Санкт-Петербург, Спб, Питер, Отправка в регионы, Доставка по России <br><br>';
+				echo '<hr>';
+			
+				echo 'Не уверены, подойдет ли данная деталь на Ваш автомобиль?! <br><br>';
+				echo 'ЗВОНИТЕ +7(812) 407-37-33 или оставьте VIN-ЗАПРОС наши специалисты подберут именно те запчасти, которые необходимы Вашему автомобилю! <br><br>';
+				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности у наших менеджеров по телефону. <br><br>';
+				echo 'Так же купить запчасти на любые иномарки Вы можете в наших магазинах. Адреса магазинов Вы можете увидеть в разделе контакты. <br><br>';
+				echo 'Быстрая доставка по Санкт-Петербургу и отправка в любой регион России и СНГ. <br>';
+
 				/*foreach ($html->find('.fil-models li') as $model) {
 					echo $model->plaintext.'<br>';
 				}*/
@@ -374,7 +382,67 @@ class PageController extends Controller
                 DB::statement('SET FOREIGN_KEY_CHECKS=0');
                 $row = Track::where('top_track_id','=',$number)->count();*/
                 //echo $title, $models;
-            }
+            //}
+        }
+        else {
+            return redirect('/login');
+        }
+    }
+	
+	//Создать трек через Add Track
+    public function arpartsParser(Request $request)
+    {
+        if (Auth::user()->type === 'admin') {
+            $beat = $request['html'];
+            $v = Validator::make($request->all(), [
+                "html" => "required|url"
+            ]);
+                $html = new \Htmldom($beat);
+
+                $title=$html->find('.subject', 0)->innertext;
+				echo $title.'<br>';
+			    $price=$html->find('.viewbull-summary-price__value', 0)->plaintext;
+				$price = substr($price,0,-4);
+				$price = str_replace(" ","",$price);
+				$price = (int) $price;
+				if ($price<=5000) {
+					$price = $price*1.45;
+				}
+				else {
+					$price = $price*1.3;
+				}
+				
+				echo $price.'<br>';
+				$number=$html->find('span.inplace', 5)->plaintext;
+				$number = explode(',', $number);  
+				$number = $number[0];
+				echo 'Номер в каталоге: '.$number;
+				foreach ($html->find('.autoPartsModel .inplace li') as $mark) {
+					/*foreach ($model->find('li') as $mark) {
+						echo $mark->plaintext.', ';
+					}*/
+					$a = explode(',', $mark);  
+					$a = $a[0];
+					echo $a.'<br>';
+				}
+				//echo 'в интернет-магазине ARparts';
+				echo '<hr>';
+				/*echo $title.', ';
+				foreach ($html->find('.fil-models') as $model) {
+					
+					echo substr($model->id, 3).', ';
+					foreach ($model->find('li') as $mark) {
+						echo $mark->plaintext.', ';
+					}
+				}
+				echo 'Санкт-Петербург, Спб, Питер, Отправка в регионы, Доставка по России <br><br>';
+				echo '<hr>';
+			
+				echo 'Не уверены, подойдет ли данная деталь на Ваш автомобиль?! <br><br>';
+				echo 'ЗВОНИТЕ +7(812) 407-37-33 или оставьте VIN-ЗАПРОС наши специалисты подберут именно те запчасти, которые необходимы Вашему автомобилю! <br><br>';
+				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности у наших менеджеров по телефону. <br><br>';
+				echo 'Так же купить запчасти на любые иномарки Вы можете в наших магазинах. Адреса магазинов Вы можете увидеть в разделе контакты. <br><br>';
+				echo 'Быстрая доставка по Санкт-Петербургу и отправка в любой регион России и СНГ. <br>';*/
         }
         else {
             return redirect('/login');
