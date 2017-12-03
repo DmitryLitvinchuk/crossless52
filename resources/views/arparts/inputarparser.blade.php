@@ -10,10 +10,10 @@
     <div class="container">
         <div class="row mt-20">
           <div class="col-lg-12">
-           <h1>Parse from AUTOdoc</h1>
+           <h1>Parse from {{ $page_name }}</h1>
             <blockquote>
                 <p>
-                    This parser can scan pages on autodoc.ru and give some data_
+                    This parser can scan pages on {{ $link }} and give some data_
                 </p>
             </blockquote>
           </div>
@@ -23,7 +23,7 @@
                 <form method='POST' action="{{action('PageController@arpartsParser')}}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <div class="form-group">
-                        <label class="control-label" for="html">Autodoc:</label>
+                        <label class="control-label" for="html">{{ $link }}:</label>
                         <input class="form-control" id="html" name="html" type="text">
                     </div>
                     <div class="form-group">

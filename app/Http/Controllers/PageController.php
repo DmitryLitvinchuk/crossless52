@@ -300,7 +300,19 @@ class PageController extends Controller
 	//Страница с вводом ссылки для парсера
     public function arparts(Request $request)
     {
-        return view('inputarparser');
+		if (Auth::check()) {
+			if (Auth::user()->type === 'admin') {
+				$page_name = 'DROM.RU';
+				$link = 'baza.drom.ru';
+        		return view('arparts.inputarparser', compact('page_name', 'link'));
+			}
+			else {
+				return redirect('/');
+			}
+		}
+		else {
+			return redirect('/login');
+		}
     }
 
 	//Создать трек через Add Track
@@ -399,8 +411,8 @@ class PageController extends Controller
             ]);
                 $html = new \Htmldom($beat);
 
-                $title=$html->find('.subject', 0)->innertext;
-				echo $title.'<br>';
+                $title=$html->find('.subject', 0)->plaintext;
+				//echo $title.'<br>';
 			    $price=$html->find('.viewbull-summary-price__value', 0)->plaintext;
 				$price = substr($price,0,-4);
 				$price = str_replace(" ","",$price);
@@ -411,22 +423,31 @@ class PageController extends Controller
 				else {
 					$price = $price*1.3;
 				}
-				
-				echo $price.'<br>';
+				//echo 'Цена: ';
+				//echo $price.'<br>';
+				//echo '<hr>';
+				//$img=$html->find('.bulletinImages .image img', 0)->getAttribute('src');
 				$number=$html->find('span.inplace', 5)->plaintext;
 				$number = explode(',', $number);  
 				$number = $number[0];
-				echo 'Номер в каталоге: '.$number;
+				//echo 'Номер в каталоге: '.$number;
+				//echo '<hr>';
+				$models = array();
 				foreach ($html->find('.autoPartsModel .inplace li') as $mark) {
 					/*foreach ($model->find('li') as $mark) {
 						echo $mark->plaintext.', ';
 					}*/
-					$a = explode(',', $mark);  
-					$a = $a[0];
-					echo $a.'<br>';
+					$mark = explode(',', $mark); 
+					$mark = str_replace("<li>","",$mark);
+					$mark = str_replace("</li>","",$mark);
+					$mark = $mark[0];
+					array_push($models, $mark);
+					//echo $mark;
 				}
+				$models = array_unique($models);
+				//print_r ($models);
 				//echo 'в интернет-магазине ARparts';
-				echo '<hr>';
+				//echo '<hr>';
 				/*echo $title.', ';
 				foreach ($html->find('.fil-models') as $model) {
 					
@@ -434,18 +455,15 @@ class PageController extends Controller
 					foreach ($model->find('li') as $mark) {
 						echo $mark->plaintext.', ';
 					}
-				}
-				echo 'Санкт-Петербург, Спб, Питер, Отправка в регионы, Доставка по России <br><br>';
-				echo '<hr>';
-			
-				echo 'Не уверены, подойдет ли данная деталь на Ваш автомобиль?! <br><br>';
-				echo 'ЗВОНИТЕ +7(812) 407-37-33 или оставьте VIN-ЗАПРОС наши специалисты подберут именно те запчасти, которые необходимы Вашему автомобилю! <br><br>';
-				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности у наших менеджеров по телефону. <br><br>';
-				echo 'Так же купить запчасти на любые иномарки Вы можете в наших магазинах. Адреса магазинов Вы можете увидеть в разделе контакты. <br><br>';
-				echo 'Быстрая доставка по Санкт-Петербургу и отправка в любой регион России и СНГ. <br>';*/
+				}*/
+				/*echo 'Если Вы не уверены подойдет ли данная деталь на Ваш автомобиль,ЗВОНИТЕ, наши специалисты помогут подобрать именно то, что Вам необходимо! <br><br>';
+				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности уточняйте у наших менеджеров по телефонам! <br><br>';
+				echo 'Уточнить совместимость детали и наличие на складе Вы можете нажав кнопку ЗАДАТЬ ВОПРОС!';
+				echo '<hr>';*/
+				return view('arparts.drom', compact('title', 'price', 'number', 'models'));
         }
         else {
-            return redirect('/login');
+            return redirect('/');
         }
     }
 	
