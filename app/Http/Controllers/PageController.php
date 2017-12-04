@@ -427,7 +427,9 @@ class PageController extends Controller
             ]);
                 $html = new \Htmldom($beat);
 
-                //$title=$html->find('div[id=breadcrumbs] span', 0)->plaintext;
+                $title_promo=$html->find('h1.subject span', 0)->plaintext;
+				//$image=$html->find('pswp__img', 3)->getAttribute('src');
+				//echo $image;
 				$types = array();
 				foreach ($html->find('div[id=breadcrumbs] span') as $type) {
 					
@@ -499,7 +501,7 @@ class PageController extends Controller
 				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности уточняйте у наших менеджеров по телефонам! <br><br>';
 				echo 'Уточнить совместимость детали и наличие на складе Вы можете нажав кнопку ЗАДАТЬ ВОПРОС!';
 				echo '<hr>';*/
-				return view('arparts.drom', compact('title', 'price', 'number', 'models', 'engine', 'category'));
+				return view('arparts.drom', compact('title', 'price', 'number', 'models', 'engine', 'category', 'title_promo'));
         }
         else {
             return redirect('/');
