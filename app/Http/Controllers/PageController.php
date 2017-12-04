@@ -297,8 +297,24 @@ class PageController extends Controller
         }
     }
 	
-	//Страница с вводом ссылки для парсера
+	//Ввод ссылки на Drom.ru
     public function arparts(Request $request)
+    {
+		if (Auth::check()) {
+			if (Auth::user()->type === 'admin') {
+        		return view('arparts.chooseType');
+			}
+			else {
+				return redirect('/');
+			}
+		}
+		else {
+			return redirect('/login');
+		}
+    }
+	
+	//Ввод ссылки на Drom.ru
+    public function arpartsDrom(Request $request)
     {
 		if (Auth::check()) {
 			if (Auth::user()->type === 'admin') {
@@ -401,8 +417,8 @@ class PageController extends Controller
         }
     }
 	
-	//Создать трек через Add Track
-    public function arpartsParser(Request $request)
+	//Парсер с Drom.ru
+    public function arpartsDromParser(Request $request)
     {
         if (Auth::user()->type === 'admin') {
             $beat = $request['html'];
@@ -411,7 +427,19 @@ class PageController extends Controller
             ]);
                 $html = new \Htmldom($beat);
 
-                $title=$html->find('.subject', 0)->plaintext;
+                //$title=$html->find('div[id=breadcrumbs] span', 0)->plaintext;
+				$types = array();
+				foreach ($html->find('div[id=breadcrumbs] span') as $type) {
+					
+					/*$mark = explode(',', $mark); 
+					$mark = str_replace("<li>","",$mark);
+					$mark = str_replace("</li>","",$mark);
+					$mark = $mark[0];*/
+					$type=$type->plaintext;
+					array_push($types, $type);
+				}
+				$title = array_pop($types);
+				$category = $types[count($types)-1];
 				//echo $title.'<br>';
 			    $price=$html->find('.viewbull-summary-price__value', 0)->plaintext;
 				$price = substr($price,0,-4);
@@ -419,9 +447,11 @@ class PageController extends Controller
 				$price = (int) $price;
 				if ($price<=5000) {
 					$price = $price*1.45;
+					$price = ceil($price/100) * 100;
 				}
 				else {
 					$price = $price*1.3;
+					$price = ceil($price/100) * 100;
 				}
 				//echo 'Цена: ';
 				//echo $price.'<br>';
@@ -445,6 +475,15 @@ class PageController extends Controller
 					//echo $mark;
 				}
 				$models = array_unique($models);
+				/*foreach ($html->find('.autoPartsEngine span.inplace') as $engine) {
+					$mark = explode(',', $mark); 
+					$mark = str_replace("<li>","",$mark);
+					$mark = str_replace("</li>","",$mark);
+					$mark = $mark[0];
+					array_push($models, $mark);
+				}*/
+				$engine=$html->find('.autoPartsEngine span.inplace', 0)->plaintext;
+				
 				//print_r ($models);
 				//echo 'в интернет-магазине ARparts';
 				//echo '<hr>';
@@ -460,7 +499,7 @@ class PageController extends Controller
 				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности уточняйте у наших менеджеров по телефонам! <br><br>';
 				echo 'Уточнить совместимость детали и наличие на складе Вы можете нажав кнопку ЗАДАТЬ ВОПРОС!';
 				echo '<hr>';*/
-				return view('arparts.drom', compact('title', 'price', 'number', 'models'));
+				return view('arparts.drom', compact('title', 'price', 'number', 'models', 'engine', 'category'));
         }
         else {
             return redirect('/');

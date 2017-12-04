@@ -20,7 +20,7 @@
         </div>
         <div class="row mt-20">
           <div class="col-lg-12">
-                <form method='POST' action="{{action('PageController@arpartsParser')}}" enctype="multipart/form-data">
+                <form method='POST' action="{{action('PageController@arpartsDromParser')}}" enctype="multipart/form-data">
                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                     <div class="form-group">
                         <label class="control-label" for="html">{{ $link }}:</label>

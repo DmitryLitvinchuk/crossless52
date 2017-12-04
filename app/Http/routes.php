@@ -109,5 +109,6 @@ Route::get('/home', 'HomeController@index');
 Route::get('/donate', 'PageController@donate');
 
 //ARparts
-Route::get('/arparts/', 'PageController@arparts');
-Route::post('/arparts/', 'PageController@arpartsParser');
+Route::get('/arparts', 'PageController@arparts');
+Route::get('/arparts/drom', 'PageController@arpartsDrom');
+Route::post('/arparts/drom', 'PageController@arpartsDromParser');
