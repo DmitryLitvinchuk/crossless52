@@ -12,11 +12,12 @@
   <body>
 
     <div class="container">
-		<h1>Для DROM.ru</h1>
+    
+    <h1>Для DROM.ru</h1>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			  	<h4>Категория: {{ $category }}</h4>
-                <h2 class="display-4">{{ $title }}</h2>
+                <h2 class="display-4">{{ $titleOfAd }}</h2>
 			  	<br>
 				<h3>Цена: {{ $price }} рублей</h3>
 			  	<br>
@@ -43,7 +44,7 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
 			  	<h4>Категория: {{ $category }}</h4>
-                <h2 class="display-4">{{ $title }}</h2>
+                <h2 class="display-4">{{ $titleOfAd }}</h2>
 			  	<br>
 				<h3>Цена: {{ $price }} рублей</h3>
 			  	<br>
@@ -53,9 +54,9 @@
 						<strong>В продаже:</strong><br>
 
 						<i> 
-							{{ $title }}
+							{{ $titleOfAd }}
 							
-							в Санкт-Петербурге.</i><br>
+							в Санкт-Петербурге.</i> Новый!<br>
 
 
 
@@ -69,7 +70,7 @@
 
 						<strong>Для двигателей:</strong>
 
-						{{ $engine }}<br>
+						{{ $parsed_engine }}<br>
 
 
 
@@ -81,26 +82,21 @@
 			    </p>
           </div>
         </div>
+		
 	  	<h1>На ARparts.ru</h1>
 	  
 	  <div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-			  <p><b>Заголовок:</b> <br>{{ $title }},
-					@foreach ($models as $model)
-						{{ $model }},
-					@endforeach в Санкт-Петербурге
+			  <p><b>Заголовок:</b> <br>{{ $titleOfAd }}, {{ $number }}
 			  </p>
 			  <p><b>Ключевые слова:</b> <br>{{ $title }},
-					@foreach ($models as $model)
-						{{ $model }},
-					@endforeach
-				  купить {{ $category }} в Санкт-Петербурге, Спб, отправка по России, {{ $engine }}, самая низкая цена, дешево, срочно, цена, Мурманск, Ханты-Мансийск, Краснодар, Калининград, Воронеж, Волгоград, Ростов, Казань
+				  купить в Санкт-Петербурге, Спб, отправка по России, самая низкая цена, дешево, срочно, цена, Мурманск, Ханты-Мансийск, Краснодар, Калининград, Воронеж, Волгоград, Ростов, Казань
 			  </p>
 			  <p>Купить {{ $title }},
 					@foreach ($models as $model)
 						{{ $model }},
 					@endforeach
-				  по самой низкой цене в Санкт-Петербурге, Мурманске, Ханты-Мансийске, Краснодаре, Калининграде, Воронеже, Волгограде, Ростове или отправить в другой регион
+				  по самой низкой цене в Санкт-Петербурге, Мурманске, Ханты-Мансийске, Краснодаре, Калининграде, Воронеже, Волгограде, Ростове или отправить в другой регион, {{ $number }}
 			  </p>
 		  </div>
 	  </div>
@@ -109,16 +105,13 @@
     <div class="container">-->
 	    <div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-			  <img src="http://i943.photobucket.com/albums/ad277/th3crvcr3w/IMG_20131019_142815_0_1_zpsc0a694da.jpg" class="img-fluid align-middle" alt="Responsive image" style="width:100%; margin-bottom: 18px; border-radius: 0.3rem;">
-			   <div class="jumbotron">
-				  <h1 class="display-4" style="font-size: 2.5rem;">Не забудьте заказть установку детали в нашем автосервисе со скидкой 15%</h1>
-				</div>
+			  <img src="http.jpg" class="img-fluid align-middle" alt="{{ $title }}, {{ $number }}" style="width:100%; margin-bottom: 18px; border-radius: 0.3rem;">
 		  </div>
 		  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-			  <div class="jumbotron">
-				  <h1 class="display-4" style="font-size: 2.5rem;">{{ $title }}</h1>
+			  <div class="jumbotron" style="padding-bottom:15px; padding-top:15px;">
+				  <h1 class="display-4" style="font-size: 2.5rem;">{{ $titleOfAd }}</h1>
 				  <p class="lead">{{ $category }}</p>
-				  <p class="lead">Цена: {{ $price }} рублей</p>
+				  <p class="lead">Цена: {{ $price_main }} рублей</p>
 				  <hr class="my-4">
 				  <div class="row">
 					  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -140,7 +133,7 @@
 						  <p>
 							  <strong>Двигатели:</strong><br>
 								<p>
-									{{ $engine }}
+									{{ $parsed_engine }}
 								</p>
 						  </p>
 					  </div> 
@@ -152,6 +145,9 @@
 				  <p class="lead">
 					<a class="btn btn-primary btn-lg" href="tel:88129217414" role="button">Телефон: 8 812 921-74-14</a>
 				  </p>
+				  <div class="alert alert-success" role="alert">
+				  	Не забудьте заказть установку детали в нашем автосервисе со скидкой 15%
+				  </div>
 				</div>
 		  </div>
         </div>
@@ -159,10 +155,44 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+-->
+	
+	
+	<!--<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="jumbotron" style="padding: 20px;">
+				  <h1 class="display-4" style="font-size: 2.5rem;">УСТАНОВИТЕ КУПЛЕННЫЕ СТЕКЛА В НАШЕМ АВТОСЕРВИСЕ</h1>
+					  <img src="http://avtostekla7.ru/bitrix/images/avtostekla-zamena.jpg" class="img-fluid align-middle" alt="Установка автостекол" style="width:100%; margin-bottom: 18px; border-radius: 0.3rem;">
+					<p style="font-size:22px;">
+						Теперь для того что бы поменять стекло на своем автомобиле не нужно покупать его в одном месте, а затем ехать на установку в другое. Все это Вы можете сделать в одном месте по адресу <strong>пр. Народного Ополчения 28А</strong>. 
+						<br>
+						<p style="margin-bottom:0px;font-size:22px;">Наш магазин занимается продажей и установкой автостекла на любой автомобиль:</p>
+						<ul style="font-size:20px;">
+							<li>Toyota</li>
+							<li>Nissan</li>
+							<li>Mitsubishi</li>
+							<li>Honda</li>
+							<li>Subaru</li>
+							<li>BMW</li>
+							<li>Mercedes</li>
+							<li>Volvo</li>
+							<li>Opel</li>
+							<li>Ford и другие!</li>
+						</ul>
+					</p>
+					<hr>
+					<p class="lead">Адрес: пр. Народного Ополчения 28А</p>
+					<p class="lead text-center">
+						<a class="btn btn-primary btn-lg" href="tel:88129217414" role="button">Телефон: 8 812 921-74-14</a>
+					</p>
+				</div>
+			</div>
+		</div>-->
 		<!-- row ends -->
 		<!-- second row starts -->
-		<div class="row">
+		<!--<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			  <img src="http://i943.photobucket.com/albums/ad277/th3crvcr3w/IMG_20131019_142815_0_1_zpsc0a694da.jpg" class="img-fluid " alt="Responsive image">
 		  </div>
@@ -170,7 +200,7 @@
 			  <div class="jumbotron">
 				  <h1 class="display-4">{{ $title }}</h1>
 				  <p class="lead">{{ $category }}</p>
-				  <p class="lead">Цена: {{ $price }} рублей</p>
+				  <p class="lead">Цена: {{ $price_main }} рублей</p>
 				  <hr class="my-4">
 				  <div class="row">
 					  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -211,7 +241,7 @@
 				   </div>
 				</div>
 		  </div>
-        </div>
+        </div>-->
 		<!-- second row ends -->
 
 		<!-- <div class="row">

@@ -447,6 +447,7 @@ class PageController extends Controller
 				$price = substr($price,0,-4);
 				$price = str_replace(" ","",$price);
 				$price = (int) $price;
+				$price_main = $price;
 				if ($price<=5000) {
 					$price = $price*1.45;
 					$price = ceil($price/100) * 100;
@@ -469,10 +470,13 @@ class PageController extends Controller
 					/*foreach ($model->find('li') as $mark) {
 						echo $mark->plaintext.', ';
 					}*/
-					$mark = explode(',', $mark); 
+					$mark = explode(',', $mark);
 					$mark = str_replace("<li>","",$mark);
 					$mark = str_replace("</li>","",$mark);
 					$mark = $mark[0];
+					if ($mark == 'Toyota Corolla') {
+						$mark = 'Toyota Corolla'.' (Тойота Королла)';
+					}
 					array_push($models, $mark);
 					//echo $mark;
 				}
@@ -484,8 +488,55 @@ class PageController extends Controller
 					$mark = $mark[0];
 					array_push($models, $mark);
 				}*/
-				$engine=$html->find('.autoPartsEngine span.inplace', 0)->plaintext;
-				
+				$engine=''; //пустое значение в массив
+				$parsed_engine=$html->find('.autoPartsEngine span.inplace', 0)->plaintext; //парсим номера двигателей
+				$engines = explode(',', $parsed_engine); //разделяем их по зяпятой
+				$withoutEndEngines = array(); //пустой массив для конечных вариантов
+				foreach ($engines as $engine) {
+					$engine = trim($engine); //убираем пробелы
+					$amountOfLetters = iconv_strlen ($engine); //считаем количество знаков в номере
+					if ($amountOfLetters >= 5) {
+						$engine = substr($engine,0,-2); //убираем последние 2
+						$lastLetter = substr($engine, -1); //смотрим что осталось в конце
+						if ($lastLetter == 'F' || $lastLetter == 'T') { //если это все-ещё модификация - дропаем её
+							$engine = substr($engine,0,-1); //1 знак
+						}
+						array_push($withoutEndEngines, $engine); //добваляем в финальный массив
+					}
+					else {
+						if ($lastLetter == 'F' || $lastLetter == 'T') { //если это все-ещё модификация - дропаем её
+							$engine = substr($engine,0,-1);//1 знак
+						}
+						array_push($withoutEndEngines, $engine);//добваляем в финальный массив
+					}
+					/*$firstLetter = substr($engine, 1, 2);
+					echo $firstLetter.',';
+					if ($firstLetter == '2AZ') {
+						$engine = 'Это работает';
+						array_push($withoutEndEngines, $engine);
+						echo $firstLetter;
+					}*/
+				}
+				$withoutEndEngines = array_unique($withoutEndEngines); //только цникальные значения в массиве
+				//print_r($withoutEndEngines);
+				$firstMark = array_shift($models); //первый элемент марки и модели
+				$firstMark = $firstMark.' '; //пробел в конце марки и модели
+				$firstEngines = array_slice($withoutEndEngines,0,2); //получаем первые 2 двигателя
+				$firstEngines = implode(", ", $firstEngines); //соединяем двигатели через запятую
+				$titleOfAd = $title.$firstMark.'('.$firstEngines.')'; //создаем название
+					//Подсчёт знаков
+				/*$amountOfSymbols = iconv_strlen($titleOfAd);
+				if ($amountOfSymbols>50) {
+					$titleOfAdShort = $title.'('.$firstEngines.')';
+				}
+				$amountOfSymbols = iconv_strlen($titleOfAd);
+				if ($amountOfSymbols>50) {
+					$firstEngines = array_slice($withoutEndEngines,0,1);
+					$titleOfAdExtraShort = $title.'('.$firstEngines.')';
+				}*/
+			
+			
+				//echo $titleOfAd;
 				//print_r ($models);
 				//echo 'в интернет-магазине ARparts';
 				//echo '<hr>';
@@ -501,7 +552,7 @@ class PageController extends Controller
 				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности уточняйте у наших менеджеров по телефонам! <br><br>';
 				echo 'Уточнить совместимость детали и наличие на складе Вы можете нажав кнопку ЗАДАТЬ ВОПРОС!';
 				echo '<hr>';*/
-				return view('arparts.drom', compact('title', 'price', 'number', 'models', 'engine', 'category', 'title_promo'));
+				return view('arparts.drom', compact('title', 'price', 'number', 'models', 'engine', 'category', 'title_promo', 'price_main', 'parsed_engine', 'titleOfAd'));
         }
         else {
             return redirect('/');
