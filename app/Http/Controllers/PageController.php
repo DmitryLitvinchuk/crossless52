@@ -470,6 +470,7 @@ class PageController extends Controller
 					/*foreach ($model->find('li') as $mark) {
 						echo $mark->plaintext.', ';
 					}*/
+					
 					$mark = explode(',', $mark);
 					$mark = str_replace("<li>","",$mark);
 					$mark = str_replace("</li>","",$mark);
@@ -481,6 +482,7 @@ class PageController extends Controller
 					//echo $mark;
 				}
 				$models = array_unique($models);
+				//print_r($models);
 				/*foreach ($html->find('.autoPartsEngine span.inplace') as $engine) {
 					$mark = explode(',', $mark); 
 					$mark = str_replace("<li>","",$mark);
@@ -519,7 +521,7 @@ class PageController extends Controller
 				}
 				$withoutEndEngines = array_unique($withoutEndEngines); //только цникальные значения в массиве
 				//print_r($withoutEndEngines);
-				$firstMark = array_shift($models); //первый элемент марки и модели
+				$firstMark = current($models); //первый элемент марки и модели
 				$firstMark = $firstMark.' '; //пробел в конце марки и модели
 				$firstEngines = array_slice($withoutEndEngines,0,2); //получаем первые 2 двигателя
 				$firstEngines = implode(", ", $firstEngines); //соединяем двигатели через запятую
