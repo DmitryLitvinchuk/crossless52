@@ -460,7 +460,7 @@ class PageController extends Controller
 				//echo $price.'<br>';
 				//echo '<hr>';
 				//$img=$html->find('.bulletinImages .image img', 0)->getAttribute('src');
-				$number=$html->find('span.inplace', 5)->plaintext;
+				$number=$html->find('span.inplace', 4)->plaintext;
 				$number = explode(',', $number);  
 				$number = $number[0];
 				//echo 'Номер в каталоге: '.$number;
@@ -506,6 +506,7 @@ class PageController extends Controller
 						array_push($withoutEndEngines, $engine); //добваляем в финальный массив
 					}
 					else {
+						$lastLetter = substr($engine, -1); //смотрим что осталось в конце
 						if ($lastLetter == 'F' || $lastLetter == 'T') { //если это все-ещё модификация - дропаем её
 							$engine = substr($engine,0,-1);//1 знак
 						}
@@ -560,6 +561,8 @@ class PageController extends Controller
             return redirect('/');
         }
     }
+	
+	
 	
 	//Донаты
     public function donate( )
