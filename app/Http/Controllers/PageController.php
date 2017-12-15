@@ -460,7 +460,7 @@ class PageController extends Controller
 				//echo $price.'<br>';
 				//echo '<hr>';
 				//$img=$html->find('.bulletinImages .image img', 0)->getAttribute('src');
-				$number=$html->find('span.inplace', 4)->plaintext;
+				$number=$html->find('span.inplace', 5)->plaintext;
 				$number = explode(',', $number);  
 				$number = $number[0];
 				//echo 'Номер в каталоге: '.$number;
