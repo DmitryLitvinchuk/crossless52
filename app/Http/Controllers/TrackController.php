@@ -85,7 +85,7 @@ class TrackController extends Controller
     }
     
 	
-	//Отметить трек как неправильный
+	//Обновить картинку и ссылку на аудиофайл
     public function UpdateImage($id, Track $Track)
     {
         if (Auth::user()->type === 'admin' or Auth::user()->type === 'checker') {
@@ -100,7 +100,9 @@ class TrackController extends Controller
 			$track_id = $track -> top_track_id;
 				$html = new \Htmldom('https://www.beatport.com/track/track/'.$track_id);
 				$img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
+			 	$audio_link=$html->find('meta[name=twitter:player:stream]',0)->getAttribute('content');
 				$track -> cover = $img;
+				$track -> preview = $audio_link;
 				$track->save();
 			/*foreach($tracks as $track) {
 				$track_id = $track -> top_track_id;
@@ -235,8 +237,9 @@ class TrackController extends Controller
                 $new_label = trim($label);
                 $img=$html->find('img.interior-track-release-artwork', 0)->getAttribute('src');
                 $number=$html->find('button.playable-play',0)->getAttribute('data-track');
-                $audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
-                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+                //$audio_link="https://geo-samples.beatport.com/lofi/$number.LOFI.mp3";
+                $audio_link=$html->find('meta[name=twitter:player:stream]',0)->getAttribute('content');
+				DB::statement('SET FOREIGN_KEY_CHECKS=0');
                 $row = Track::where('top_track_id','=',$number)->count();
                 if ($row === 0) {
                    $track = Track::create(['title' => $title, 

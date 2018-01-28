@@ -330,12 +330,30 @@ class PageController extends Controller
 			return redirect('/login');
 		}
     }
+	
+	//Ввод ссылки на Drom.ru
+    public function arpartsAutodoc(Request $request)
+    {
+		if (Auth::check()) {
+			if (Auth::user()->type === 'admin') {
+				$page_name = 'Autodoc';
+				$link = 'Autodoc.ru';
+        		return view('arparts.autodocinputarparser', compact('page_name', 'link'));
+			}
+			else {
+				return redirect('/');
+			}
+		}
+		else {
+			return redirect('/login');
+		}
+    }
 
-	//Создать трек через Add Track
-    public function arpartsParser1(Request $request)
+	//парсер с Autodoc
+    public function arpartsAutodocParser(Request $request)
     {
         if (Auth::user()->type === 'admin') {
-            $beat = $request['html'];
+            $link = $request['html'];
             $v = Validator::make($request->all(), [
                 "html" => "required|url"
             ]);
@@ -344,7 +362,7 @@ class PageController extends Controller
 			//	return view('errors.validate', compact('error'));
             //}
             //else {
-                $html = new \Htmldom('https://www.autodoc.ru/part/vdo--83/'.$beat.'/');
+                $html = new \Htmldom($link);
 
                 $title=$html->find('.ContentHeader', 0)->innertext;
 				echo $title.' для ';
@@ -360,7 +378,8 @@ class PageController extends Controller
 				foreach ($html->find('.fil-models li') as $model) {
 						echo $model->plaintext.'<br>';
 				}*/
-				
+				$model = $html->find('.fil-models');
+				$marks = array();
 				foreach ($html->find('.fil-models') as $model) {
 					
 					echo substr($model->id, 3).' ';
@@ -389,7 +408,6 @@ class PageController extends Controller
 				echo 'Качественная установка купленных запчастей в нашем АВТОСЕРВИСЕ с 15% скидкой! Подробности у наших менеджеров по телефону. <br><br>';
 				echo 'Так же купить запчасти на любые иномарки Вы можете в наших магазинах. Адреса магазинов Вы можете увидеть в разделе контакты. <br><br>';
 				echo 'Быстрая доставка по Санкт-Петербургу и отправка в любой регион России и СНГ. <br>';
-
 				/*foreach ($html->find('.fil-models li') as $model) {
 					echo $model->plaintext.'<br>';
 				}*/

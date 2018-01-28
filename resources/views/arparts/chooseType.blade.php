@@ -11,6 +11,7 @@
         <div class="row mt-20">
           <div class="col-lg-12">
                 <h1><a href="arparts/drom">DROM.RU</a></h1>
+                <h1><a href="arparts/autodoc">Autodoc.ru</a></h1>
           </div>
         </div>
       <footer>

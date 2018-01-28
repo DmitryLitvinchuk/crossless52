@@ -110,5 +110,7 @@ Route::get('/donate', 'PageController@donate');
 
 //ARparts
 Route::get('/arparts', 'PageController@arparts');
+Route::get('/arparts/autodoc', 'PageController@arpartsAutodoc');
+Route::post('/arparts/autodoc', 'PageController@arpartsAutodocParser');
 Route::get('/arparts/drom', 'PageController@arpartsDrom');
 Route::post('/arparts/drom', 'PageController@arpartsDromParser');
