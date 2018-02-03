@@ -297,6 +297,19 @@ class PageController extends Controller
         }
     }
 	
+	//Главная страница
+    public function GetUsers(User $user)
+    {
+        if (Auth::user()->type === 'admin') {
+            $page_name = 'Users';
+            $users = User::all();
+            return view('users', compact('page_name', 'users'));
+        }
+        else {
+            return redirect('/');
+        }
+    }
+	
 	//Ввод ссылки на Drom.ru
     public function arparts(Request $request)
     {

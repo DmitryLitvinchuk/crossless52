@@ -87,6 +87,7 @@
 							</a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a href="{{ url('/analytics') }}">Analytics</a></li>
+								<li><a href="{{ url('/users') }}">Users</a></li>
 								<li><a href="{{ url('/checksoundcloudtracks') }}">Soundcloud Tracks</a></li>
 								<li><a href="{{ url('/checktracks') }}">Non-checked Tracks</a></li>
 								<li><a href="{{ url('/wrongtracks') }}">Wrong Tracks</a></li>

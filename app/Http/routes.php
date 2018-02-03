@@ -20,6 +20,8 @@ Route::get('/top', 'PageController@top');
 
 Route::get('/analytics', 'PageController@analytics');
 
+Route::get('/users', 'PageController@GetUsers');
+
 Route::get('/toptrack', 'TrackController@toptrack');
 
 Route::post('/find', 'TrackController@create');
