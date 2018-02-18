@@ -194,6 +194,18 @@ class TrackController extends Controller
 					elseif ($new_genre=='Electronica / Downtempo') {
 							$new_genre_alias='electronica-downtempo';
 					}
+					elseif ($new_genre=='Trap / Future Bass') {
+							$new_genre_alias='trap-future-bass';
+					}
+					elseif ($new_genre=='Leftfield House &amp; Techno') {
+							$new_genre_alias='letfield-house-techno';
+					}
+					elseif ($new_genre=='Leftfield Bass') {
+							$new_genre_alias='letfield-bass';
+					}
+					elseif ($new_genre=='Minimal / Deep Tech') {
+							$new_genre_alias='minimal-deep-tech';
+					}
 					elseif ($new_genre=='Trap') {
 							$new_genre_alias='trap';
 					}
